@@ -25,6 +25,7 @@ public class BookSaleController {
 	private BookSaleService bService;
 	
 	
+	
 @RequestMapping(value = "/insert", method = RequestMethod.GET)
 public void insert() {
 }
