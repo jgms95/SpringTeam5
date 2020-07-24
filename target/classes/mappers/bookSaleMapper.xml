@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b.k.s">
+
+
+<select resultType="Integer" id="getIno">
+
+<![CDATA[select max(ino) from item]]>
+</select>
+
+
+<insert id="insert">
+
+<![CDATA[insert into item (ino,ititle,iwriter,publishDay,publisher,cataCode,filename,content,price,percent,stock,discountedPrice, id)
+      values (#{ino}, #{ititle}, #{iwriter}, #{publishDay}, #{publisher}, #{cataCode}, #{filename}, #{content}, #{price},#{percent},#{stock},#{discountedPrice}, #{id})]]>
+</insert>
+
+<delete id="delete">delete from item where ino = #{ino} </delete>
+
+
+<select resultType="ItemDTO" id="list">
+
+<![CDATA[select * from item order by ino desc]]>
+</select>
+
+<select resultType="Integer" id="getAmount">select count(ino) from item </select>
+
+<select resultType="Integer" id="searchgetAmount">select count(ino) from item where cataCode = #{cataCode} </select>
+
+<select resultType="ItemDTO" id="updateui">select * from item where ino = #{ino} </select>
+
+<update id="update">update item set ititle = #{ititle}, iwriter = #{iwriter}, publishDay= #{publishDay}, publisher = #{publisher}, cataCode= #{cataCode}, filename= #{filename}, content= #{content}, price = #{price}, percent =#{percent}, writeday = sysdate, stock = #{stock}, discountedPrice = #{discountedPrice}where ino = #{ino} </update>
+
+<select resultType="ItemDTO" id="searchlist">select * from item where cataCode = #{cataCode} order by ino desc </select>
+
+</mapper>
