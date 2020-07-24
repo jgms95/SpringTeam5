@@ -11,6 +11,24 @@
 	<select id="list" resultType="NoticeDTO">
 		<![CDATA[select * from notice order by nno desc]]>
 	</select>
+	
+	<select id="getNno" resultType="Integer">
+		<![CDATA[select max(nno) from notice]]>
+	</select>
+	
+	<select id="getFile_num" resultType="Integer">
+		<![CDATA[select max(file_num) from notice_file_table]]>
+	</select>
+	
+	<insert id="insert">
+		<![CDATA[insert into notice (nno,id,title,content)
+		values (#{nno},#{id},#{title},#{content})]]>
+	</insert>
+	
+	<insert id="uploadfiles">
+		<![CDATA[insert into notice_file_table (file_num, o_name, file_name, file_size, nno) values 
+(#{file_num}, #{originalfileName}, #{saveFileName}, #{fileSize}, #{nno})]]>
+	</insert>
 
 	
 </mapper>

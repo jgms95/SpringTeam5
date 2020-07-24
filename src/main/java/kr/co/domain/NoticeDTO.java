@@ -11,12 +11,12 @@ public class NoticeDTO implements Serializable{
 	private String content;
 	private String writeday;
 	private int readcnt;
-	private String filename;
+
 	
 	public NoticeDTO() {
 	}
 
-	public NoticeDTO(int nno, String id, String title, String content, String writeday, int readcnt, String filename) {
+	public NoticeDTO(int nno, String id, String title, String content, String writeday, int readcnt) {
 		super();
 		this.nno = nno;
 		this.id = id;
@@ -24,7 +24,6 @@ public class NoticeDTO implements Serializable{
 		this.content = content;
 		this.writeday = writeday;
 		this.readcnt = readcnt;
-		this.filename = filename;
 	}
 
 	public int getNno() {
@@ -75,13 +74,6 @@ public class NoticeDTO implements Serializable{
 		this.readcnt = readcnt;
 	}
 
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

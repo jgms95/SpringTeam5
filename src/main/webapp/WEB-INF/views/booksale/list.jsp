@@ -490,8 +490,9 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 <hr>
 	
 
-	<%@ include file="../com/footer.jsp"%>
+	
   
 <hr>
+<%@ include file="../com/footer.jsp"%>
 </body>
 </html>

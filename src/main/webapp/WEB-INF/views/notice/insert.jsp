@@ -23,7 +23,7 @@
 
 		<h1>공지사항 등록</h1>
 
-		<form action="#" method="post" class="was-validated" enctype="multipart/form-data">
+		<form action="/notice/insert" method="post" class="was-validated" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="id">ID : </label> <input name="id" class="form-control" readonly value="${login.id}">
 			</div>
@@ -38,7 +38,7 @@
 			<br>
 			<p>파일:</p>
 			<div class="custom-file mb-3">
-				<input type="file" class="custom-file-input" id="filename" name="filename">
+				<input multiple="multiple" type="file" class="custom-file-input" id="customFile" name="uploadFile">
 				<label class="custom-file-label" for="customFile">Choose file</label>
 			</div>
 			<br><br>

@@ -63,7 +63,7 @@
 					<c:forEach items="${list}" var="notice">
 						<tr>
 							<td>${notice.nno}</td>
-							<td><a href="#" style="color: rgb(67,22,7);"><strong>${notice.title}</strong></a></td>
+							<td><a href="/notice/read/${notice.nno}?id=${login.id}" style="color: rgb(51,19,2);"><strong>${notice.title}</strong></a></td>
 							<td>${notice.id}</td>
 							<td>${notice.writeday}</td>
 							<td>${notice.readcnt}</td>
@@ -96,17 +96,17 @@
 			<form class="form-inline " name='sform' method='get' action='#'>
 			<input type="hidden" name="id" value="${login.id}">
 				<aside>
-						<button type="button" class="btn btn-dark" disabled>글제목</button>
+						<button type="button" class="btn btn-dark rounded-0" disabled>글제목</button>
 					 <input class="form-control mr-sm-2" type="text" name='search'>
-					<button class="btn btn-success" type='submit'>검색</button>
+					<button style="background-color: rgb(67,22,7);" class="btn btn-secondary rounded-0" type='submit'>검색</button>
 				</aside>
 			</form>
 		</nav>
 
 		<br>
 		<c:if test="${authority > 0}">
-		<a style="position: relative; left: 90%" href="/notice/insert" class="btn btn-secondary">
-			<strong>글 작성</strong>
+		<a style="position: relative; left: 90%;" href="/notice/insert?id=${login.id}" class="btn btn-info rounded-0">
+			<strong>글 쓰기</strong>
 		</a>
 		</c:if>
 		

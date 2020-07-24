@@ -1,5 +1,6 @@
 package kr.co.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -29,4 +30,40 @@ public class NoticeDAOImpl implements NoticeDAO{
 		}
 		return to;
 	}
+
+	@Override
+	public int insert(NoticeDTO dto) {
+		Integer nno = session.selectOne(NS+".getNno");
+		if(nno!=null) {
+			nno += 1;
+		}else {
+			nno = 1 ;
+		}
+		dto.setNno(nno);
+		session.insert(NS+".insert",dto);
+		return nno;
+	}
+
+	@Override
+	public void fileUpload(String originalfileName, String saveFileName, long fileSize, int nno) {
+		Integer file_num = session.selectOne(NS+".getFile_num");
+		if(file_num!=null) {
+			file_num += 1;
+		}else {
+			file_num = 1 ;
+		}
+		HashMap<String, Object> fileUpload = new HashMap<>();
+		fileUpload.put("originalfileName", originalfileName);
+		fileUpload.put("saveFileName", saveFileName);
+		fileUpload.put("fileSize", fileSize);
+		fileUpload.put("file_num", file_num);
+		fileUpload.put("nno",nno);
+	    
+	    session.insert(NS+".uploadfiles",fileUpload);
+
+		
+	}
+	
+	
+	
 }
