@@ -36,13 +36,20 @@
 			<textarea style="width: 100%" placeholder="내용을 입력하세요." name="content" required></textarea>
 			<div class="valid-feedback">입력 완료</div>
 			<br>
-			<p>파일:</p>
+			<p>첨부 파일:</p>
 			<div class="custom-file mb-3">
-				<input multiple="multiple" type="file" class="custom-file-input" id="customFile" name="uploadFile">
+				<input type="file" class="custom-file-input" id="customFile" name="uploadFile">
+				<label class="custom-file-label" for="customFile">Choose file</label>
+			</div>
+			<div class="custom-file mb-3">
+				<input type="file" class="custom-file-input" id="customFile" name="uploadFile">
+				<label class="custom-file-label" for="customFile">Choose file</label>
+			</div>
+			<div class="custom-file mb-3">
+				<input type="file" class="custom-file-input" id="customFile" name="uploadFile">
 				<label class="custom-file-label" for="customFile">Choose file</label>
 			</div>
 			<br><br>
-
 			<button type="submit" class="btn btn-info">작성완료</button>
 			<a class="btn btn-secondary" href="/notice/noticelist/1?id=${login.id}">목록</a>
 		</form>
@@ -58,6 +65,8 @@ $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
+
+
 </script>
 
 </body>

@@ -11,6 +11,7 @@ public class NoticeFilesDTO implements Serializable{
 	private int file_size;
 	private int nno;
 	
+	
 	public NoticeFilesDTO() {
 	}
 
@@ -68,6 +69,6 @@ public class NoticeFilesDTO implements Serializable{
 	}
 	
 	
-	
+
 	
 }

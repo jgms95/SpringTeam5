@@ -1,10 +1,13 @@
 package kr.co.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import kr.co.domain.NoticeDTO;
+import kr.co.domain.NoticeFilesDTO;
 import kr.co.domain.PageTO;
 import kr.co.persistence.NoticeDAO;
 
@@ -27,4 +30,31 @@ public class NoticeServiceImpl implements NoticeService{
 	public void fileUpload(String originalfileName, String saveFileName, long fileSize, int nno) {
 		noticeDao.fileUpload(originalfileName, saveFileName,fileSize,nno);
 	}
+
+	@Override
+	public NoticeDTO read(int nno) {
+		return noticeDao.read(nno);
+	}
+
+	@Override
+	public List<NoticeFilesDTO> getFiles(int nno) {
+		return noticeDao.getFiles(nno);
+	}
+
+	@Override
+	public String getFileName(String file_num) {
+		return noticeDao.getFileName(file_num);
+	}
+
+	@Override
+	public String getOrgFileName(String file_num) {
+		return noticeDao.getOrgFileName(file_num);
+	}
+
+	@Override
+	public void deleteNotice(int nno) {
+		noticeDao.deleteNotice(nno);
+	}
+
+	
 }

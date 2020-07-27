@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.domain.NoticeDTO;
+import kr.co.domain.NoticeFilesDTO;
 import kr.co.domain.PageTO;
 
 @Repository
@@ -63,6 +64,34 @@ public class NoticeDAOImpl implements NoticeDAO{
 
 		
 	}
+
+	@Override
+	public NoticeDTO read(int nno) {
+		session.update(NS+".incresereadcnt",nno);
+		return session.selectOne(NS+".read",nno);
+	}
+
+	@Override
+	public List<NoticeFilesDTO> getFiles(int nno) {
+		return session.selectList(NS+".getFiles",nno);
+	}
+
+	@Override
+	public String getFileName(String file_num) {
+		return session.selectOne(NS+".getFileName",file_num);
+	}
+
+	@Override
+	public String getOrgFileName(String file_num) {
+		return session.selectOne(NS+".getOrgFileName", file_num);
+	}
+
+	@Override
+	public void deleteNotice(int nno) {
+		session.delete(NS+".delete",nno);
+		session.delete(NS+".deleteAllFiles",nno);
+	}
+
 	
 	
 	

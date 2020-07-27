@@ -29,6 +29,34 @@
 		<![CDATA[insert into notice_file_table (file_num, o_name, file_name, file_size, nno) values 
 (#{file_num}, #{originalfileName}, #{saveFileName}, #{fileSize}, #{nno})]]>
 	</insert>
+	
+	<select id="read" resultType="NoticeDTO">
+		<![CDATA[select * from notice where nno = #{nno}]]>
+	</select>
+	
+	<update id="incresereadcnt">
+		<![CDATA[update notice set readcnt = readcnt + 1 where nno = #{nno}]]>
+	</update>
+	
+	<select id="getFiles" resultType="NoticeFilesDTO">
+	<![CDATA[select * from notice_file_table where nno = #{nno}]]>
+	</select>
+	
+	<select id="getFileName" resultType="String">
+	<![CDATA[select file_name from notice_file_table where file_num = #{file_num}]]>
+	</select>
+	
+	<select id="getOrgFileName" resultType="String">
+	<![CDATA[select o_name from notice_file_table where file_num = #{file_num}]]>
+	</select>
+	
+	<delete id="delete">
+	<![CDATA[delete from notice where nno = #{nno}]]>
+	</delete>
+	
+	<delete id="deleteAllFiles">
+	<![CDATA[delete from notice_file_table where nno = #{nno}]]>
+	</delete>
 
 	
 </mapper>

@@ -78,26 +78,14 @@ td {
 
 
 <script type="text/javascript">
-function checkNum(authNum) {
-    var chk = 0;
-    var user_authNum = prompt("인증번호를 입력하세요.");
-    // 인증번호 비교
-    if (authNum == user_authNum) {
-        chk = 1;
-        $("#user_authNum").val(user_authNum);
-    } else {
-        chk = -1;
-    }
 
-    return chk;
-};
 
 	$(document).ready(function() {
 
 		 var chk = -1;
+		 var authNum = ""; //실제 인증번호
 	        $("#auth_btn").click(function () {
 	            var data = {"email": $("#email").val()};
-	            var authNum = "";
 	            
 	            $.ajax({
 	            	type : 'post',
@@ -106,17 +94,7 @@ function checkNum(authNum) {
 	                success : function (data) {
 	                    authNum = data;
 	                    alert("인증번호 전송완료.");
-	                    
-	                    chk = checkNum(authNum);
-	                    
-	                    if( chk > 0){
-	                        alert("인증완료");
-	                        chk = 1;
-	                        $("#lab1").html("<label>인증완료</label>");
-	                    }else{
-	                        alert("인증실패");
-	                        $("#lab1").html("<label>인증실패</label>");
-	                    }
+	                    chk = 1;
 	                    
 	                }
 	                
@@ -188,8 +166,13 @@ function checkNum(authNum) {
 						return false;
 					}
 				 if( chk > 0  ){
+					 	if($("#user_authNum").val() == authNum){
 		                return true;
-		            }else if(chk <= 0){
+					 	}else{
+					 		alert("인증번호가 틀렸습니다.다시 인증하여 주세요.");
+			                return false;
+						 }
+		            }else if(chk < 0){
 		                alert("이메일 인증을 완료하여 주세요.");
 		                return false;
 		            }
@@ -198,7 +181,7 @@ function checkNum(authNum) {
 			}
 
 			
-		
+		 
 
 			
 
@@ -292,7 +275,7 @@ function checkNum(authNum) {
 						<td><input type="text" id="email"
 							placeholder="이메일을 입력해주세요." name="email">
 							<button type="button" class="btn btn-warning btn-sm" id="auth_btn">인증하기</button><br>
-							 인증번호 : <input type="text" id="user_authNum" name="user_authNum" readonly="readonly"><div id="lab1"></div><br>
+							 인증번호 : <input type="text" id="user_authNum" name="user_authNum"><div id="lab1"></div><br>
 							</td>
 							
 					</tr>

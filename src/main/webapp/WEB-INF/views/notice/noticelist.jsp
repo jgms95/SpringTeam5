@@ -63,7 +63,7 @@
 					<c:forEach items="${list}" var="notice">
 						<tr>
 							<td>${notice.nno}</td>
-							<td><a href="/notice/read/${notice.nno}?id=${login.id}" style="color: rgb(51,19,2);"><strong>${notice.title}</strong></a></td>
+							<td><a href="/notice/read/${notice.nno}?id=${login.id}" style="color: rgb(51,19,2);">${notice.title}</a></td>
 							<td>${notice.id}</td>
 							<td>${notice.writeday}</td>
 							<td>${notice.readcnt}</td>
@@ -104,7 +104,7 @@
 		</nav>
 
 		<br>
-		<c:if test="${authority > 0}">
+		<c:if test="${authority == '01' || authority == '02'}">
 		<a style="position: relative; left: 90%;" href="/notice/insert?id=${login.id}" class="btn btn-info rounded-0">
 			<strong>글 쓰기</strong>
 		</a>
