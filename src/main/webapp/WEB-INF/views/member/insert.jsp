@@ -70,6 +70,11 @@
 td {
 	padding: 15px 5px 10px 5px;
 }
+
+.btn {
+background-color: rgb(67,22,7);
+color: white;
+}
 </style>
 
 
@@ -83,7 +88,7 @@ td {
 	$(document).ready(function() {
 
 		 var chk = -1;
-		 var authNum = ""; //실제 인증번호
+		 var authNum = "인증번호받기전"; 
 	        $("#auth_btn").click(function () {
 	            var data = {"email": $("#email").val()};
 	            
@@ -92,7 +97,7 @@ td {
 	                url : "/member/emailAuth",
 	                data : data,
 	                success : function (data) {
-	                    authNum = data;
+	                    authNum = data; //실제 인증번호
 	                    alert("인증번호 전송완료.");
 	                    chk = 1;
 	                    
@@ -104,6 +109,17 @@ td {
 
 		$(".cencle").on("click", function() {
 			window.history.back(); //뒤로가기
+		});
+
+
+		$("#auth_real").on("click",function(){
+
+			if($("#user_authNum").val() == authNum){
+				alert("인증 완료되었습니다.");
+			}else{
+				alert("인증번호가 틀렸습니다. 다시 인증해주세요.")
+			}
+
 		});
 
 		$("#isOk").on("click", function(event) {
@@ -169,7 +185,7 @@ td {
 					 	if($("#user_authNum").val() == authNum){
 		                return true;
 					 	}else{
-					 		alert("인증번호가 틀렸습니다.다시 인증하여 주세요.");
+					 		alert("이메일 인증을 완료하여 주세요.");
 			                return false;
 						 }
 		            }else if(chk < 0){
@@ -233,7 +249,7 @@ td {
 							alt="필수" /></th>
 						<td><input type="text" maxlength="15" id="id"
 							placeholder="ID를 입력해주세요" name="id">
-							<button type="button" class="checkId btn btn-warning btn-sm"
+							<button type="button" class="checkId btn  btn-sm rounded-0"
 								id="IdCheck" value="N">중복확인</button></td>
 					</tr>
 					<tr>
@@ -274,8 +290,9 @@ td {
 							class="" alt="필수" /></th>
 						<td><input type="text" id="email"
 							placeholder="이메일을 입력해주세요." name="email">
-							<button type="button" class="btn btn-warning btn-sm" id="auth_btn">인증하기</button><br>
-							 인증번호 : <input type="text" id="user_authNum" name="user_authNum"><div id="lab1"></div><br>
+							<button type="button" class="btn btn-sm rounded-0" id="auth_btn">인증하기</button><br>
+							 인증번호 : <input type="text" id="user_authNum" name="user_authNum">
+							 <button type="button" class="btn btn-sm rounded-0" id="auth_real">인증확인</button>
 							</td>
 							
 					</tr>
@@ -299,7 +316,7 @@ td {
 							class="" alt="필수" /></th>
 						<td><input type="text" id="userAddr1" name="userAddr1"
 							placeholder="주소"> <input type="button"
-							class="btn btn-info btn-sm" onclick="execDaumPostcode()"
+							class="btn btn-sm rounded-0" onclick="execDaumPostcode()"
 							value="주소 찾기"><br>
 						<br> <input type="text" id="userAddr3" name="userAddr3"
 							placeholder="참고항목"> <input type="text" id="userAddr2"
@@ -315,8 +332,8 @@ td {
 
 
 			<br>
-			<button type="submit" id="isOk" class="btn btn-primary">회원가입</button>
-			<button class="cencle btn btn-danger" type="button">취소</button>
+			<button type="submit" id="isOk" class="btn rounded-0">회원가입</button>
+			<button class="cencle btn rounded-0" type="button">취소</button>
 
 		</form>
 	</div>

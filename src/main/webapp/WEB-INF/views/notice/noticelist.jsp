@@ -98,7 +98,7 @@
 				<aside>
 						<button type="button" class="btn btn-dark rounded-0" disabled>글제목</button>
 					 <input class="form-control mr-sm-2" type="text" name='search'>
-					<button style="background-color: rgb(67,22,7);" class="btn btn-secondary rounded-0" type='submit'>검색</button>
+					<button style="background-color: rgb(67,22,7); color: white;" class="btn rounded-0" type='submit'>검색</button>
 				</aside>
 			</form>
 		</nav>
