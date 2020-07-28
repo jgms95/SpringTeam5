@@ -169,7 +169,7 @@ public void insert() {
 				
 		
 		try {
-			if(list.get(5).getItitle()!=null) {
+			 
 			best.add(list.get(0));
 			best.add(list.get(1));
 			best.add(list.get(2));
@@ -177,7 +177,7 @@ public void insert() {
 			best.add(list.get(4));
 			best.add(list.get(5));
 			model.addAttribute("best", best);
-			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
