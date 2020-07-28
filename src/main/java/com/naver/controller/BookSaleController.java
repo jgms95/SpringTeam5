@@ -168,12 +168,27 @@ public void insert() {
 		list = bService.best(); 
 				
 		
-	
+		try {
+			if(list.get(5).getItitle()!=null) {
+			best.add(list.get(0));
+			best.add(list.get(1));
+			best.add(list.get(2));
+			best.add(list.get(3));
+			best.add(list.get(4));
+			best.add(list.get(5));
+			model.addAttribute("best", best);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
-		
-		model.addAttribute("to", to);
-		model.addAttribute("list", to.getList());
-		model.addAttribute("best", best);
+		finally {
+			model.addAttribute("to", to);
+			model.addAttribute("list", to.getList());
+			
+		}
+	
 	}
 	
 //	@RequestMapping(value = "/update", method = RequestMethod.POST)
