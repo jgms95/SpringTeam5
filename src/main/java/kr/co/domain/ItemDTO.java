@@ -23,36 +23,37 @@ public class ItemDTO implements Serializable{
 	private int discountedPrice;
 	private int stock;
 	private String id;
+	private String prolog;
+	private int like1;
 	
+	public int getLike1() {
+		return like1;
+	}
+
+
+	public void setLike1(int like1) {
+		this.like1 = like1;
+	}
+
+
 	public int getPercent() {
 		return percent;
 	}
 	
 
-	public ItemDTO(int ino, String ititle, String iwriter, String publishDay, String publisher, String cataCode,
-			String sfilename, String content, int price, int readcnt, String writeday, int percent, int discountedPrice,
-			int stock) {
-		super();
-		this.ino = ino;
-		this.ititle = ititle;
-		this.iwriter = iwriter;
-		this.publishDay = publishDay;
-		this.publisher = publisher;
-		this.cataCode = cataCode;
-		this.sfilename = sfilename;
-		this.content = content;
-		this.price = price;
-		this.readcnt = readcnt;
-		this.writeday = writeday;
-		this.percent = percent;
-		this.discountedPrice = discountedPrice;
-		this.stock = stock;
+	public String getProlog() {
+		return prolog;
+	}
+
+
+	public void setProlog(String prolog) {
+		this.prolog = prolog;
 	}
 
 
 	public ItemDTO(int ino, String ititle, String iwriter, String publishDay, String publisher, String cataCode,
 			String sfilename, String content, int price, int readcnt, String writeday, int percent, int discountedPrice,
-			int stock, String id) {
+			int stock, String id, String prolog) {
 		super();
 		this.ino = ino;
 		this.ititle = ititle;
@@ -69,6 +70,36 @@ public class ItemDTO implements Serializable{
 		this.discountedPrice = discountedPrice;
 		this.stock = stock;
 		this.id = id;
+		this.prolog = prolog;
+	}
+
+
+
+
+
+
+
+	public ItemDTO(int ino, String ititle, String iwriter, String publishDay, String publisher, String cataCode,
+			String sfilename, String content, int price, int readcnt, String writeday, int percent, int discountedPrice,
+			int stock, String id, String prolog, int like1) {
+		super();
+		this.ino = ino;
+		this.ititle = ititle;
+		this.iwriter = iwriter;
+		this.publishDay = publishDay;
+		this.publisher = publisher;
+		this.cataCode = cataCode;
+		this.sfilename = sfilename;
+		this.content = content;
+		this.price = price;
+		this.readcnt = readcnt;
+		this.writeday = writeday;
+		this.percent = percent;
+		this.discountedPrice = discountedPrice;
+		this.stock = stock;
+		this.id = id;
+		this.prolog = prolog;
+		this.like1 = like1;
 	}
 
 
@@ -106,6 +137,19 @@ public class ItemDTO implements Serializable{
 	public ItemDTO() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public ItemDTO(int ino2, String ititle2, String iwriter2, String publishDay2, String publisher2, String cateCode,
+			String newFileName, String content2, int price2, int i, Object object, int percent2, int discountedPrice2,
+			int stock2, String prolog2) {
+		
+		
+		
+		
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
 
 	public int getIno() {
 		return ino;
@@ -241,7 +285,7 @@ public class ItemDTO implements Serializable{
 		return "ItemDTO [ino=" + ino + ", ititle=" + ititle + ", iwriter=" + iwriter + ", publishDay=" + publishDay
 				+ ", publisher=" + publisher + ", cataCode=" + cataCode + ", sfilename=" + sfilename + ", content="
 				+ content + ", price=" + price + ", readcnt=" + readcnt + ", writeday=" + writeday + ", percent="
-				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock + "]";
+				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock + "¡¡æ∆ø‰"+like1+"]";
 	}
 
 

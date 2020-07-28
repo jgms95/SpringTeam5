@@ -11,7 +11,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-	
+   
 <%@ include file="../com/head.jsp"%>
 
 <title>Insert title here</title>
@@ -20,33 +20,33 @@
 
 h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 .categories {
-	text-align: center;
-	font-size: 28px;
-	color: black;
-	line-height: 1;
-	font-weight: 400;
+   text-align: center;
+   font-size: 28px;
+   color: black;
+   line-height: 1;
+   font-weight: 400;
 }
 
 
 .categories ul li {
-	display: inline-block;
-	margin: 0px 5px;
+   display: inline-block;
+   margin: 0px 5px;
 }
 
 .categories ul li a {
-	display: block;
-	font-size: 13px;
-	color: rgb(85,85,85);
-	padding: 0px 20px;
-	height: 38px;
-	line-height: 38px;
-	border: 1px solid rgb(229,229,229);
+   display: block;
+   font-size: 13px;
+   color: rgb(85,85,85);
+   padding: 0px 20px;
+   height: 38px;
+   line-height: 38px;
+   border: 1px solid rgb(229,229,229);
 }
 
 .categories ul li a:hover {
-	color: black;
-	border-color: rgb(17,17,17);
-	background-color: white;
+   color: black;
+   border-color: rgb(17,17,17);
+   background-color: white;
 }
 /********************* shopping Demo-1 **********************/
 .product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1}
@@ -80,6 +80,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 @media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
 }
 
+
 </style>
 </head>
 <body>
@@ -90,8 +91,8 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 
 
 
-	<%@ include file="../com/top.jsp"%>
-	<%@ include file="../com/navbar.jsp"%>
+   <%@ include file="../com/top.jsp"%>
+   <%@ include file="../com/navbar.jsp"%>
 
     
  
@@ -109,26 +110,26 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 
 
   
-		
-		
+      
+      
 
 
 <div class="container center">
 
   <div class="categories">
-			<ul>
-				<li><a href="/booksale/searchlist?cataCode=시/에세이">시/에세이</a></li>
-				<li><a href="/booksale/searchlist?cataCode=경제/경영">경제/경영</a></li>
-				<li><a href="/booksale/searchlist?cataCode=자기계발">자기계발</a></li>
-				<li><a href="/booksale/searchlist?cataCode=컴퓨터/IT">컴퓨터/IT</a></li>
-				<li><a href="/booksale/searchlist?cataCode=소설">소설</a></li>
-				<li><a href="/booksale/searchlist?cataCode=참고서/문제집">참고서/문제집</a></li>
-				<li><a href="/booksale/searchlist?cataCode=요리">요리</a></li>
-				<li><a href="/booksale/searchlist?cataCode=만화">만화</a></li>
-				<li><a href="/booksale/searchlist?cataCode=인문">인문</a></li>
-			</ul>
-		</div>
-			<form  action="/booksale/search" method="get" style="float: right;">
+         <ul>
+            <li><a href="/booksale/searchlist?cataCode=시/에세이">시/에세이</a></li>
+            <li><a href="/booksale/searchlist?cataCode=경제/경영">경제/경영</a></li>
+            <li><a href="/booksale/searchlist?cataCode=자기계발">자기계발</a></li>
+            <li><a href="/booksale/searchlist?cataCode=컴퓨터/IT">컴퓨터/IT</a></li>
+            <li><a href="/booksale/searchlist?cataCode=소설">소설</a></li>
+            <li><a href="/booksale/searchlist?cataCode=참고서/문제집">참고서/문제집</a></li>
+            <li><a href="/booksale/searchlist?cataCode=요리">요리</a></li>
+            <li><a href="/booksale/searchlist?cataCode=만화">만화</a></li>
+            <li><a href="/booksale/searchlist?cataCode=인문">인문</a></li>
+         </ul>
+      </div>
+     	<form  action="/booksale/search" method="get" style="float: right;">
 				<div class="input-group">
 					<span class="input-group-addon">
 						<select name="searchType" class="form-control search-slt" id="exampleFormControlSelect1" style="width: 120px">
@@ -149,7 +150,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
                
                       <button type="button" class="btn btn-info btn-lg" style="float: right;"
                onclick="location.href='/booksale/insert'">상품등록</button>
-    <h3 class="h3" style="float:  ">${cataCode}  </h3>
+    <h3 class="h3" style="float:  ">검색 : ${keyword}  </h3>
 
     <div class="row">
     
@@ -168,12 +169,12 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
                         <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                         <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                         <br>
-                   		<li><a href="/booksale/delete/${dto.ino }"  data-tip="remove"><i class="fas fa-remove" style="color:red;" ></i></a></li>
-                 		<li><a href="/booksale/update/${dto.ino }" data-tip="update"><i class="fas fa-file" style="color:green;" ></i></a></li>
+                         <li><a href="/booksale/delete/${dto.ino }"  data-tip="remove"><i class="fas fa-remove" style="color:red;" ></i></a></li>
+                       <li><a href="/booksale/update/${dto.ino }" data-tip="update"><i class="fas fa-file" style="color:green;" ></i></a></li>
                     </ul>
-               		<c:if test="${dto.percent!= 0 }">
+                     <c:if test="${dto.percent!= 0 }">
                     <span class="product-new-label">Sale </span>
-                  	
+                     
                     <span class="product-discount-label">${dto.percent }%</span>
                     </c:if>
                 </div>
@@ -181,7 +182,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
                 <div class="product-content">
                     <h1 class="title"><a href="#">${dto.ititle }</a></h1>
                       <h1 class="title"><a href="#"> 지은이: ${dto.iwriter }</a></h1>
-                   	  <h1 class="title"><a href="#"> 출판사: ${dto.publisher }</a></h1>
+                        <h1 class="title"><a href="#"> 출판사: ${dto.publisher }</a></h1>
                    <c:if test="${dto.percent!=0 }">
                     <div class="price">${dto.discountedPrice}원
                     
@@ -207,7 +208,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
        </div>   
        
        <div align="center">
-       	  <div class="container" align="right" >
+            <div class="container" align="right" >
              <div  style="width: 100px; height: 100px">
                             <select class="form-control search-slt" id="exampleFormControlSelect1">
                                
@@ -218,27 +219,27 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
                             </select>
                         </div>
          </div>
-	<div align="center">
-	
- 	 <ul class="pagination" style="position: relative; bottom:50px; left: 40%" >
-    	<li class="page-item">
-     	 <a class="page-link" href="/booksale/searchlist?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }&cataCode=${cataCode}" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
-  		 <c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}" var="page">
-    	 <c:if test="${to.curPage==page }">
-   		 <li class="page-item active"><a class="page-link" href="/booksale/searchlist?curPage=${page}&cataCode=${cataCode}">${page }</a></li>
-  		 </c:if>
-  		 <c:if test="${to.curPage!=page }">
-    	 <li class="page-item"><a class="page-link" href="/booksale/searchlist?curPage=${page}&cataCode=${cataCode}">${page }</a></li>
-  		 </c:if>  
-    	 </li>
-    	 </c:forEach>
-     	 <li>
-      	 <a class="page-link" href="/booksale/searchlist?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }&cataCode=${cataCode}" aria-label="Next">
-        		&raquo;</a>
-   		 </li>
-  	</ul>
+   <div align="center">
+   
+     <ul class="pagination" style="position: relative; bottom:50px; left: 40%" >
+       <li class="page-item">
+         <a class="page-link" href="/booksale/search?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }&keyword=${keyword}&searchType=${searchType }" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
+         <c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}" var="page">
+        <c:if test="${to.curPage==page }">
+          <li class="page-item active"><a class="page-link" href="/booksale/search?curPage=${page}&keyword=${keyword}&searchType=${searchType }">${page }</a></li>
+         </c:if>
+         <c:if test="${to.curPage!=page }">
+        <li class="page-item"><a class="page-link" href="/booksale/search?curPage=${page}&keyword=${keyword}&searchType=${searchType }">${page }</a></li>
+         </c:if>  
+        </li>
+        </c:forEach>
+         <li>
+          <a class="page-link" href="/booksale/search?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }&keyword=${keyword}&searchType=${searchType }" aria-label="Next">
+              &raquo;</a>
+          </li>
+     </ul>
     </div>
-	  
+     
 </div>
        
        
@@ -246,9 +247,9 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 </div>
 
 <hr>
-	
+   
 
-	<%@ include file="../com/footer.jsp"%>
+   <%@ include file="../com/footer.jsp"%>
   
 <hr>
 </body>

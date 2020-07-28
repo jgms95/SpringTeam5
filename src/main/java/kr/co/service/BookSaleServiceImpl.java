@@ -55,4 +55,24 @@ public class BookSaleServiceImpl implements BookSaleService {
 		// TODO Auto-generated method stub
 		return tDAO.searchlist(to, cataCode);
 	}
+	@Override
+	public PageTO<ItemDTO> searchAll(String keyword, PageTO<ItemDTO> to) {
+		// TODO Auto-generated method stub
+		return tDAO.searchAll(keyword, to);
+	}
+	@Override
+	public PageTO<ItemDTO> searchTitle(String keyword, PageTO<ItemDTO> to, String searchType) {
+	
+		return tDAO.searchTitle(keyword, to, searchType);
+	}
+	@Override
+	public void increaseLike(int ino) {
+		// TODO Auto-generated method stub
+		tDAO.increaseLike(ino);
+	}
+	@Override
+	public List<ItemDTO> best() {
+		// TODO Auto-generated method stub
+		return tDAO.best();
+	}
 }

@@ -1,8 +1,13 @@
 package com.naver.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,7 +61,7 @@ public void insert() {
 
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public @ResponseBody String insert( MultipartHttpServletRequest multi) {
+	public String insert( MultipartHttpServletRequest multi) {
 	    
     
 		String root = multi.getSession().getServletContext().getRealPath("/");
@@ -73,6 +78,7 @@ public void insert() {
 	    String sprice = multi.getParameter("price");
 	    String spercent = multi.getParameter("percent");
 	    String sstock = multi.getParameter("stock");
+	    String prolog = multi.getParameter("prolog");
 	   
 	    int price =0;	    
 	    if(sprice!=null) {
@@ -113,7 +119,7 @@ public void insert() {
 		
 			newFileName = System.currentTimeMillis()+"."
 					+fileName.substring(fileName.lastIndexOf(".")+1);
-			dto = new ItemDTO(0, ititle, iwriter, publishDay, publisher, cateCode, newFileName, content, price, 0, null, percent, discountedPrice, stock, id);
+			dto = new ItemDTO(0, ititle, iwriter, publishDay, publisher, cateCode, newFileName, content, price, 0, null, percent, discountedPrice, stock, id, prolog);
 			System.out.println(dto);
 			try {
 				mFile.transferTo(new File(path+newFileName));
@@ -153,11 +159,28 @@ public void insert() {
 		}
 		
 		PageTO<ItemDTO> to = new PageTO<ItemDTO>(page);
-		
+		List<ItemDTO> list = new ArrayList<ItemDTO>();
+		List<ItemDTO> best = new ArrayList<ItemDTO>();
 //		List<BoardVO> list = bService.list();		
 		to = bService.list(to);		
+		
+		
+		list = bService.best(); 
+				
+		System.out.println(list.get(1));	
+		
+		best.add(list.get(0));
+		best.add(list.get(1));
+		best.add(list.get(2));
+		best.add(list.get(3));
+		best.add(list.get(4));
+		best.add(list.get(5));
+		
+				
+		
 		model.addAttribute("to", to);
 		model.addAttribute("list", to.getList());
+		model.addAttribute("best", best);
 	}
 	
 //	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -199,10 +222,12 @@ public void insert() {
 	    String sprice = multi.getParameter("price");
 	    String spercent = multi.getParameter("percent");
 	    String sstock = multi.getParameter("stock");
+	    String prolog = multi.getParameter("prolog");
 	    int percent = 0;
 	    if(spercent!=null) {
 	    	percent = Integer.parseInt(spercent);
 	    }
+	    
 	    
 	    int stock = 0;
 	    if(sstock!=null) {
@@ -217,9 +242,8 @@ public void insert() {
 	    }
 	    int a = price;
 	    int discountedPrice = (a*(100-percent))/100; 
-	    System.out.println(discountedPrice + "dis");
-	    
-		
+	    System.out.println(discountedPrice + "dis업데이트");
+	
 		File dir = new File(path);
 		if(!dir.isDirectory()){
 			dir.mkdir();
@@ -235,8 +259,8 @@ public void insert() {
 		
 			newFileName = System.currentTimeMillis()+"."
 					+fileName.substring(fileName.lastIndexOf(".")+1);
-			dto = new ItemDTO(ino, ititle, iwriter, publishDay, publisher, cateCode, newFileName, content, price, 0, null, percent, discountedPrice, stock);
-			System.out.println(dto);
+			dto = new ItemDTO(ino, ititle, iwriter, publishDay, publisher, cateCode, newFileName, content, price, 0, null, percent, discountedPrice, stock, null, prolog);
+					System.out.println(dto);
 			try {
 				mFile.transferTo(new File(path+newFileName));
 			} catch (Exception e) {
@@ -273,27 +297,56 @@ public void insert() {
 		
 		
 	}
-//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-//	public void list(Model model, String curPage) {
-//
-//		int page = -1;
-//		if (curPage != null) {
-//
-//			page = Integer.parseInt(curPage);
-//		} else {
-//			page = 1;
-//		}
-//		
-//		PageTO<ItemDTO> to = new PageTO<ItemDTO>(page);
-//		
-//
-//		to = bService.list(to);		
-//		model.addAttribute("to", to);
-//		model.addAttribute("list", to.getList());
-//	}
-	
+	@RequestMapping(value = "/search")
+	   public void search(Model model, String searchType, String keyword, String curPage) {
+	      
+	      System.out.println(searchType  + " : " + keyword);
+	  	int page = -1;
+		if (curPage != null) {
 
-	
+			page = Integer.parseInt(curPage);
+		} else {
+			page = 1;
+		}
+	      PageTO<ItemDTO> to = new PageTO<ItemDTO>(page);
+	      List<ItemDTO> list = new ArrayList<ItemDTO>();
+	      if(searchType.equals("all")) {
+	  
+	         to = bService.searchAll(keyword, to);
+	         
+	      	 System.out.println(to.getAmount());
+	    	 System.out.println(to.getStartNum());
+	    	 System.out.println(to.getStopPageNum());
+	    	 model.addAttribute("to", to);
+	         model.addAttribute("list", to.getList());
+	         model.addAttribute("searchType", searchType);
+	         model.addAttribute("keyword", keyword);
+	         
+	      }
+	      
+	      else if (searchType.equals("ititle") ||searchType.equals("iwriter")) {
+	    	  System.out.println(searchType +"ititle 로 검색");
+			to = bService.searchTitle(keyword, to, searchType);
+			System.out.println(to.getAmount());
+	    	 System.out.println(to.getStartNum());
+	    	 System.out.println(to.getStopPageNum());
+	    	 model.addAttribute("to", to);
+	         model.addAttribute("list", to.getList());
+	         model.addAttribute("searchType", searchType);
+	         model.addAttribute("keyword", keyword);
+			
+		 }
+	      else {
+	         System.out.println("왜일루가냐");
+	      }
+	      
+	      
+	     }
+	@RequestMapping(value = "/like/{ino}", method = RequestMethod.GET)
+	public String like(@PathVariable("ino") int ino, Model model) {
+		bService.increaseLike(ino);
+		System.out.println(ino);
+		return "redirect:/booksale/list";
+	}	
 }
-	
 	

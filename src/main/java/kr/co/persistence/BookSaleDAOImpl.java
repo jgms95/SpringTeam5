@@ -1,6 +1,8 @@
 package kr.co.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -95,7 +97,7 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 
 
 
-		List<ItemDTO> list = session.selectList(NS+".searchlist", cataCode, rowBounds);    // catacode 가운데 넣으면 mapper로 가는건지 모르겠다 (차후확인)
+		List<ItemDTO> list = session.selectList(NS+".searchlist", cataCode, rowBounds);    // catacode 媛��슫�뜲 �꽔�쑝硫� mapper濡� 媛��뒗嫄댁� 紐⑤Ⅴ寃좊떎 (李⑦썑�솗�씤)
 
 		to.setList(list);
 
@@ -108,6 +110,73 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 
 		return to;
 	}
+	@Override
+	public PageTO<ItemDTO> searchAll(String keyword, PageTO<ItemDTO> to) {
+		
+		to.setPerPage(8);
+		RowBounds rowBounds = new RowBounds(to.getStartNum()-1, to.getPerPage());
+		
+		List<ItemDTO> list = session.selectList(NS+".searchAll", keyword, rowBounds); 
+		to.setList(list);
+
+		Integer amount = session.selectOne(NS+".searchAllgetAmount", keyword);      
+		System.out.println(amount+"amount");
+		if (amount != null) {
+			to.setAmount(amount);
+		} else {
+			to.setAmount(0);
+		}
+
+		return to;
+	}
+	@Override
+	public PageTO<ItemDTO> searchTitle(String keyword, PageTO<ItemDTO> to, String searchType) {
+		// TODO Auto-generated method stub
+		to.setPerPage(8);
+		RowBounds rowBounds = new RowBounds(to.getStartNum()-1, to.getPerPage());
+		
+		if(searchType.equals("ititle")) {
+			
+			List<ItemDTO> list = session.selectList(NS+".searchItitle", keyword, rowBounds); 
+			System.out.println(list);
+			to.setList(list);
+			Integer amount = session.selectOne(NS+".searchItitleAmount", keyword);      
+			System.out.println(amount+"amount");
+			if (amount != null) {
+				to.setAmount(amount);
+				
+			} else {
+				to.setAmount(0);
+			}
+		}
+				
+		else {
+		List<ItemDTO> list = session.selectList(NS+".searchIwriter", keyword, rowBounds); 
+		System.out.println(list);
+		to.setList(list);
+		Integer amount = session.selectOne(NS+".searchIwriterAmount", keyword);      
+		System.out.println(amount+"amount");
+		if (amount != null) {
+			to.setAmount(amount);
+			
+		} else {
+			to.setAmount(0);
+		}}
+
+		return to;
+	}
+	
+	@Override
+	public void increaseLike(int ino) {
+		// TODO Auto-generated method stub
+		session.update(NS+".increaseLike", ino);
+	}
+	@Override
+	public List<ItemDTO> best() {
+		// TODO Auto-generated method stub
+		return session.selectList(NS+".best");
+	}
+
 
 
 }

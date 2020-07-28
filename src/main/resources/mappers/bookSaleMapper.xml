@@ -13,8 +13,8 @@
 
 <insert id="insert">
 
-<![CDATA[insert into item (ino,ititle,iwriter,publishDay,publisher,cataCode,filename,content,price,percent,stock,discountedPrice, id)
-      values (#{ino}, #{ititle}, #{iwriter}, #{publishDay}, #{publisher}, #{cataCode}, #{filename}, #{content}, #{price},#{percent},#{stock},#{discountedPrice}, #{id})]]>
+<![CDATA[insert into item (ino,ititle,iwriter,publishDay,publisher,cataCode,filename,content,price,percent,stock,discountedPrice, id, prolog)
+      values (#{ino}, #{ititle}, #{iwriter}, #{publishDay}, #{publisher}, #{cataCode}, #{filename}, #{content}, #{price},#{percent},#{stock},#{discountedPrice}, #{id}, #{prolog})]]>
 </insert>
 
 <delete id="delete">delete from item where ino = #{ino} </delete>
@@ -31,8 +31,38 @@
 
 <select resultType="ItemDTO" id="updateui">select * from item where ino = #{ino} </select>
 
-<update id="update">update item set ititle = #{ititle}, iwriter = #{iwriter}, publishDay= #{publishDay}, publisher = #{publisher}, cataCode= #{cataCode}, filename= #{filename}, content= #{content}, price = #{price}, percent =#{percent}, writeday = sysdate, stock = #{stock}, discountedPrice = #{discountedPrice}where ino = #{ino} </update>
+<update id="update">update item set ititle = #{ititle}, iwriter = #{iwriter}, publishDay= #{publishDay}, publisher = #{publisher}, cataCode= #{cataCode}, filename= #{filename}, content= #{content}, price = #{price}, percent =#{percent}, writeday = sysdate, stock = #{stock}, discountedPrice = #{discountedPrice}, prolog = #{prolog} where ino = #{ino} </update>
 
 <select resultType="ItemDTO" id="searchlist">select * from item where cataCode = #{cataCode} order by ino desc </select>
+
+<select id="searchAll" resultType="ItemDTO">
+   select * from item where lower(ititle) like '%'||lower(#{keyword})||'%' or lower(content) like '%'||lower(#{keyword})||'%' or lower(iwriter) like '%'||lower(#{keyword})||'%' or lower(publisher) like '%'||lower(#{keyword})||'%'
+</select>
+
+<select resultType="Integer" id="searchAllgetAmount">
+select count(ino) from item where lower(ititle) like '%'||lower(#{keyword})||'%' or lower(content) like '%'||lower(#{keyword})||'%' or lower(iwriter) like '%'||lower(#{keyword})||'%' or lower(publisher) like '%'||lower(#{keyword})||'%' </select>
+
+<select id="searchItitle" resultType="ItemDTO">
+	select * from item where lower(ititle) like '%'||lower(#{keyword})||'%'
+</select>
+
+<select resultType="Integer" id="searchItitleAmount">
+select count(ino) from item  where lower(ititle) like '%'||lower(#{keyword})||'%'	
+</select>
+
+<select id="searchIwriter" resultType="ItemDTO">
+	select * from item where lower(iwriter) like '%'||lower(#{keyword})||'%'
+</select>
+
+<select resultType="Integer" id="searchIwriterAmount">
+select count(ino) from item  where lower(iwriter) like '%'||lower(#{keyword})||'%'	
+</select>
+<update id="increaseLike">
+update item set like1 = like1+1 where ino = #{ino}
+</update>
+
+<select id="best" resultType="ItemDTO">
+	select * from item order by like1 desc
+</select>
 
 </mapper>

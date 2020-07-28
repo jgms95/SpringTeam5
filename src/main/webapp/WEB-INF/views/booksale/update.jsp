@@ -89,7 +89,12 @@
 				
 				<div class="form-group">
 					<label for="content">내용</label>
-					<textarea rows="5" name="content" id="content" class="form-control" value="${dto.content}" required="required"></textarea>
+					<textarea rows="5" name="content" id="content" class="form-control" value="${dto.content}" required="required">${dto.content}</textarea>
+				</div>
+				
+				<div class="form-group">
+					<label for="content">프롤로그</label>
+					<textarea rows="5" name="prolog" id="prolog" class="form-control" value="${dto.prolog}" required="required">${dto.prolog} </textarea>
 				</div>
 			
 			

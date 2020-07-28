@@ -24,4 +24,14 @@ public interface BookSaleDAO {
 
 	PageTO<ItemDTO> searchlist(PageTO<ItemDTO> to, String cataCode);
 
+
+
+	PageTO<ItemDTO> searchAll(String keyword, PageTO<ItemDTO> to);
+
+	PageTO<ItemDTO> searchTitle(String keyword, PageTO<ItemDTO> to, String searchType);
+
+	void increaseLike(int ino);
+
+	List<ItemDTO> best();
+
 }
