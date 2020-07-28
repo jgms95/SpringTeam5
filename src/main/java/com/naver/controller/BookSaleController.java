@@ -167,15 +167,8 @@ public void insert() {
 		
 		list = bService.best(); 
 				
-		System.out.println(list.get(1));	
 		
-		best.add(list.get(0));
-		best.add(list.get(1));
-		best.add(list.get(2));
-		best.add(list.get(3));
-		best.add(list.get(4));
-		best.add(list.get(5));
-		
+	
 				
 		
 		model.addAttribute("to", to);
