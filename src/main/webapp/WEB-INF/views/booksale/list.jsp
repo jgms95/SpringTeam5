@@ -228,6 +228,15 @@ section .section-title {
     height: 350px;
     
 }
+
+ .page-link {
+     color: rgb(90,56,37);
+   }
+   
+   .pagination>li.active>a {
+     background-color: rgb(90,56,37) !important;
+     border-color: rgb(90,56,37) !important;
+   }
 </style>
 </head>
 <body>
@@ -287,7 +296,7 @@ section .section-title {
 					</span>					
 					<input class="form-contro search-slt" name="keyword" style="width: 200px" placeholder="검색">
 					<span class="input-group-btn">
-						<button class="btn btn-danger">검색</button>
+						<button class="btn btn-danger rounded-0">검색</button>
 					</span>
 				</div>
 			</form>
