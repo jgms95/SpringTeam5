@@ -56,5 +56,20 @@ public class NoticeServiceImpl implements NoticeService{
 		noticeDao.deleteNotice(nno);
 	}
 
+	@Override
+	public void deleteFile(String file_name) {
+		noticeDao.deleteFile(file_name);
+	}
+
+	@Override
+	public void updateNotice(NoticeDTO dto) {
+		noticeDao.updateNotice(dto);
+	}
+
+	@Override
+	public PageTO<NoticeDTO> searchlist(PageTO<NoticeDTO> to, String search) {
+		return noticeDao.searchlist(to,search);
+	}
+
 	
 }

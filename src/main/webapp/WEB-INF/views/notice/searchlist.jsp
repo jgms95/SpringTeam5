@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -78,12 +77,12 @@
 		
 		<ul class="pagination justify-content-center">
 			<li class="page-item ${to.curPage == 1 ? 'disabled' : '' }"><a class="page-link"
-					href="/notice/noticelist/${to.curPage>1?to.curPage-1:1}?id=${login.id}">&laquo;</a></li>
+					href="/notice/searchlist/${to.curPage>1?to.curPage-1:1}?id=${login.id}&search=${search}">&laquo;</a></li>
 			<c:forEach begin="${to.beginPageNum }" end="${to.stopPageNum }" var="page">
-				<li class="page-item ${to.curPage == page ? 'active' : '' }"><a class="page-link" href="/notice/noticelist/${page}?id=${login.id}">${page}</a></li>
+				<li class="page-item ${to.curPage == page ? 'active' : '' }"><a class="page-link" href="/notice/searchlist/${page}?id=${login.id}&search=${search}">${page}</a></li>
 			</c:forEach>
 			<li class="page-item ${to.curPage == to.totalPage ? 'disabled' : '' }"><a class="page-link"
-					href="/notice/noticelist/${to.curPage<to.totalPage?to.curPage+1:to.curPage}?id=${login.id}">&raquo;</a></li>
+					href="/notice/searchlist/${to.curPage<to.totalPage?to.curPage+1:to.curPage}?id=${login.id}&search=${search}">&raquo;</a></li>
 		</ul>
 		
 		
@@ -99,6 +98,7 @@
 						<button type="button" class="btn btn-dark rounded-0" disabled>글제목</button>
 					 <input class="form-control mr-sm-2" type="text" name='search'>
 					<button style="background-color: rgb(67,22,7); color: white;" class="btn rounded-0" type='submit'>검색</button>
+					<a href="/notice/noticelist/1?id=${login.id}" type="button" style="background-color: rgb(67,22,7); color: white;" class="btn rounded-0">전체 목록</a>
 				</aside>
 			</form>
 		</nav>

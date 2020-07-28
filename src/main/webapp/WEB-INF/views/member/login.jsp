@@ -31,10 +31,10 @@
 				</div>
 			</div>
 			
-			<button type="submit" class="btn btn-info">로그인</button>
-			<a href="/member/insert" class="btn btn-warning">회원가입</a><br><br>
-			<a href="/member/findId" class="btn btn-secondary btn-sm">아이디 찾기</a>
-			<a href="/member/findPw" class="btn btn-secondary btn-sm">비밀번호 찾기</a>
+			<button type="submit" class="btn btn-info rounded-0">로그인</button>
+			<a href="/member/insert" class="btn btn-warning rounded-0">회원가입</a><br><br>
+			<a href="/member/findId" class="btn btn-secondary btn-sm rounded-0">아이디 찾기</a>
+			<a href="/member/findPw" class="btn btn-secondary btn-sm rounded-0">비밀번호 찾기</a>
 		</form>
 	</div>
 	

@@ -10,7 +10,7 @@
 <head>
 <%@ include file="../com/head.jsp"%>
 
-<title>공지사항 읽기</title>
+<title>Spring Book</title>
 </head>
 <body>
 <%@ include file="../com/top.jsp"%>
@@ -57,7 +57,7 @@
 		
 
 			<c:if test="${authority == '01' || authority == '02'}">
-				<a class="btn btn-warning rounded-0" href="#">수정</a>
+				<a class="btn btn-warning rounded-0" href="/notice/update?nno=${dto.nno}&id=${login.id}">수정</a>
 		|
 		<button type="button" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#myModal">삭제</button>
 				<div class="modal fade" id="myModal">

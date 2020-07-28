@@ -20,7 +20,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 	
 	@Override
 	public PageTO<NoticeDTO> noticelist(PageTO<NoticeDTO> to) {
-		RowBounds rowBounds = new RowBounds(to.getStartNum()-1, to.getPerPage()); //oracle과 stack의 인덱스만 1부터 시작하고 나머진 0부터 시작
+		RowBounds rowBounds = new RowBounds(to.getStartNum()-1, to.getPerPage()); 
 		List<NoticeDTO> list = session.selectList(NS+".list",null,rowBounds);
 		to.setList(list);
 		Integer amount = session.selectOne(NS+".getAmount");
@@ -90,6 +90,30 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public void deleteNotice(int nno) {
 		session.delete(NS+".delete",nno);
 		session.delete(NS+".deleteAllFiles",nno);
+	}
+
+	@Override
+	public void deleteFile(String file_name) {
+		session.delete(NS+".deleteFile", file_name);
+	}
+
+	@Override
+	public void updateNotice(NoticeDTO dto) {
+		session.update(NS+".updateNotice", dto);
+	}
+
+	@Override
+	public PageTO<NoticeDTO> searchlist(PageTO<NoticeDTO> to, String search) {
+		RowBounds rowBounds = new RowBounds(to.getStartNum()-1, to.getPerPage()); 
+		List<NoticeDTO> list = session.selectList(NS+".searchlist",search,rowBounds);
+		to.setList(list);
+		Integer amount = session.selectOne(NS+".getsearchAmount",search);
+		if(amount!=null) {
+			to.setAmount(amount);
+		}else {
+			to.setAmount(0);
+		}
+		return to;
 	}
 
 	

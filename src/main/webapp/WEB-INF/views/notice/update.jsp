@@ -10,13 +10,39 @@
 <head>
 <%@ include file="../com/head.jsp"%>
 
-<title>Insert title here</title>
+<title>Spring Book</title>
 
+<style type="text/css">
 
+.btn {
+background-color: rgb(67,22,7);
+color: white;
+}
 
+</style>
 <script type="text/javascript">
-
 $(document).ready(function(){
+	$(".deletefile").on("click",function(event){
+		event.preventDefault();
+
+      	var that = $(this);
+
+	       $.ajax({
+	          type : 'post',
+	          url : '/notice/deletefile',
+	          dataType : 'text',
+	          data : {
+	        	  file_num : that.attr("href")
+	          },
+	          success : function(result){
+	             that.parent("div").remove();
+	          }
+	       });  
+	
+	
+	 });
+
+
 
 	$("#addFile").on("click", function(event){
 		event.preventDefault();
@@ -24,17 +50,29 @@ $(document).ready(function(){
 	});
 
 	
+
+	
+		
+
+	
 });
+
 
 function fn_addFile(){
 	var str = "<div class='custom-file mb-3'>"
-		+"<input type='file' class='custom-file-input' id='customFile' name='uploadFile'>"
+		+"<input type='file' class='custom-file-input' id='customFile' name='newFile'>"
 		+"<label class='custom-file-label' for='customFile'>Choose file</label>"
 		+"</div>";
+		
 	$("#files").append(str);
 }
 
+
+
 </script>
+
+
+
 </head>
 <body>
 <%@ include file="../com/top.jsp"%>
@@ -45,9 +83,10 @@ function fn_addFile(){
 
 
 
-		<h1>공지사항 등록</h1>
+		<h1>${nno}. 공지사항 수정</h1>
 
-		<form action="/notice/insert" method="post" class="was-validated" enctype="multipart/form-data">
+		<form action="/notice/update" method="post" class="was-validated" enctype="multipart/form-data">
+			<input name="nno" class="form-control" type="hidden" value="${nno}">
 			<div class="form-group">
 				<label for="id">ID : </label> <input name="id" class="form-control" readonly value="${login.id}">
 			</div>
@@ -59,34 +98,46 @@ function fn_addFile(){
 			내용 : <br>
 			<textarea style="width: 100%" placeholder="내용을 입력하세요." name="content" required></textarea>
 			<div class="valid-feedback">입력 완료</div>
-			<br>
-			첨부 파일: <button type="button" style="background-color: rgb(67,22,7); color: white;" class="btn btn-sm rounded-0" id="addFile">파일 추가</button>
+			<br><br>
+			기존 첨부파일: (삭제 버튼을 누르시면  바로 삭제됩니다.) <br>
+			<c:forEach items="${filelist}" var="fileDto">
+			<div>
+				
+				${fileDto.o_name}
+				
+				<a href="${fileDto.file_num}" class="deletefile">
+				<img src=https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/trash-fill.svg width="20" height="20" alt="삭제">
+				</a>
+      	  </div>
+			</c:forEach>
+
+			<br><br>
+			첨부 파일 추가:	<button type="button" class="btn btn-sm rounded-0" id="addFile">파일 추가</button>
+			<br><br>
 			<div id="files">
 			<div class="custom-file mb-3">
-				<input type="file" class="custom-file-input" id="customFile" name="uploadFile">
+				<input type="file" class="custom-file-input" id="customFile" name="newFile">
 				<label class="custom-file-label" for="customFile">Choose file</label>
 			</div>
 			</div>
-			
 			<br><br>
-			<button type="submit" class="btn btn-info rounded-0">작성완료</button>
-			<a class="btn btn-secondary rounded-0" href="/notice/noticelist/1?id=${login.id}">목록</a>
+			<button type="submit" class="btn rounded-0" >작성완료</button>
+			<a class="btn rounded-0" href="javascript:history.back();">뒤로가기</a>
+			
 		</form>
 
 
 
 	</div>
-	
-<%@ include file="../com/footer.jsp"%>
 
+
+
+<%@ include file="../com/footer.jsp"%>
 <script>
 $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
-
-
 </script>
-
 </body>
 </html>

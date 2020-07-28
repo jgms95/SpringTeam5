@@ -24,5 +24,11 @@ public interface NoticeService {
 
 	void deleteNotice(int nno);
 
+	void deleteFile(String file_name);
+
+	void updateNotice(NoticeDTO dto);
+
+	PageTO<NoticeDTO> searchlist(PageTO<NoticeDTO> to, String search);
+
 
 }

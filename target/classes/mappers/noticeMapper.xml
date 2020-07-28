@@ -57,6 +57,22 @@
 	<delete id="deleteAllFiles">
 	<![CDATA[delete from notice_file_table where nno = #{nno}]]>
 	</delete>
+	
+	<delete id="deleteFile">
+	<![CDATA[delete from notice_file_table where file_name = #{file_name}]]>
+	</delete>
+	
+	<update id="updateNotice">
+	<![CDATA[update notice set title=#{title}, content=#{content}, writeday=sysdate where nno = #{nno}]]>
+	</update>
+	
+	<select id="searchlist" resultType="NoticeDTO">
+		<![CDATA[select * from notice where title like '%'||#{search}||'%' order by nno desc]]>
+	</select>
+	
+	<select id="getsearchAmount" resultType="Integer">
+		<![CDATA[select count(nno) from notice where title like '%'||#{search}||'%']]>
+	</select>
 
 	
 </mapper>
