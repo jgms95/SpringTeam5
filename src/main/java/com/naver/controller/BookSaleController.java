@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
+import kr.co.domain.PickupDTO;
 import kr.co.service.BookSaleService;
 
 
@@ -158,6 +159,7 @@ public void insert() {
 			page = 1;
 		}
 		
+		PickupDTO pickup = new PickupDTO();
 		PageTO<ItemDTO> to = new PageTO<ItemDTO>(page);
 		List<ItemDTO> list = new ArrayList<ItemDTO>();
 		List<ItemDTO> best = new ArrayList<ItemDTO>();
@@ -181,10 +183,11 @@ public void insert() {
 		            }
 			model.addAttribute("best", best);
 			
-	
+			
 			model.addAttribute("to", to);
 			model.addAttribute("list", to.getList());
 			
+			model.addAttribute("pickup", pickup);
 		
 	}
 	
@@ -352,6 +355,17 @@ public void insert() {
 		bService.increaseLike(ino);
 		System.out.println(ino);
 		return "redirect:/booksale/list";
-	}	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pickupInsert", method = RequestMethod.POST)
+	public void pickupInsert(PickupDTO pickupDTO, int ino) {
+		int count = bService.countOfIno(ino);
+		if(count == 0) {
+			bService.pickupInsert(pickupDTO);
+		}
+		bService.increasePcs(ino);
+	}
+	
 }
 	

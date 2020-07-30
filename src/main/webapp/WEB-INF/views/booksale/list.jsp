@@ -367,7 +367,9 @@ section .section-title {
                         <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag" style="color: white;"></i></a></li>
                         <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart" style="color: white;"></i></a></li>
                         <br>
-             
+
+
+       
                     </ul>
                    
                     </div>
@@ -412,7 +414,7 @@ section .section-title {
                     <ul class="social">
                         <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
                         <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                        <li><a href="#" data-tip="Add to Cart" class="pickupInsert" data-pcs="${pickup.pcs}" data-ititle="${dto.ititle}" data-id="${login.id}" data-ino="${dto.ino}" data-price="${dto.price}" data-filename="${dto.filename}"><i class="fa fa-shopping-cart"></i></a></li>
                         <br>
                    		<li><a href="/booksale/delete/${dto.ino }"  data-tip="remove"><i class="fas fa-remove" style="color:red;" ></i></a></li>
                  		<li><a href="/booksale/update/${dto.ino }" data-tip="update"><i class="fas fa-file" style="color:green;" ></i></a></li>
@@ -440,7 +442,7 @@ section .section-title {
                     
                     </div>
                     </c:if>
-                    <a class="add-to-cart" href="">+ Add To Cart</a>
+                    <a class="add-to-cart" data-pcs="${pickup.pcs}" data-ititle="${dto.ititle}" data-id="${login.id}" data-ino="${dto.ino}" data-price="${dto.price}" href="">+ Add To Cart</a>
                 </div>
             </div>
             <br><br>
@@ -496,5 +498,73 @@ section .section-title {
   
 <hr>
 <%@ include file="../com/footer.jsp"%>
+<script type="text/javascript">
+
+
+$(".add-to-cart").click(function(){
+	/* var num = $(this).siblings('input')[0].value */
+	var ino = $(this).attr("data-ino");
+	var pno = 1;
+	var pcs = $(this).attr("data-pcs");
+	var price = $(this).attr("data-price");
+	var id = $(this).attr("data-id");
+	var filename = '';
+	var ititle = $(this).attr("data-ititle");
+	var data = {
+	  ino : ino,
+	  pno : pno,
+	  pcs : pcs,
+	  price : price,
+	  id : id,
+	  filename : filename,
+	  ititle : ititle
+	  };
+		
+	$.ajax({
+			url : "/booksale/pickupInsert",
+			type : "POST",
+			data : data,
+			success : function(result){
+				location.assign("/pickup/pickupList/${login.id}");
+			},
+			
+	   });
+	});
+
+
+$(".pickupInsert").click(function(){
+var confirm_val = confirm("장바구니에 담겼습니다 장바구니로 이동하시겠습니까?");
+var ino = $(this).attr("data-ino");
+var pno = 1;
+var pcs = $(this).attr("data-pcs");
+var price = $(this).attr("data-price");
+var id = $(this).attr("data-id");
+var filename = $(this).attr("data-filename");
+var ititle = $(this).attr("data-ititle");
+var data = {
+  ino : ino,
+  pno : pno,
+  pcs : pcs,
+  price : price,
+  id : id,
+  filename : filename,
+  ititle : ititle
+  };
+	
+$.ajax({
+		url : "/booksale/pickupInsert",
+		type : "POST",
+		data : data,
+		success : function(result){
+			if(confirm_val){
+			location.assign("/pickup/pickupList/${login.id}");
+			}
+		},
+		
+   });
+});
+
+</script>
+
 </body>
 </html>

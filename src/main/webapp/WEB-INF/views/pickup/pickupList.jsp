@@ -28,29 +28,37 @@
         <div class="col-12">
             <div class="table-responsive">
             <div class="allCheck">
-<!-- 전체선택  -->&nbsp;&nbsp;	<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">&nbsp;&nbsp;&nbsp;&nbsp;전체 선택</label>
+<!-- 전체선택  -->&nbsp;&nbsp;	<input data-price="${pickup.price * pickup.pcs}" type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">&nbsp;&nbsp;&nbsp;&nbsp;전체 선택</label>
 							<button data-pno="${pickup.pno}" class="btn btn-sm btn-danger pickupSelectDelete">삭제</button> 
 			</div>
+			
                 <table class="table table-striped cell">
                     <thead>
                         <tr>
                             <th scope="col"> </th>
                             <th scope="col"> </th>
                             <th scope="col">제목</th>
-                            <th scope="col" class="text-center">수량</th>
+                            <th scope="col">수량</th>
                             <th scope="col" class="text-right">개당 가격</th>
                             <th scope="col" class="text-right">총 가격</th>
                             <th> </th>
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:set var="sum" value="0" />
 						<c:forEach items="${pickupList}" var="pickup">
                         <tr class="pickupList">
-                        	<td><input type="checkbox" name="chBox" class="chBox" data-pno="${pickup.pno}"/></td>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                        	<td><input type="checkbox" name="chBox" class="chBox" data-pno="${pickup.pno}" data-price="${pickup.price * pickup.pcs}"/></td>
+                            <td> <img src="/resources/img/${pickup.filename}" style="width: 50px; height: 50px; "/> </td>
+                            <!-- <img src="https://dummyimage.com/50x50/55595c/fff" /> -->
                             <td>${pickup.ititle}</td>
-                            <td><input class="form-control" type="text" value="${pickup.pcs}" /></td>
+                            <td>
+	                            <div class="container">
+	                            	<input style="width: 65px" class="form-control pickupUpdateInput" data-pno="${pickup.pno}" name="pcs" type="text" value="${pickup.pcs}" min="1" data-pcs="${pickup.pcs}">
+	                            	<button type="button" class="btn btn-sm plus" data-pno="${pickup.pno}">+</button>
+									<button type="button" class="btn btn-sm minus" >-</button>
+	                            	<button class="btn btn-sm btn-danger rounded-0 pickupUpdateButton" data-pno="${pickup.pno}" data-pcs="${pickup.pcs}">변경</button>
+	                            </div>
+                           	</td>
         <!-- 개당가격 -->      <td class="text-right"><fmt:formatNumber value="${pickup.price}" pattern="#,###,###"/>원</td> 
         <!-- 총 가격 -->       <td class="text-right itemPrice" id="itemPrice" data-pno="${pickup.pno}"><fmt:formatNumber value="${pickup.price * pickup.pcs}" pattern="#,###,###"/>원</td> 
         <!-- 삭제버튼 -->      <td class="text-right"><button data-pno="${pickup.pno}" class="btn btn-sm btn-danger pickupDelete"><i class="fa fa-trash"></i> </button> </td>
@@ -62,8 +70,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>상품금액</td>
-                            <td class="text-right" id="itemsPrice"><fmt:formatNumber value="${sum}" pattern="#,###,###"/></td>
+    <!--상품금액  -->          <td>상품금액</td>
+                            <td class="text-right" id="itemsPrice">0원</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -78,8 +86,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><strong>결제예정금액</strong></td>
-                            <td class="text-right" id="totalPrice"><strong><fmt:formatNumber value="${sum}" pattern="#,###,###"/>원</strong></td>
+    <!--결제예정금액  -->       <td><strong>결제예정금액</strong></td>
+                            <td class="text-right" id="totalPrice"><strong>0원</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -88,10 +96,10 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">계속 쇼핑하기</button>
+                    <button class="btn btn-block btn-light rounded-0">계속 쇼핑하기</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">결제하기</button>
+                    <button class="btn btn-lg btn-block btn-success rounded-0 text-uppercase">결제하기</button>
                 </div>
             </div>
         </div>
@@ -106,23 +114,81 @@
 /* 장바구니 개별 삭제 */
 $(".pickupDelete").click(function() {
 	var pno = $(this).attr("data-pno");
-	var confirm_val = confirm("정말 삭제하시겠습니까?");
-	location.assign("/pickup/pickupDelete/"+pno+"?id=${login.id}");
+	var confirm_val = confirm("삭제하시겠습니까?");
+	if(confirm_val){
+		location.assign("/pickup/pickupDelete/"+pno+"?id=${login.id}");
+	}
+});
+
+/* 수량 변경 버튼  */
+   $('.pickupUpdateButton').click(function() {
+	var pcs = $(this).siblings('input')[0].value;
+	var pno = $(this).attr("data-pno");
+	var confirm_val = confirm("변경하시겠습니까?");
+	if(confirm_val){
+		location.assign("/pickup/pickupUpdate/"+pno+"/"+pcs+"?id=${login.id}");
+	}
+});  
+
+/* 수량 증가 */
+$(".plus").click(function(){
+	
+	var num = $(this).siblings('input')[0].value;
+	$(this).siblings('input')[0].value = Number(num) + 1;
+});
+
+/* 수량 감소 */
+$(".minus").click(function(){
+	
+	var num = $(this).siblings('input')[0].value
+	if($(this).siblings('input')[0].value > 1){
+		$(this).siblings('input')[0].value = Number(num) - 1;
+	}
+	   
 });
 
 /* 전체 선택 */
 $("#allCheck").click(function(){
 	 var chk = $("#allCheck").prop("checked");
+
 	 if(chk) {
 	 	$(".chBox").prop("checked", true);
-	 } else {
+	 } else{
 	 	$(".chBox").prop("checked", false);
-	 }
+	 } 
+
+	  var itemsPrice = 0;
+	  var totalPrice = 0;
+	  $(".chBox:checked").each(function() {
+	    var price = $(this).attr("data-price");
+	    itemsPrice += parseInt(price);
+	    totalPrice += parseInt(price);
+	  });
+	  itemsPrice += '원';
+	  totalPrice += '원';
+	  $('#itemsPrice').text(itemsPrice);
+	  $('#totalPrice').text(totalPrice);
+
 });
-/* 개별 체크 되었을 때 전체 선택체크 해제 */
-$(".chBox").click(function(){
+
+ $(".chBox").click(function(){
 	$("#allCheck").prop("checked", false);
-});
+}); 
+
+ $(".chBox").click(function(){
+	  var itemsPrice = 0;
+	  var totalPrice = 0;
+	  $(".chBox:checked").each(function() {
+	    var price = $(this).attr("data-price");
+	    itemsPrice += parseInt(price);
+	    totalPrice += parseInt(price);
+	  });
+	  itemsPrice += '원';
+	  totalPrice += '원';
+	  $('#itemsPrice').text(itemsPrice);
+	  $('#totalPrice').text(totalPrice);
+}); 
+
 
 /* 체크박스 체크된 것 삭제 */
 $(".pickupSelectDelete").click(function(){
@@ -130,18 +196,18 @@ $(".pickupSelectDelete").click(function(){
  
 if(confirm_val) {
 	var checkArr = new Array();
-  
+    
 $("input[class='chBox']:checked").each(function(){
 	checkArr.push($(this).attr("data-pno"));
-	console.log('checkArr');
 });
    
 	$.ajax({
-		url : "/pickup/pickupDelete",
+		url : "/pickup/pickupDelete?id=${login.id}",
 		type : "POST",
-		data : { chbox : checkArr },
+		data : { chBox : checkArr
+			},
 		success : function(){
-		location.assign("/pickup/pickupDelete");
+			location.assign("/pickup/pickupList/${login.id}");
 		}
 	});
 };

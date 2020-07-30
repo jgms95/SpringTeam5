@@ -65,4 +65,16 @@ update item set like1 = like1+1 where ino = #{ino}
 	select * from item order by like1 desc
 </select>
 
+<insert id="pickupInsert">
+insert into pickup (pno, ino, id, pcs, price, filename, ititle) values (pickup_seq.nextval, #{ino}, #{id}, #{pcs}, #{price}, #{filename}, #{ititle})
+</insert>
+
+<select id="countOfIno" resultType="Integer">
+select count(*) from pickup where ino = #{ino}
+</select>
+
+<update id="increasePcs">
+update pickup set pcs = pcs +1 where ino = #{ino}
+</update>
+
 </mapper>

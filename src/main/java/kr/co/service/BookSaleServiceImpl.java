@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
+import kr.co.domain.PickupDTO;
 import kr.co.persistence.BookSaleDAO;
 
 @Service
@@ -74,5 +75,19 @@ public class BookSaleServiceImpl implements BookSaleService {
 	public List<ItemDTO> best() {
 		// TODO Auto-generated method stub
 		return tDAO.best();
+	}
+	@Override
+	public void pickupInsert(PickupDTO pickupDTO) {
+		
+		tDAO.pickupInsert(pickupDTO);
+	}
+	@Override
+	public int countOfIno(int ino) {
+		
+		return tDAO.countOfIno(ino);
+	}
+	@Override
+	public void increasePcs(int ino) {
+		tDAO.increasePcs(ino);
 	}
 }

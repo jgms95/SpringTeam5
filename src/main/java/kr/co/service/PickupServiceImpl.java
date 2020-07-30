@@ -36,6 +36,21 @@ public class PickupServiceImpl implements PickupService{
 		
 	}
 
+	@Override
+	public void pickupUpdate(PickupDTO dto) {
+
+		pickupDao.pickupUpdate(dto);
+		
+	}
+
+	@Override
+	public void pickupInsert(PickupDTO dto) {
+		
+		pickupDao.pickupInsert(dto);
+		
+	}
+
+	
 	
 
 

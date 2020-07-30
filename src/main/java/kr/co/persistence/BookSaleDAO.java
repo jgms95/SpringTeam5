@@ -5,6 +5,7 @@ import java.util.List;
 
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
+import kr.co.domain.PickupDTO;
 
 public interface BookSaleDAO {
 
@@ -33,5 +34,11 @@ public interface BookSaleDAO {
 	void increaseLike(int ino);
 
 	List<ItemDTO> best();
+
+	void pickupInsert(PickupDTO pickupDTO);
+
+	int countOfIno(int ino);
+
+	void increasePcs(int ino);
 
 }

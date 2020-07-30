@@ -36,6 +36,21 @@ public class PickupDAOImpl implements PickupDAO{
 		session.delete(NS + ".pickupDelete2", dto);
 	}
 
+	@Override
+	public void pickupUpdate(PickupDTO dto) {
+
+		session.update(NS + ".pickupUpdate" , dto);
+		
+	}
+
+	@Override
+	public void pickupInsert(PickupDTO dto) {
+
+		session.insert(NS + ".pickupInsert", dto);
+		
+	}
+
+	
 	
 
 }

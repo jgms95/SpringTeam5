@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
+import kr.co.domain.PickupDTO;
 
 @Repository
 public class BookSaleDAOImpl implements BookSaleDAO{
@@ -175,6 +176,21 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 	public List<ItemDTO> best() {
 		// TODO Auto-generated method stub
 		return session.selectList(NS+".best");
+	}
+	@Override
+	public void pickupInsert(PickupDTO pickupDTO) {
+		// TODO Auto-generated method stub
+		session.insert(NS+".pickupInsert", pickupDTO);
+	}
+	@Override
+	public int countOfIno(int ino) {
+		// TODO Auto-generated method stub
+		
+		return session.selectOne(NS+".countOfIno", ino);
+	}
+	@Override
+	public void increasePcs(int ino) {
+		session.update(NS+".increasePcs", ino);
 	}
 
 

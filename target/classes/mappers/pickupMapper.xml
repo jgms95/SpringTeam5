@@ -6,7 +6,7 @@
 
 	<select id="pickupList" resultType="PickupDTO">
 	
-		select * from pickup where id = #{id}
+		select * from pickup where id = #{id} order by pno desc
 		
 	</select>
 	
@@ -17,5 +17,13 @@
 	<delete id="pickupDelete2">
 		delete from pickup where pno = #{pno}
 	</delete>
+	
+	<update id="pickupUpdate">
+		update pickup set pcs = #{pcs} where pno = #{pno}
+	</update>
+	
+	<insert id="pickupInsert">
+		insert into pickup (pno, ino, id, pcs, price, filename, ititle) values (#{pno},#{ino},#{id},#{pcs},#{price},#{filename},#{ititle})
+	</insert>
 	
 </mapper>

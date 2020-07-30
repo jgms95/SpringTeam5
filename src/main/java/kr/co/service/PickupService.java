@@ -13,5 +13,11 @@ public interface PickupService {
 
 	void pickupDelete2(PickupDTO dto);
 
+	void pickupUpdate(PickupDTO dto);
+
+	void pickupInsert(PickupDTO dto);
+
+
+	
 
 }

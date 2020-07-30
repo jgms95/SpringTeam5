@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import kr.co.domain.ItemDTO;
+
 import kr.co.domain.PickupDTO;
 import kr.co.service.PickupService;
 
@@ -25,7 +25,7 @@ public class PickupController {
 
 	/* 장바구니목록 */
 	@RequestMapping(value = "/pickupList/{id}", method = RequestMethod.GET)
-	public String pickupList(ItemDTO dto, Model model, @PathVariable("id") String id) {
+	public String pickupList(Model model, @PathVariable("id") String id) {
 
 		List<PickupDTO> pickupList = pickupService.pickupList(id);
 
@@ -37,8 +37,15 @@ public class PickupController {
 	/* 체크박스전체삭제 */
 	@ResponseBody
 	@RequestMapping(value = "/pickupDelete", method = RequestMethod.POST)
-	public String pickupDelete2(@RequestParam(value = "chbox[]") List<String> chArr, Model model, HttpSession session,
+	public String pickupDelete2(@RequestParam(value = "chBox[]") List<String> chArr, Model model, HttpSession session,
 			PickupDTO dto, String id) {
+		if (session == null) {
+			return "/member/login";
+		} else {
+			if (id.length() < 1) {
+				return "/member/login";
+			}
+		}
 
 		int pno = 0;
 
@@ -47,11 +54,13 @@ public class PickupController {
 			dto.setPno(pno);
 			pickupService.pickupDelete2(dto);
 		}
-		return "redirect:/pickup/pickupList/" + id;
+		return "";
+
 	}
 
+	/* 개별삭제 */
 	@RequestMapping(value = "/pickupDelete/{pno}", method = RequestMethod.GET)
-	public String pickupDelete(@PathVariable("pno") int pno, Model model, String id, HttpSession session) {
+	public String pickupDelete(@PathVariable("pno") int pno, String id, HttpSession session) {
 		if (session == null) {
 			return "/member/login";
 		} else {
@@ -62,5 +71,23 @@ public class PickupController {
 		pickupService.pickupDelete(pno);
 
 		return "redirect:/pickup/pickupList/" + id;// 주소줄에 유저 아이디 필요 }
+	}
+
+	/* 수량변경 */
+	@RequestMapping(value = "/pickupUpdate/{pno}/{pcs}", method = RequestMethod.GET)
+	public String pickupUpdate(@PathVariable("pno") int pno, @PathVariable("pcs") int pcs, String id, PickupDTO dto,
+			Model model) {
+
+		pickupService.pickupUpdate(dto);
+
+		return "redirect:/pickup/pickupList/" + id;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/pickupInsert", method = RequestMethod.POST)
+	public void pickupInsert(PickupDTO dto) {
+		
+		pickupService.pickupInsert(dto);
+		
 	}
 }
