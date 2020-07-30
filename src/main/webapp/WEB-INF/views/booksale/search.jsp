@@ -30,12 +30,13 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 
 .categories ul li {
    display: inline-block;
-   margin: 0px 5px;
+   margin: 0px 10px;
+   margin-bottom: 20px;
 }
 
 .categories ul li a {
    display: block;
-   font-size: 13px;
+   font-size: 20px;
    color: rgb(85,85,85);
    padding: 0px 20px;
    height: 38px;
@@ -79,7 +80,28 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 .product-grid .add-to-cart{color:#000;font-size:13px;font-weight:600}
 @media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
 }
+.list h3  { font-family: Arimo;	
+		    font-size: 24px;
+		   font-style: normal; font-variant: normal; font-weight: 700;	
+		   line-height: 26.4px; 	
+		    text-align: center;
+   			 color: #007b5e;
+   			 margin-bottom: 50px;
+   			font-size: 30px; 
+   			 }
+ .list{
+  background-color: buttonface; !important;
+  padding: 20px
+ }
+  .page-link {
+     color: rgb(90,56,37);
+   }
 
+   
+   .pagination>li.active>a {
+     background-color: rgb(90,56,37) !important;
+     border-color: rgb(90,56,37) !important;
+   }
 
 </style>
 </head>
@@ -127,6 +149,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
             <li><a href="/booksale/searchlist?cataCode=요리">요리</a></li>
             <li><a href="/booksale/searchlist?cataCode=만화">만화</a></li>
             <li><a href="/booksale/searchlist?cataCode=인문">인문</a></li>
+            <li><a href="/booksale/searchlist?cataCode=수필">수필</a></li>
          </ul>
       </div>
      	<form  action="/booksale/search" method="get" style="float: right;">
@@ -150,7 +173,8 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
                
                       <button type="button" class="btn btn-info btn-lg" style="float: right;"
                onclick="location.href='/booksale/insert'">상품등록</button>
-    <h3 class="h3" style="float:  ">검색 : ${keyword}  </h3>
+     <div class="list">          
+    <h3 class="list h3" style="float:  ">검색 : ${keyword}  </h3>
 
     <div class="row">
     
@@ -204,21 +228,11 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
         </div>
         
         </c:forEach>
-
+		</div>
        </div>   
        
        <div align="center">
-            <div class="container" align="right" >
-             <div  style="width: 100px; height: 100px">
-                            <select class="form-control search-slt" id="exampleFormControlSelect1">
-                               
-                                <option>인기순</option>
-                                <option>등록순</option>
-                                <option>조회순</option>
-                           
-                            </select>
-                        </div>
-         </div>
+  
    <div align="center">
    
      <ul class="pagination" style="position: relative; bottom:50px; left: 40%" >

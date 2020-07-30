@@ -77,4 +77,8 @@ select count(*) from pickup where ino = #{ino}
 update pickup set pcs = pcs +1 where ino = #{ino}
 </update>
 
+<select id="cataBest" resultType="ItemDTO">
+	select * from  item where cataCode =#{cataCode} order by like1 desc
+</select>
+
 </mapper>

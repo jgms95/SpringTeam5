@@ -89,5 +89,9 @@ public class BookSaleServiceImpl implements BookSaleService {
 	@Override
 	public void increasePcs(int ino) {
 		tDAO.increasePcs(ino);
+	}@Override
+	public List<ItemDTO> cateBest(String cataCode) {
+		// TODO Auto-generated method stub
+		return tDAO.cateBest(cataCode);
 	}
 }

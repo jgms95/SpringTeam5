@@ -30,12 +30,13 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 
 .categories ul li {
 	display: inline-block;
-	margin: 0px 5px;
+	margin: 0px 10px;
+	margin-bottom: 20px;
 }
 
 .categories ul li a {
 	display: block;
-	font-size: 13px;
+	font-size: 20px;
 	color: rgb(85,85,85);
 	padding: 0px 20px;
 	height: 38px;
@@ -49,7 +50,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 	background-color: white;
 }
 /********************* shopping Demo-1 **********************/
-.product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1}
+.product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1 }
 .product-grid .product-image{position:relative;transition:all .3s ease 0s}
 .product-grid .product-image a{display:block}
 .product-grid .product-image img{width:100%;height:auto}
@@ -72,12 +73,14 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 .product-grid .product-content{background-color:#fff;text-align:center;padding:12px 0;margin:0 auto;position:absolute;left:0;right:0;bottom:-27px;z-index:1;transition:all .3s}
 .product-grid:hover .product-content{bottom:0}
 .product-grid .title{font-size:13px;font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
+.product-grid .title1{font-size:18px;color:red; font:bold; font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
 .product-grid .title a{color:#828282}
 .product-grid .title a:hover,.product-grid:hover .title a{color:#ef5777}
 .product-grid .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
 .product-grid .price span{color:#999;font-size:13px;font-weight:400;text-decoration:line-through;margin-left:3px;display:inline-block}
 .product-grid .add-to-cart{color:#000;font-size:13px;font-weight:600}
-@media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
+
+@media only screen and (max-width:990px){.product-grid{margin-bottom:30px }
 }
 .product-gri .product-discount-label,.product-gri .product-new-label{color:#fff;background-color:#ef5777;font-size:12px;text-transform:uppercase;padding:2px 7px;display:block;position:absolute;top:10px;left:0}
 .product-gri .product-discount-label{background-color:#333;left:auto;right:0}
@@ -126,6 +129,7 @@ section .section-title {
     color: #007b5e;
     margin-bottom: 50px;
     text-transform: uppercase;
+    font-family: Aclonica; font-size: 40px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 16.5px; 
 }
 
 #team .card {
@@ -151,6 +155,16 @@ section .section-title {
     transform: rotateY(180deg);
     
 }
+.list h3  { font-family: Arimo;	
+		    font-size: 24px;
+		   font-style: normal; font-variant: normal; font-weight: 700;	
+		   line-height: 26.4px; 	
+		    text-align: center;
+   			 color: #007b5e;
+   			 margin-bottom: 50px;
+   			font-size: 35px 
+   			 }
+
 
 .mainflip {
     -webkit-transition: 1s;
@@ -237,6 +251,10 @@ section .section-title {
      background-color: rgb(90,56,37) !important;
      border-color: rgb(90,56,37) !important;
    }
+   .list{
+  background-color: buttonface; !important;
+  padding: 20px
+ }
 </style>
 </head>
 <body>
@@ -281,6 +299,7 @@ section .section-title {
 				<li><a href="/booksale/searchlist?cataCode=요리">요리</a></li>
 				<li><a href="/booksale/searchlist?cataCode=만화">만화</a></li>
 				<li><a href="/booksale/searchlist?cataCode=인문">인문</a></li>
+			    <li><a href="/booksale/searchlist?cataCode=수필">수필</a></li>
 			</ul>
 		</div>
 		
@@ -333,7 +352,7 @@ section .section-title {
                                     <p class="card-text">${dto.iwriter} | ${dto.publisher }</p>
                  					
                  					  <c:if test="${dto.percent!=0 }">
-                 					   <div class="price">${dto.discountedPrice}원             
+                 					   <div class="price"><A style="color: red;">${dto.discountedPrice}원</A>             
                    				       <span>${dto.price} 
               					       </div>
               					       </span>
@@ -395,8 +414,8 @@ section .section-title {
         <br><br>
 	   
                
-                    
-    <h3 class="h3" style="float:  ">책 목록 </h3>
+     <div class = "list">               
+    <h3 class="list h3">책 목록 </h3>
 
     <div class="row" id="sell">
     
@@ -433,7 +452,7 @@ section .section-title {
                       <h1 class="title"><a href="#"> 지은이: ${dto.iwriter }</a></h1>
                       <h1 class="title"><a href="#"> 출판사: ${dto.publisher }</a></h1>
                    <c:if test="${dto.percent!=0 }">
-                    <div class="price">${dto.discountedPrice}원             
+                     <div class="price"><A style="color: red;">${dto.discountedPrice}원</A> 
                         <span>${dto.price}</span>
                     </div>
                     </c:if>
@@ -449,24 +468,14 @@ section .section-title {
         </div>
         
         </c:forEach>
-
+		</div>
        </div>   
        
-       <div align="center">
-       	  <div class="container" align="right" >
-             <div  style="width: 100px; height: 100px">
-                            <select class="form-control search-slt" id="exampleFormControlSelect1">
-                               
-                                <option>인기순</option>
-                                <option>등록순</option>
-                                <option>조회순</option>
-                           
-                            </select>
-                        </div>
-         </div>
+       
+       
 	<div align="center">
 	
- 	 <ul class="pagination" style="position: relative; bottom:50px; left: 30%" >
+ 	 <ul class="pagination" style="position: relative; bottom:50px; left: 35%" >
     	<li class="page-item">
      	 <a class="page-link" href="/booksale/list?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
   		 <c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}" var="page">
@@ -485,7 +494,6 @@ section .section-title {
   	</ul>
     </div>
 	  
-</div>
        
        
 </div>

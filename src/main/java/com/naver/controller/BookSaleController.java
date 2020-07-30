@@ -295,9 +295,29 @@ public void insert() {
 			page = 1;
 		}
 		PageTO<ItemDTO> to = new PageTO<ItemDTO>(page);
+		List<ItemDTO> list = new ArrayList<ItemDTO>();
+		List<ItemDTO> best = new ArrayList<ItemDTO>();
+
+		list = bService.cateBest(cataCode); 
+				
+		
+		 if(list.size()>6) {
+		      System.out.println(list.get(1));   
+		      
+		      best.add(list.get(0));
+		      best.add(list.get(1));
+		      best.add(list.get(2));
+		      best.add(list.get(3));
+		      best.add(list.get(4));
+		      best.add(list.get(5));
+		      
+		            }
+			model.addAttribute("best", best);
+			
+		
 		
 		to = bService.searchlist(to, cataCode);
-		System.out.println(to.getAmount());
+		
 		//List<ItemDTO> list = bService.searchlist(cataCode);
 		model.addAttribute("to", to);
 		model.addAttribute("list", to.getList());

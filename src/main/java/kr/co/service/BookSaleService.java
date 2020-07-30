@@ -39,6 +39,8 @@ public interface BookSaleService {
 
 	void increasePcs(int ino);
 
+	List<ItemDTO> cateBest(String cataCode);
+
 	
 
 

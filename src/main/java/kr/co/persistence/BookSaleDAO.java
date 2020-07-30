@@ -41,4 +41,6 @@ public interface BookSaleDAO {
 
 	void increasePcs(int ino);
 
+	List<ItemDTO> cateBest(String cataCode);
+
 }

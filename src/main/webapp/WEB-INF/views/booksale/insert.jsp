@@ -67,6 +67,7 @@
                                 <option value="요리">요리</option>
                                 <option value="만화">만화</option>
                                 <option value="인문">인문</option>
+                                <option value="수필">수필</option>
 
                             </select>
 				</div>
@@ -92,8 +93,8 @@
 				
 				<div class="form-group">
 					<label for="content">프롤로그</label>
-					<textarea rows="5" name="prolog" id="prolog" class="form-control"></textarea>
-				</div>
+					<textarea rows="5" name="prolog" id="prolog" class="form-control"  maxlength="300"></textarea>
+			</div>
 			
 			
 		  <div class="form-group">

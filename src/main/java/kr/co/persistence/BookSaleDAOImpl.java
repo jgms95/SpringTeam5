@@ -192,7 +192,11 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 	public void increasePcs(int ino) {
 		session.update(NS+".increasePcs", ino);
 	}
-
+	@Override
+	public List<ItemDTO> cateBest(String cataCode) {
+	// TODO Auto-generated method stub
+	return session.selectList(NS+".cataBest", cataCode);
+}
 
 
 }
