@@ -46,10 +46,6 @@ public class MemberController {
 		MemberDTO dto = memberService.loginpost(login);
 		if(dto!=null) {
 			model.addAttribute("login",dto);
-			String path = (String) session.getAttribute("path");
-			if(path != null) {
-				return "redirect:" + path;
-			}
 			return "redirect:/";
 		}else {
 			return "redirect:/member/login";
@@ -92,7 +88,7 @@ public class MemberController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "/findId", produces="application/json;charset=utf8", method = RequestMethod.POST)
+	@RequestMapping(value = "/findId", produces="text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String findId(MemberDTO dto) {
 		MemberDTO result = memberService.findId(dto);
 		if(result==null) {
@@ -116,7 +112,7 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/findPw", produces="application/json;charset=utf8", method = RequestMethod.POST)
+	@RequestMapping(value = "/findPw", produces="text/plain; charset=UTF-8", method = RequestMethod.POST)
 	public String findPw(MemberDTO dto) {
 		MemberDTO result = memberService.findPw(dto);
 		if(result==null) {

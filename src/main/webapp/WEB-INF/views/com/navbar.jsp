@@ -17,7 +17,7 @@
 			</c:if>
 			<li class="nav-item active"><a class="nav-link" href="/booksale/list?id=${login.id}">판매 도서</a></li>
 			<li class="nav-item active"><a class="nav-link" href="/notice/noticelist/1?id=${login.id}">공지사항</a></li>
-			<li class="nav-item active"><a class="nav-link" href="#">Q&amp;A</a></li>
+			<li class="nav-item active"><a class="nav-link" href="/qna/allqnalist/1">Q&amp;A</a></li>
 			<li class="nav-item active"><a class="nav-link" href="#">이벤트</a></li>
 			<c:if test="${null ne login.id }">
             <li class="nav-item active"><a class="nav-link" href="/pickup/pickupList/${login.id}">장바구니</a></li>

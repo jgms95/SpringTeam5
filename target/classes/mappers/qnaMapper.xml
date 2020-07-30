@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="q.n.a">
+
+	<select id="getAmount" resultType="Integer">
+		<![CDATA[select count(qno) from qnaboard where category = #{category}]]>
+	</select>
+	
+	<select id="allqnalist" resultType="QnaDTO">
+		<![CDATA[select * from qnaboard where category = #{category} order by repRoot desc, repStep asc]]>
+	</select>
+	
+	<select id="inoqnalist" resultType="QnaDTO">
+		<![CDATA[select * from qnaboard where ino = #{ino} and category = #{category} order by repRoot desc, repStep asc]]>
+	</select>
+
+	<select id="getInoAmount" resultType="Integer">
+		<![CDATA[select count(qno) from qnaboard where category = #{category} and ino = #{ino}]]>
+	</select>
+	
+	
+</mapper>

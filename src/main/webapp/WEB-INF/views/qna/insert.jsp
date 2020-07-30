@@ -11,9 +11,6 @@
 <%@ include file="../com/head.jsp"%>
 
 <title>Spring Book</title>
-
-
-
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -43,11 +40,20 @@ function fn_addFile(){
 
 
 
-		<h1>공지사항 등록</h1>
+		<h1>Q&amp;A 등록</h1>
 
-		<form action="/notice/insert" method="post" class="was-validated" enctype="multipart/form-data">
+		<form action="#" method="post" class="was-validated" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="id">ID : </label> <input name="id" class="form-control" readonly value="${login.id}">
+			</div>
+			<div class="form-group">
+			<label for="category">카테고리 : </label> 
+				<select name="category" class="custom-select mb-3">
+   					 <option value="book">도서문의</option>
+    				 <option value="money">입금/결제문의</option>
+ 					 <option value="modify">변경/취소</option>
+ 					 <option value="modify">배송문의</option>
+  				</select>
 			</div>
 			<div class="form-group">
 				<label for="title">제목 : </label> <input type="text" class="form-control" placeholder="제목을 입력하세요." name="title" required>
@@ -57,26 +63,24 @@ function fn_addFile(){
 			내용 : <br>
 			<textarea style="width: 100%" placeholder="내용을 입력하세요." name="content" required></textarea>
 			<div class="valid-feedback">입력 완료</div>
-			<br>
+			<br><br>
 			첨부 파일: <button type="button" style="background-color: rgb(67,22,7); color: white;" class="btn btn-sm rounded-0" id="addFile">파일 추가</button>
 			<div id="files">
-			
-				<input type="file" id="customFile" name="uploadFile"><br>
-			
+				<input type="file" id="customFile" name="uploadFile"><br>		
 			</div>
 			
 			<br><br>
 			<button type="submit" class="btn btn-info rounded-0">작성완료</button>
-			<a class="btn btn-secondary rounded-0" href="/notice/noticelist/1?id=${login.id}">목록</a>
+			<a class="btn btn-secondary rounded-0" href="javascript:history.back();">목록</a>
 		</form>
 
 
 
 	</div>
 	
+
+
 <%@ include file="../com/footer.jsp"%>
-
-
 
 </body>
 </html>

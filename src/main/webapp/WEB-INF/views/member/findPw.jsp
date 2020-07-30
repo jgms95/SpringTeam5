@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -19,7 +18,7 @@
 		$(document)
 			.ready(function() {
 
-				$(".findId").on("click", function(event){
+				$(".findPw").on("click", function(event){
 							$.ajax({
 								type: 'post',
 								url: '/member/findPw',
@@ -31,6 +30,7 @@
 									email : $("#email").val()
 								},
 								success : function(result){
+									console.log(result);
 									 //return result;
 									 $('#myId').append('<div class="alert alert-success">'
 											 +'<button type="button" class="close" data-dismiss="alert">&times;</button>'
@@ -66,7 +66,7 @@
 			<label for="rrNum1">주민등록번호 앞자리수 :</label> <input type="text" maxlength="6" class="form-control" id="rrNum1" placeholder="앞자리수를 입력하세요" name="rrNum1" required>
 			<label for="email">이메일 :</label> <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요" name="email"	required>
 			<br>
-			<button type="button" class="findId btn btn-info">비밀번호 찾기</button>
+			<button type="button" class="findPw btn btn-info">비밀번호 찾기</button>
 			<a href="/member/login" class="btn btn-warning">로그인</a>
 		</div>
 		

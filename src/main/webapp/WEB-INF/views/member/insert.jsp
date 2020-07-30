@@ -170,6 +170,12 @@ color: white;
 				return false;
 			}
 
+			if($('#memberInfoYn:checked').val()=="N"){
+				  alert("개인정보취급방침에 동의하여 주시기 바랍니다.");
+                  $('#memberInfoYn').focus();
+                  return false;
+            }
+
 			var IdCheck = $("#IdCheck").val();
 			if (IdCheck == "N") {
 				alert("중복확인 버튼을 눌러주세요.");
@@ -181,6 +187,7 @@ color: white;
 						$("#email").focus();
 						return false;
 					}
+					
 				 if( chk > 0  ){
 					 	if($("#user_authNum").val() == authNum){
 		                return true;
@@ -321,6 +328,25 @@ color: white;
 						<br> <input type="text" id="userAddr3" name="userAddr3"
 							placeholder="참고항목"> <input type="text" id="userAddr2"
 							name="userAddr2" placeholder="상세주소"></td>
+					</tr>
+					<tr>
+						<th>정보제공에 동의<img
+							src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif"
+							class="" alt="필수" />
+							</th>
+						<td>
+						
+                        <div class="radio">
+                            <label>
+                            <input type="radio" id="memberInfoYn" name="memberInfoYn" value="Y" checked>동의합니다.
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" id="memberInfoYn" name="memberInfoYn" value="N">동의하지 않습니다.
+                            </label>
+                            </div>
+						</td>
 					</tr>
 
 

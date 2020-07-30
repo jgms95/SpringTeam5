@@ -59,10 +59,7 @@ $(document).ready(function(){
 
 
 function fn_addFile(){
-	var str = "<div class='custom-file mb-3'>"
-		+"<input type='file' class='custom-file-input' id='customFile' name='newFile'>"
-		+"<label class='custom-file-label' for='customFile'>Choose file</label>"
-		+"</div>";
+	var str = "<input type='file' id='customFile' name='newFile'><br>"
 		
 	$("#files").append(str);
 }
@@ -103,8 +100,7 @@ function fn_addFile(){
 			<c:forEach items="${filelist}" var="fileDto">
 			<div>
 				
-				${fileDto.o_name}
-				
+				<a style="color : rgb(23,6,0);" href = "/notice/fileDownload?file_num=${fileDto.file_num}">${fileDto.o_name}</a>
 				<a href="${fileDto.file_num}" class="deletefile">
 				<img src=https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/trash-fill.svg width="20" height="20" alt="삭제">
 				</a>
@@ -115,10 +111,7 @@ function fn_addFile(){
 			첨부 파일 추가:	<button type="button" class="btn btn-sm rounded-0" id="addFile">파일 추가</button>
 			<br><br>
 			<div id="files">
-			<div class="custom-file mb-3">
-				<input type="file" class="custom-file-input" id="customFile" name="newFile">
-				<label class="custom-file-label" for="customFile">Choose file</label>
-			</div>
+			<input type='file' id='customFile' name='newFile'><br>
 			</div>
 			<br><br>
 			<button type="submit" class="btn rounded-0" >작성완료</button>
