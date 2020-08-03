@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+
+import javax.inject.Inject;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.domain.NoticeDTO;
 import kr.co.domain.NoticeFilesDTO;
 import kr.co.domain.PageTO;
+import kr.co.service.BookSaleService;
 import kr.co.service.MemberService;
 import kr.co.service.NoticeService;
 
@@ -29,30 +32,37 @@ import kr.co.service.NoticeService;
 
 public class NoticeController {
 
-	@Autowired
-	private NoticeService nService;
+   @Inject
+   private BookSaleService bService;
+   @Autowired
+   private NoticeService nService;
 
-	@Autowired
-	private MemberService mService;
+   @Autowired
+   private MemberService mService;
 
-	@RequestMapping(value = "/noticelist/{curPage}", method = RequestMethod.GET)
-	public String noticelist(Model model, @PathVariable("curPage") String curPage, String id) {
-		int page = -1;
-		if (curPage != null) {
-			page = Integer.parseInt(curPage);
-		} else {
-			page = 1;
-		}
+   @RequestMapping(value = "/noticelist/{curPage}", method = RequestMethod.GET)
+   public String noticelist(Model model, @PathVariable("curPage") String curPage, String id) {
+      int page = -1;
+      if (curPage != null) {
+         page = Integer.parseInt(curPage);
+      } else {
+         page = 1;
+      }
+      //장바구니 개수      
+      int cart = bService.cart(id);
+      System.out.println(cart);
+      model.addAttribute("cart", cart);
+      //장바구니개수
 
-		PageTO<NoticeDTO> to = new PageTO<NoticeDTO>(page);
-		String authority = mService.findAuthority(id);
+      PageTO<NoticeDTO> to = new PageTO<NoticeDTO>(page);
+      String authority = mService.findAuthority(id);
 
-		to = nService.noticelist(to);
-		model.addAttribute("authority", authority);
-		model.addAttribute("to", to);
-		model.addAttribute("list", to.getList());
-		return "/notice/noticelist";
-	}
+      to = nService.noticelist(to);
+      model.addAttribute("authority", authority);
+      model.addAttribute("to", to);
+      model.addAttribute("list", to.getList());
+      return "/notice/noticelist";
+   }
 
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String insert(HttpSession session, String id) {
