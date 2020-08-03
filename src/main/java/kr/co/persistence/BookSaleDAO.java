@@ -43,4 +43,6 @@ public interface BookSaleDAO {
 
 	List<ItemDTO> cateBest(String cataCode);
 
+	int cart(String id);
+
 }

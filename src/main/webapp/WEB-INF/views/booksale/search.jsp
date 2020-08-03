@@ -11,7 +11,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-   
+	
 <%@ include file="../com/head.jsp"%>
 
 <title>Insert title here</title>
@@ -20,37 +20,37 @@
 
 h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 .categories {
-   text-align: center;
-   font-size: 28px;
-   color: black;
-   line-height: 1;
-   font-weight: 400;
+	text-align: center;
+	font-size: 28px;
+	color: black;
+	line-height: 1;
+	font-weight: 400;
 }
 
 
 .categories ul li {
-   display: inline-block;
-   margin: 0px 10px;
-   margin-bottom: 20px;
+	display: inline-block;
+	margin: 0px 10px;
+	margin-bottom: 20px;
 }
 
 .categories ul li a {
-   display: block;
-   font-size: 20px;
-   color: rgb(85,85,85);
-   padding: 0px 20px;
-   height: 38px;
-   line-height: 38px;
-   border: 1px solid rgb(229,229,229);
+	display: block;
+	font-size: 20px;
+	color: rgb(85,85,85);
+	padding: 0px 20px;
+	height: 38px;
+	line-height: 38px;
+	border: 1px solid rgb(229,229,229);
 }
 
 .categories ul li a:hover {
-   color: black;
-   border-color: rgb(17,17,17);
-   background-color: white;
+	color: black;
+	border-color: rgb(17,17,17);
+	background-color: white;
 }
 /********************* shopping Demo-1 **********************/
-.product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1}
+.product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1 }
 .product-grid .product-image{position:relative;transition:all .3s ease 0s}
 .product-grid .product-image a{display:block}
 .product-grid .product-image img{width:100%;height:auto}
@@ -73,12 +73,87 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 .product-grid .product-content{background-color:#fff;text-align:center;padding:12px 0;margin:0 auto;position:absolute;left:0;right:0;bottom:-27px;z-index:1;transition:all .3s}
 .product-grid:hover .product-content{bottom:0}
 .product-grid .title{font-size:13px;font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
+.product-grid .title1{font-size:18px;color:red; font:bold; font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
 .product-grid .title a{color:#828282}
 .product-grid .title a:hover,.product-grid:hover .title a{color:#ef5777}
 .product-grid .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
 .product-grid .price span{color:#999;font-size:13px;font-weight:400;text-decoration:line-through;margin-left:3px;display:inline-block}
 .product-grid .add-to-cart{color:#000;font-size:13px;font-weight:600}
-@media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
+
+@media only screen and (max-width:990px){.product-grid{margin-bottom:30px }
+}
+.product-gri .product-discount-label,.product-gri .product-new-label{color:#fff;background-color:#ef5777;font-size:12px;text-transform:uppercase;padding:2px 7px;display:block;position:absolute;top:10px;left:0}
+.product-gri .product-discount-label{background-color:#333;left:auto;right:0}
+.product-gri .product-image{position:relative;transition:all .3s ease 0s}
+.product-gri .product-image a{display:block}
+.product-gri .product-image img{width:100%;height:auto}
+.product-gri{font-family:Raleway,sans-serif;text-align:center;overflow:hidden;position:relative;}
+.product-gri .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
+.product-gri .price span{color:#999;font-size:13px;font-weight:400;text-decoration:line-through;margin-left:3px;display:inline-block}
+
+.product-gri .social{opacity:1;top:50%}
+.product-gri .social li{display:inline-block}
+.product-gri .social li a{color:#fgf;background-color:#333;font-size:20px;line-height:50px;text-align:center;height:50px;width:50px;margin:0 2px;display:block;position:relative;right:10px; transition:all .3s ease-in-out}
+
+.product-gri .social li a:after,.product-gri .social li a:before{content:attr(data-tip);color:#fff;background-color:#000;font-size:12px;letter-spacing:1px;line-height:20px;padding:1px 5px;white-space:nowrap;opacity:0;transform:translateX(-50%);position:absolute;left:30%;top:-30px}
+.product-gri .social li a:after{content:'';height:15px;width:15px;border-radius:0;transform:translateX(-50%) rotate(45deg);top:-20px;z-index:-1}
+.product-gri .social li a:after,.product-gri .social li a:before{opacity:1}
+
+
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+#team {
+    background: #eee !important;
+}
+
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #108d6f;
+    border-color: #108d6f;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007b5e;
+    border-color: #007b5e;
+}
+
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #007b5e;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    font-family: Aclonica; font-size: 40px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 16.5px; 
+}
+
+#team .card {
+    border: none;
+    background: #ffffff;
+}
+
+.image-flip:hover .backside,
+.image-flip.hover .backside {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    border-radius: .25rem;
+}
+
+.image-flip:hover .frontside,
+.image-flip.hover .frontside {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    
 }
 .list h3  { font-family: Arimo;	
 		    font-size: 24px;
@@ -87,22 +162,99 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 		    text-align: center;
    			 color: #007b5e;
    			 margin-bottom: 50px;
-   			font-size: 30px; 
+   			font-size: 35px 
    			 }
- .list{
-  background-color: buttonface; !important;
-  padding: 20px
- }
-  .page-link {
+
+
+.mainflip {
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -moz-transition: 1s;
+    -moz-transform: perspective(1000px);
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.frontside {
+    position: relative;
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    z-index: 2;
+    margin-bottom: 30px;
+}
+
+.backside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: red;
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    
+    
+}
+
+.frontside,
+.backside {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: 1s;
+    -moz-transform-style: preserve-3d;
+    -o-transition: 1s;
+    -o-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+}
+
+.frontside .card,
+.backside .card {
+    min-height: 312px;
+}
+
+.backside .card a {
+    font-size: 18px;
+    color: #007b5e !important;
+}
+
+.frontside .card .card-title,
+.backside .card .card-title {
+    color: #007b5e !important;
+}
+
+.frontside .card .card-body img {
+    width: 300px;
+    height: 350px;
+    
+}
+
+ .page-link {
      color: rgb(90,56,37);
    }
-
    
    .pagination>li.active>a {
      background-color: rgb(90,56,37) !important;
      border-color: rgb(90,56,37) !important;
    }
-
+   .list{
+  background-color: buttonface; !important;
+  padding: 20px
+ }
 </style>
 </head>
 <body>
@@ -140,16 +292,16 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 
   <div class="categories">
          <ul>
-            <li><a href="/booksale/searchlist?cataCode=시/에세이">시/에세이</a></li>
-            <li><a href="/booksale/searchlist?cataCode=경제/경영">경제/경영</a></li>
-            <li><a href="/booksale/searchlist?cataCode=자기계발">자기계발</a></li>
-            <li><a href="/booksale/searchlist?cataCode=컴퓨터/IT">컴퓨터/IT</a></li>
-            <li><a href="/booksale/searchlist?cataCode=소설">소설</a></li>
-            <li><a href="/booksale/searchlist?cataCode=참고서/문제집">참고서/문제집</a></li>
-            <li><a href="/booksale/searchlist?cataCode=요리">요리</a></li>
-            <li><a href="/booksale/searchlist?cataCode=만화">만화</a></li>
-            <li><a href="/booksale/searchlist?cataCode=인문">인문</a></li>
-            <li><a href="/booksale/searchlist?cataCode=수필">수필</a></li>
+				<li><a href="/booksale/searchlist?cataCode=시/에세이&id=${login.id }" >시/에세이</a></li>
+				<li><a href="/booksale/searchlist?cataCode=경제/경영&id=${login.id }">경제/경영</a></li>
+				<li><a href="/booksale/searchlist?cataCode=자기계발&id=${login.id }">자기계발</a></li>
+				<li><a href="/booksale/searchlist?cataCode=컴퓨터/IT&id=${login.id }">컴퓨터/IT</a></li>
+				<li><a href="/booksale/searchlist?cataCode=소설&id=${login.id }">소설</a></li>
+				<li><a href="/booksale/searchlist?cataCode=참고서/문제집&id=${login.id }">참고서/문제집</a></li>
+				<li><a href="/booksale/searchlist?cataCode=요리&id=${login.id }">요리</a></li>
+				<li><a href="/booksale/searchlist?cataCode=만화&id=${login.id }">만화</a></li>
+				<li><a href="/booksale/searchlist?cataCode=인문&id=${login.id }">인문</a></li>
+			    <li><a href="/booksale/searchlist?cataCode=수필&id=${login.id }">수필</a></li>
          </ul>
       </div>
      	<form  action="/booksale/search" method="get" style="float: right;">
@@ -204,7 +356,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
                 </div>
          
                 <div class="product-content">
-                    <h1 class="title"><a href="#">${dto.ititle }</a></h1>
+                    <h1 class="title1"><a href="#">${dto.ititle }</a></h1>
                       <h1 class="title"><a href="#"> 지은이: ${dto.iwriter }</a></h1>
                         <h1 class="title"><a href="#"> 출판사: ${dto.publisher }</a></h1>
                    <c:if test="${dto.percent!=0 }">
@@ -237,18 +389,18 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
    
      <ul class="pagination" style="position: relative; bottom:50px; left: 40%" >
        <li class="page-item">
-         <a class="page-link" href="/booksale/search?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }&keyword=${keyword}&searchType=${searchType }" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
+         <a class="page-link" href="/booksale/search?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }&keyword=${keyword}&searchType=${searchType }&id=${login.id}" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
          <c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}" var="page">
         <c:if test="${to.curPage==page }">
-          <li class="page-item active"><a class="page-link" href="/booksale/search?curPage=${page}&keyword=${keyword}&searchType=${searchType }">${page }</a></li>
+          <li class="page-item active"><a class="page-link" href="/booksale/search?curPage=${page}&keyword=${keyword}&searchType=${searchType }&id=${login.id}">${page }</a></li>
          </c:if>
          <c:if test="${to.curPage!=page }">
-        <li class="page-item"><a class="page-link" href="/booksale/search?curPage=${page}&keyword=${keyword}&searchType=${searchType }">${page }</a></li>
+        <li class="page-item"><a class="page-link" href="/booksale/search?curPage=${page}&keyword=${keyword}&searchType=${searchType }&id=${login.id}">${page }</a></li>
          </c:if>  
         </li>
         </c:forEach>
          <li>
-          <a class="page-link" href="/booksale/search?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }&keyword=${keyword}&searchType=${searchType }" aria-label="Next">
+          <a class="page-link" href="/booksale/search?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }&keyword=${keyword}&searchType=${searchType }&id=${login.id}" aria-label="Next">
               &raquo;</a>
           </li>
      </ul>

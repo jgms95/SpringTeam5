@@ -40,7 +40,7 @@
 				
 				<div class="form-group">
 					<label for="id">작성자</label>
-					<input name="id" id="id" class="form-control">
+					<input name="id" id="id" class="form-control" value="${id }" readonly="readonly">
 				</div>
 				
 				<div class="form-group">
@@ -85,6 +85,7 @@
 					<label for="writer">할인율</label>
 					<input type="number" name="percent" id="discount" class="form-control">
 				</div>
+			
 				
 				<div class="form-group">
 					<label for="content">내용</label>

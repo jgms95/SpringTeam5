@@ -4,7 +4,7 @@
 <style>
 .img {
 background-image: url("http://www.clearlingo.co.nz/uploads/7/0/2/8/70281257/published/jonas-jacobsson-545909-unsplash.jpg?1529727236"); 
-margin-bottom:0;
+margin-bottom:0px;
 background-size: 100% 100%;
 }
 

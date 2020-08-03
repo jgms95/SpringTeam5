@@ -8,6 +8,8 @@
 <head>
 
 <meta charset="UTF-8">
+
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
@@ -101,6 +103,9 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 
 
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+body{
+    background: -webkit-linear-gradient(left, white, gray);
+}
 #team {
     background: #eee !important;
 }
@@ -261,10 +266,9 @@ section .section-title {
 
 
 
-
-
 	<%@ include file="../com/top.jsp"%>
 	<%@ include file="../com/navbar.jsp"%>
+
 
     
  
@@ -287,19 +291,19 @@ section .section-title {
 
 
 <div class="container center">
-
+	
   <div class="categories" >
 			<ul>
-				<li><a href="/booksale/searchlist?cataCode=시/에세이" >시/에세이</a></li>
-				<li><a href="/booksale/searchlist?cataCode=경제/경영">경제/경영</a></li>
-				<li><a href="/booksale/searchlist?cataCode=자기계발">자기계발</a></li>
-				<li><a href="/booksale/searchlist?cataCode=컴퓨터/IT">컴퓨터/IT</a></li>
-				<li><a href="/booksale/searchlist?cataCode=소설">소설</a></li>
-				<li><a href="/booksale/searchlist?cataCode=참고서/문제집">참고서/문제집</a></li>
-				<li><a href="/booksale/searchlist?cataCode=요리">요리</a></li>
-				<li><a href="/booksale/searchlist?cataCode=만화">만화</a></li>
-				<li><a href="/booksale/searchlist?cataCode=인문">인문</a></li>
-			    <li><a href="/booksale/searchlist?cataCode=수필">수필</a></li>
+				<li><a href="/booksale/searchlist?cataCode=시/에세이&id=${login.id }" >시/에세이</a></li>
+				<li><a href="/booksale/searchlist?cataCode=경제/경영&id=${login.id }">경제/경영</a></li>
+				<li><a href="/booksale/searchlist?cataCode=자기계발&id=${login.id }">자기계발</a></li>
+				<li><a href="/booksale/searchlist?cataCode=컴퓨터/IT&id=${login.id }">컴퓨터/IT</a></li>
+				<li><a href="/booksale/searchlist?cataCode=소설&id=${login.id }">소설</a></li>
+				<li><a href="/booksale/searchlist?cataCode=참고서/문제집&id=${login.id }">참고서/문제집</a></li>
+				<li><a href="/booksale/searchlist?cataCode=요리&id=${login.id }">요리</a></li>
+				<li><a href="/booksale/searchlist?cataCode=만화&id=${login.id }">만화</a></li>
+				<li><a href="/booksale/searchlist?cataCode=인문&id=${login.id }">인문</a></li>
+			    <li><a href="/booksale/searchlist?cataCode=수필&id=${login.id }">수필</a></li>
 			</ul>
 		</div>
 		
@@ -312,6 +316,7 @@ section .section-title {
 							<option value="iwriter">지은이</option>
 							<option >기타 추가할만한 내용</option>
 						</select>
+					<input type="hidden" value="${login.id}" name="id">	
 					</span>					
 					<input class="form-contro search-slt" name="keyword" style="width: 200px" placeholder="검색">
 					<span class="input-group-btn">
@@ -321,7 +326,7 @@ section .section-title {
 			</form>
 			 <br><br><br>
         	  <button type="button" class="btn btn-info btn-lg" style="float: right;"
-               onclick="location.href='/booksale/insert'">상품등록</button>
+               onclick="location.href='/booksale/insert/${login.id}'">상품등록</button>
                	 <br><br><br>
               <hr>
 
@@ -438,7 +443,7 @@ section .section-title {
                    		<li><a href="/booksale/delete/${dto.ino }"  data-tip="remove"><i class="fas fa-remove" style="color:red;" ></i></a></li>
                  		<li><a href="/booksale/update/${dto.ino }" data-tip="update"><i class="fas fa-file" style="color:green;" ></i></a></li>
                    		<br><br>
-                   		<li><a href="/booksale/like/${dto.ino }" data-tip="좋아요"><i class="fas fa-thumbs-up" style="color:yellow;" ></i></a></li>
+                   		<li><a href="/booksale/like?ino=${dto.ino}&id=${login.id}" data-tip="좋아요"><i class="fas fa-thumbs-up" style="color:yellow;" ></i></a></li>
                     </ul>
                		<c:if test="${dto.percent!= 0 }">
                     <span class="product-new-label">Sale </span>
@@ -448,7 +453,7 @@ section .section-title {
                 </div>
          
                 <div class="product-content">
-                    <h1 class="title"><a href="#">${dto.ititle }</a></h1>
+                     <h1 class="title1"><a href="#" >${dto.ititle }</a></h1>
                       <h1 class="title"><a href="#"> 지은이: ${dto.iwriter }</a></h1>
                       <h1 class="title"><a href="#"> 출판사: ${dto.publisher }</a></h1>
                    <c:if test="${dto.percent!=0 }">
@@ -477,18 +482,18 @@ section .section-title {
 	
  	 <ul class="pagination" style="position: relative; bottom:50px; left: 35%" >
     	<li class="page-item">
-     	 <a class="page-link" href="/booksale/list?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
+     	 <a class="page-link" href="/booksale/list?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }&id=${login.id}" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
   		 <c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}" var="page">
     	 <c:if test="${to.curPage==page }">
-   		 <li class="page-item active"><a class="page-link" href="/booksale/list?curPage=${page}">${page }</a></li>
+   		 <li class="page-item active"><a class="page-link" href="/booksale/list?curPage=${page}&id=${login.id}">${page }</a></li>
   		 </c:if>
   		 <c:if test="${to.curPage!=page }">
-    	 <li class="page-item"><a class="page-link" href="/booksale/list?curPage=${page}">${page }</a></li>
+    	 <li class="page-item"><a class="page-link" href="/booksale/list?curPage=${page}&id=${login.id}">${page }</a></li>
   		 </c:if>  
     	 </li>
     	 </c:forEach>
      	 <li>
-      	 <a class="page-link" href="/booksale/list?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }" aria-label="Next">
+      	 <a class="page-link" href="/booksale/list?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }&id=${login.id}" aria-label="Next">
         		&raquo;</a>
    		 </li>
   	</ul>
@@ -509,14 +514,16 @@ section .section-title {
 <script type="text/javascript">
 
 
-$(".add-to-cart").click(function(){
-	/* var num = $(this).siblings('input')[0].value */
+
+
+	$(".pickupInsert").click(function(){
+	var confirm_val = confirm("장바구니에 담겼습니다 장바구니로 이동하시겠습니까?");
 	var ino = $(this).attr("data-ino");
 	var pno = 1;
 	var pcs = $(this).attr("data-pcs");
 	var price = $(this).attr("data-price");
 	var id = $(this).attr("data-id");
-	var filename = '';
+	var filename = $(this).attr("data-filename");
 	var ititle = $(this).attr("data-ititle");
 	var data = {
 	  ino : ino,
@@ -527,50 +534,19 @@ $(".add-to-cart").click(function(){
 	  filename : filename,
 	  ititle : ititle
 	  };
-		
+	   
 	$.ajax({
-			url : "/booksale/pickupInsert",
-			type : "POST",
-			data : data,
-			success : function(result){
-				location.assign("/pickup/pickupList/${login.id}");
-			},
-			
+	      url : "/booksale/pickupInsert",
+	      type : "POST",
+	      data : data,
+	      success : function(result){
+	         if(confirm_val){
+	         location.assign("/pickup/pickupList/${login.id}");
+	         }
+	      }
+	      
 	   });
 	});
-
-
-$(".pickupInsert").click(function(){
-var confirm_val = confirm("장바구니에 담겼습니다 장바구니로 이동하시겠습니까?");
-var ino = $(this).attr("data-ino");
-var pno = 1;
-var pcs = $(this).attr("data-pcs");
-var price = $(this).attr("data-price");
-var id = $(this).attr("data-id");
-var filename = $(this).attr("data-filename");
-var ititle = $(this).attr("data-ititle");
-var data = {
-  ino : ino,
-  pno : pno,
-  pcs : pcs,
-  price : price,
-  id : id,
-  filename : filename,
-  ititle : ititle
-  };
-	
-$.ajax({
-		url : "/booksale/pickupInsert",
-		type : "POST",
-		data : data,
-		success : function(result){
-			if(confirm_val){
-			location.assign("/pickup/pickupList/${login.id}");
-			}
-		},
-		
-   });
-});
 
 </script>
 

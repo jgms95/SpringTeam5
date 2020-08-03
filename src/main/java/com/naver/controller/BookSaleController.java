@@ -32,8 +32,12 @@ public class BookSaleController {
 	
 	
 	
-@RequestMapping(value = "/insert", method = RequestMethod.GET)
-public void insert() {
+@RequestMapping(value = "/insert/{id}", method = RequestMethod.GET)
+public String insert(@PathVariable("id") String id, Model model) {
+	
+	model.addAttribute("id", id);
+	return "/booksale/insert";
+	
 }
 	
 	
@@ -64,7 +68,7 @@ public void insert() {
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insert( MultipartHttpServletRequest multi) {
 	    
-    
+		System.out.println("insert 시작");
 		String root = multi.getSession().getServletContext().getRealPath("/");
 
 		String path = root+"resources/img/";
@@ -136,7 +140,7 @@ public void insert() {
 		
 		
 	
-		return "redirect:/booksale/list";
+		return "redirect:/booksale/list?id="+id;
 	}
 	
 	@RequestMapping(value="/delete/{ino}", method = RequestMethod.GET)
@@ -149,8 +153,8 @@ public void insert() {
 	
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void list(Model model, String curPage) {
-
+	public void list(Model model, String curPage, String id) {
+	
 		int page = -1;
 		if (curPage != null) {
 //			└페이지방문시 null인 경우가 많으므로 (속도개선)
@@ -159,19 +163,26 @@ public void insert() {
 			page = 1;
 		}
 		
+		
 		PickupDTO pickup = new PickupDTO();
 		PageTO<ItemDTO> to = new PageTO<ItemDTO>(page);
 		List<ItemDTO> list = new ArrayList<ItemDTO>();
 		List<ItemDTO> best = new ArrayList<ItemDTO>();
 //		List<BoardVO> list = bService.list();		
 		to = bService.list(to);		
-		
+	
 		
 		list = bService.best(); 
-				
+		//장바구니 개수
 		
+	
+		int cart = bService.cart(id);
+		
+		
+		model.addAttribute("cart", cart);
+		//장바구니개수
 		 if(list.size()>6) {
-		      System.out.println(list.get(1));   
+		        
 		      
 		      best.add(list.get(0));
 		      best.add(list.get(1));
@@ -181,6 +192,7 @@ public void insert() {
 		      best.add(list.get(5));
 		      
 		            }
+	
 			model.addAttribute("best", best);
 			
 			
@@ -220,7 +232,7 @@ public void insert() {
 		if(sino!=null) {
 			ino = Integer.parseInt(sino);
 		}
-		
+		String id = multi.getParameter("id");
 	    String ititle = multi.getParameter("ititle");
 	    String iwriter = multi.getParameter("iwriter");
 	    String publishDay = multi.getParameter("publishDay");
@@ -250,7 +262,7 @@ public void insert() {
 	    }
 	    int a = price;
 	    int discountedPrice = (a*(100-percent))/100; 
-	    System.out.println(discountedPrice + "dis업데이트");
+	    
 	
 		File dir = new File(path);
 		if(!dir.isDirectory()){
@@ -268,7 +280,8 @@ public void insert() {
 			newFileName = System.currentTimeMillis()+"."
 					+fileName.substring(fileName.lastIndexOf(".")+1);
 			dto = new ItemDTO(ino, ititle, iwriter, publishDay, publisher, cateCode, newFileName, content, price, 0, null, percent, discountedPrice, stock, null, prolog);
-					System.out.println(dto);
+				
+		
 			try {
 				mFile.transferTo(new File(path+newFileName));
 			} catch (Exception e) {
@@ -281,12 +294,12 @@ public void insert() {
 		
 		
 	
-		return "redirect:/booksale/list";
+		return "redirect:/booksale/list?id="+id;
 	}
 	@RequestMapping(value = "/searchlist")
-	public void searchlist(Model model, String cataCode, String curPage) {
+	public void searchlist(Model model, String cataCode, String curPage, String id) {
 		
-		System.out.println(cataCode);
+		
 		int page = -1;
 		if (curPage != null) {
 
@@ -299,10 +312,14 @@ public void insert() {
 		List<ItemDTO> best = new ArrayList<ItemDTO>();
 
 		list = bService.cateBest(cataCode); 
-				
+		//장바구니 개수		
+		int cart = bService.cart(id);
+		
+		model.addAttribute("cart", cart);
+		//장바구니개수		
 		
 		 if(list.size()>6) {
-		      System.out.println(list.get(1));   
+		       
 		      
 		      best.add(list.get(0));
 		      best.add(list.get(1));
@@ -314,8 +331,7 @@ public void insert() {
 		            }
 			model.addAttribute("best", best);
 			
-		
-		
+	
 		to = bService.searchlist(to, cataCode);
 		
 		//List<ItemDTO> list = bService.searchlist(cataCode);
@@ -323,12 +339,13 @@ public void insert() {
 		model.addAttribute("list", to.getList());
 		model.addAttribute("cataCode", cataCode);
 		
-		
+	
 	}
 	@RequestMapping(value = "/search")
-	   public void search(Model model, String searchType, String keyword, String curPage) {
-	      
-	      System.out.println(searchType  + " : " + keyword);
+	   public void search(Model model, String searchType, String keyword, String curPage, String id) {
+			System.out.println(id);
+	
+
 	  	int page = -1;
 		if (curPage != null) {
 
@@ -341,10 +358,18 @@ public void insert() {
 	      if(searchType.equals("all")) {
 	  
 	         to = bService.searchAll(keyword, to);
+	     	//장바구니 개수
+				
+	         System.out.println("시작");
 	         
-	      	 System.out.println(to.getAmount());
-	    	 System.out.println(to.getStartNum());
-	    	 System.out.println(to.getStopPageNum());
+				int cart = bService.cart(id);
+				System.out.println(cart+"개");
+				
+				model.addAttribute("cart", cart);
+			
+				//장바구니개수
+	    
+	     	System.out.println(cart+"개");
 	    	 model.addAttribute("to", to);
 	         model.addAttribute("list", to.getList());
 	         model.addAttribute("searchType", searchType);
@@ -353,11 +378,17 @@ public void insert() {
 	      }
 	      
 	      else if (searchType.equals("ititle") ||searchType.equals("iwriter")) {
-	    	  System.out.println(searchType +"ititle 로 검색");
+	    	 
 			to = bService.searchTitle(keyword, to, searchType);
-			System.out.println(to.getAmount());
-	    	 System.out.println(to.getStartNum());
-	    	 System.out.println(to.getStopPageNum());
+			//장바구니 개수
+			
+			
+			int cart = bService.cart(id);
+			System.out.println(cart+"개");
+			
+			model.addAttribute("cart", cart);
+		
+			//장바구니개수
 	    	 model.addAttribute("to", to);
 	         model.addAttribute("list", to.getList());
 	         model.addAttribute("searchType", searchType);
@@ -370,21 +401,28 @@ public void insert() {
 	      
 	      
 	     }
-	@RequestMapping(value = "/like/{ino}", method = RequestMethod.GET)
-	public String like(@PathVariable("ino") int ino, Model model) {
+	@RequestMapping(value = "/like", method = RequestMethod.GET)
+	public String like(int ino, String id, Model model) {
+		System.out.println(ino + " ino ??");
 		bService.increaseLike(ino);
 		System.out.println(ino);
-		return "redirect:/booksale/list";
+		return "redirect:/booksale/list?id="+id;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/pickupInsert", method = RequestMethod.POST)
 	public void pickupInsert(PickupDTO pickupDTO, int ino) {
+		
 		int count = bService.countOfIno(ino);
+		System.out.println(pickupDTO);
 		if(count == 0) {
 			bService.pickupInsert(pickupDTO);
 		}
 		bService.increasePcs(ino);
+	}
+	@RequestMapping(value = "/sidebar", method = RequestMethod.GET)
+	public void sidebar() {
+		
 	}
 	
 }

@@ -53,7 +53,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 		}else {
 			file_num = 1 ;
 		}
-		HashMap<String, Object> fileUpload = new HashMap<>();
+		HashMap<String, Object> fileUpload = new HashMap<String, Object>();
 		fileUpload.put("originalfileName", originalfileName);
 		fileUpload.put("saveFileName", saveFileName);
 		fileUpload.put("fileSize", fileSize);

@@ -196,6 +196,11 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 	public List<ItemDTO> cateBest(String cataCode) {
 	// TODO Auto-generated method stub
 	return session.selectList(NS+".cataBest", cataCode);
+}	
+	@Override
+	public int cart(String id) {
+	// TODO Auto-generated method stub
+	return session.selectOne(NS+".cart", id);
 }
 
 

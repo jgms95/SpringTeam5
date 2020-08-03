@@ -79,6 +79,7 @@ h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
 .product-grid:hover .product-content{bottom:0}
 .product-grid .title{font-size:13px;font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
 .product-grid .title a{color:#828282}
+.product-grid .title1{font-size:18px;color:red; font:bold; font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
 .product-grid .title a:hover,.product-grid:hover .title a{color:#ef5777}
 .product-grid .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
 .product-grid .price span{color:#999;font-size:13px;font-weight:400;text-decoration:line-through;margin-left:3px;display:inline-block}
@@ -292,16 +293,16 @@ section .section-title {
 
   <div class="categories" >
 			<ul>
-				<li><a ${cataCode=='시/에세이'?'class="current"':''} href="/booksale/searchlist?cataCode=시/에세이" >시/에세이</a></li>
-				<li><a ${cataCode=='경제/경영'?'class="current"':''} href="/booksale/searchlist?cataCode=경제/경영">경제/경영</a></li>
-				<li><a ${cataCode=='자기계발'?'class="current"':''} href="/booksale/searchlist?cataCode=자기계발">자기계발</a></li>
-				<li><a ${cataCode=='컴퓨터/IT'?'class="current"':''} href="/booksale/searchlist?cataCode=컴퓨터/IT">컴퓨터/IT</a></li>
-				<li><a ${cataCode=='소설'?'class="current"':''} href="/booksale/searchlist?cataCode=소설">소설</a></li>
-				<li><a ${cataCode=='참고서/문제집'?'class="current"':''} href="/booksale/searchlist?cataCode=참고서/문제집">참고서/문제집</a></li>
-				<li><a ${cataCode=='요리'?'class="current"':''} href="/booksale/searchlist?cataCode=요리">요리</a></li>
-				<li><a ${cataCode=='만화'?'class="current"':''} href="/booksale/searchlist?cataCode=만화">만화</a></li>
-				<li><a ${cataCode=='인문'?'class="current"':''} href="/booksale/searchlist?cataCode=인문">인문</a></li>
-				<li><a ${cataCode=='수필'?'class="current"':''} href="/booksale/searchlist?cataCode=수필">수필</a></li>
+				<li><a ${cataCode=='시/에세이'?'class="current"':''} href="/booksale/searchlist?cataCode=시/에세이&id=${login.id }" >시/에세이</a></li>
+				<li><a ${cataCode=='경제/경영'?'class="current"':''} href="/booksale/searchlist?cataCode=경제/경영&id=${login.id }">경제/경영</a></li>
+				<li><a ${cataCode=='자기계발'?'class="current"':''} href="/booksale/searchlist?cataCode=자기계발&id=${login.id }">자기계발</a></li>
+				<li><a ${cataCode=='컴퓨터/IT'?'class="current"':''} href="/booksale/searchlist?cataCode=컴퓨터/IT&id=${login.id }">컴퓨터/IT</a></li>
+				<li><a ${cataCode=='소설'?'class="current"':''} href="/booksale/searchlist?cataCode=소설&id=${login.id }">소설</a></li>
+				<li><a ${cataCode=='참고서/문제집'?'class="current"':''} href="/booksale/searchlist?cataCode=참고서/문제집&id=${login.id }">참고서/문제집</a></li>
+				<li><a ${cataCode=='요리'?'class="current"':''} href="/booksale/searchlist?cataCode=요리&id=${login.id }">요리</a></li>
+				<li><a ${cataCode=='만화'?'class="current"':''} href="/booksale/searchlist?cataCode=만화&id=${login.id }">만화</a></li>
+				<li><a ${cataCode=='인문'?'class="current"':''} href="/booksale/searchlist?cataCode=인문&id=${login.id }">인문</a></li>
+				<li><a ${cataCode=='수필'?'class="current"':''} href="/booksale/searchlist?cataCode=수필&id=${login.id }">수필</a></li>
 			</ul>
 		</div>
 		
@@ -314,7 +315,9 @@ section .section-title {
 							<option value="iwriter">지은이</option>
 							<option >기타 추가할만한 내용</option>
 						</select>
-					</span>					
+					
+					</span>		
+						<input type="hidden" value="${login.id}" name="id">			
 					<input class="form-contro search-slt" name="keyword" style="width: 200px" placeholder="검색">
 					<span class="input-group-btn">
 						<button class="btn btn-danger rounded-0">검색</button>
@@ -440,7 +443,7 @@ section .section-title {
                 </div>
          
                 <div class="product-content">
-                    <h1 class="title"><a href="#">${dto.ititle }</a></h1>
+                    <h1 class="title1"><a href="#">${dto.ititle }</a></h1>
                       <h1 class="title"><a href="#"> 지은이: ${dto.iwriter }</a></h1>
                    	  <h1 class="title"><a href="#"> 출판사: ${dto.publisher }</a></h1>
                    <c:if test="${dto.percent!=0 }">
@@ -473,18 +476,18 @@ section .section-title {
 	
  	 <ul class="pagination" style="position: relative; bottom:50px; left: 45%" >
     	<li class="page-item">
-     	 <a class="page-link" href="/booksale/searchlist?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }&cataCode=${cataCode}" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
+     	 <a class="page-link" href="/booksale/searchlist?curPage=${to.curPage > 1 ? to.curPage-1 : 1 }&cataCode=${cataCode}&id=${login.id}" aria-label="Previous" tabindex="-1" ><span aria-hidden="true">&laquo;</span>
   		 <c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}" var="page">
     	 <c:if test="${to.curPage==page }">
-   		 <li class="page-item active"><a class="page-link" href="/booksale/searchlist?curPage=${page}&cataCode=${cataCode}">${page }</a></li>
+   		 <li class="page-item active"><a class="page-link" href="/booksale/searchlist?curPage=${page}&cataCode=${cataCode}&id=${login.id}">${page }</a></li>
   		 </c:if>
   		 <c:if test="${to.curPage!=page }">
-    	 <li class="page-item"><a class="page-link" href="/booksale/searchlist?curPage=${page}&cataCode=${cataCode}">${page }</a></li>
+    	 <li class="page-item"><a class="page-link" href="/booksale/searchlist?curPage=${page}&cataCode=${cataCode}&id=${login.id}">${page }</a></li>
   		 </c:if>  
     	 </li>
     	 </c:forEach>
      	 <li>
-      	 <a class="page-link" href="/booksale/searchlist?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }&cataCode=${cataCode}" aria-label="Next">
+      	 <a class="page-link" href="/booksale/searchlist?curPage=${to.curPage < to.totalPage ? to.curPage+1 : to.curPage }&cataCode=${cataCode}&id=${login.id}" aria-label="Next">
         		&raquo;</a>
    		 </li>
   	</ul>

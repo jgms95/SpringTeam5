@@ -41,6 +41,8 @@ public interface BookSaleService {
 
 	List<ItemDTO> cateBest(String cataCode);
 
+	int cart(String id);
+
 	
 
 

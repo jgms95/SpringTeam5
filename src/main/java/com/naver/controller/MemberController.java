@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import kr.co.domain.LoginDTO;
 import kr.co.domain.MemberDTO;
+import kr.co.service.BookSaleService;
 import kr.co.service.MemberService;
 
 @Controller
@@ -25,7 +26,8 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-	
+	@Autowired
+	private BookSaleService bService;
 	@Autowired
 	private MailSender mailSender;
 	 
@@ -181,7 +183,23 @@ public class MemberController {
 	}
 	
 
+	@RequestMapping(value = "/memberInfo")
+	public void memberInfo(String id, Model model ) {
+		//장바구니 개수
+		
+		
+		int cart = bService.cart(id);
+		
+		
+		model.addAttribute("cart", cart);
 	
+		//장바구니개수
+	
+		MemberDTO dto = memberService.readId(id);
+		
+		model.addAttribute("dto", dto);
+		
+	}
 	
 
 	

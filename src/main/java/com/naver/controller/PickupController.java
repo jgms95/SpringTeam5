@@ -14,19 +14,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.domain.PickupDTO;
+import kr.co.service.BookSaleService;
 import kr.co.service.PickupService;
 
 @Controller
 @RequestMapping("pickup")
 public class PickupController {
-
+	
 	@Inject
 	private PickupService pickupService;
-
+	@Inject
+	private BookSaleService bService;
 	/* 장바구니목록 */
 	@RequestMapping(value = "/pickupList/{id}", method = RequestMethod.GET)
 	public String pickupList(Model model, @PathVariable("id") String id) {
-
+		//장바구니 개수		
+		int cart = bService.cart(id);
+		System.out.println(cart);
+		model.addAttribute("cart", cart);
+		//장바구니개수		
 		List<PickupDTO> pickupList = pickupService.pickupList(id);
 
 		model.addAttribute("pickupList", pickupList);

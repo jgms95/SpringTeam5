@@ -93,5 +93,9 @@ public class BookSaleServiceImpl implements BookSaleService {
 	public List<ItemDTO> cateBest(String cataCode) {
 		// TODO Auto-generated method stub
 		return tDAO.cateBest(cataCode);
+	}@Override
+	public int cart(String id) {
+		// TODO Auto-generated method stub
+		return tDAO.cart(id);
 	}
 }
