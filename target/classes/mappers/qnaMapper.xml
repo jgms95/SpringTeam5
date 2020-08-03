@@ -20,5 +20,56 @@
 		<![CDATA[select count(qno) from qnaboard where category = #{category} and ino = #{ino}]]>
 	</select>
 	
+	<select id="findBook" resultType="Integer">
+		<![CDATA[select count(*) from item where ititle = #{ititle}]]>
+	</select>
+	
+	<select id="getFile_num" resultType="Integer">
+		<![CDATA[select max(file_num) from qna_file_table]]>
+	</select>
+	
+	<insert id="uploadfiles">
+		<![CDATA[insert into qna_file_table (file_num, o_name, file_name, filepath, qno) values (#{file_num}, #{o_name}, #{file_name}, #{filepath}, #{qno})]]>
+	</insert>
+	
+	<select id="getQno" resultType="Integer">
+		<![CDATA[select max(qno) from qnaboard]]>
+	</select>
+	
+	
+	<insert id="insert">
+		<![CDATA[insert into qnaboard (qno,ino,ititle,filename,id,title,content,repRoot,category)
+		values (#{qno},#{ino},#{ititle},#{filename},#{id},#{title},#{content},#{repRoot},#{category})]]>
+	</insert>
+	
+	<select id="getInfos" resultType="QnaDTO">
+		<![CDATA[select * from item where ititle=#{ititle}]]>
+	</select>
+	
+	<update id="incresereadcnt">
+		<![CDATA[update qnaboard set readcnt = readcnt + 1 where qno = #{qno}]]>
+	</update>
+	
+	<select id="read" resultType="QnaDTO">
+		<![CDATA[select * from qnaboard where qno = #{qno}]]>
+	</select>
+	
+	<select id="getFiles" resultType="QnaFileDTO">
+	<![CDATA[select * from qna_file_table where qno = #{qno}]]>
+	</select>
+	
+	<select id="fileInfo" resultType="QnaFileDTO">
+	<![CDATA[select * from qna_file_table where file_num = #{file_num}]]>
+	</select>
+	
+	<update id="updateRepSteps">
+		<![CDATA[update qnaboard set repStep = repStep + 1 where repRoot = #{repRoot} and repStep > #{repStep}]]>
+	</update>
+	
+	<insert id="reply">
+		<![CDATA[insert into qnaboard (qno,ino,ititle,filename,id,title,content,repRoot,category,repStep,repIndent)
+		values (#{qno},#{ino},#{ititle},#{filename},#{id},#{title},#{content},#{repRoot},#{category},#{repStep},#{repIndent})]]>
+	</insert>
+	
 	
 </mapper>

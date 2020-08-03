@@ -285,7 +285,7 @@ public class ItemDTO implements Serializable{
 		return "ItemDTO [ino=" + ino + ", ititle=" + ititle + ", iwriter=" + iwriter + ", publishDay=" + publishDay
 				+ ", publisher=" + publisher + ", cataCode=" + cataCode + ", sfilename=" + sfilename + ", content="
 				+ content + ", price=" + price + ", readcnt=" + readcnt + ", writeday=" + writeday + ", percent="
-				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock + "ÁÁ¾Æ¿ä"+like1+"]";
+				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock + "ï¿½ï¿½ï¿½Æ¿ï¿½"+like1+"]";
 	}
 
 

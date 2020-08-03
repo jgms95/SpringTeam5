@@ -86,7 +86,7 @@
 		
 		 <h1 style="color: rgb(23,6,0);" class="far fa-comments" >Q&amp;A</h1>
 		<p>
-			Q&amp;A 게시판입니다. 궁금하신 사항은 '<strong>질문하기</strong>'로 문의해주세요.
+			Q&amp;A 게시판입니다. 궁금하신 사항은 '<strong>판매도서</strong>' 상세보기에서 '<strong>질문하기</strong>'로 문의해주세요.
 		</p>
 		
 		<div class="categories">
@@ -120,10 +120,15 @@
 							<td>
 							<c:choose>
 							<c:when test="${qna.repStep > 0}">
-							<a href="#" style="color: rgb(51,19,2);"><img alt="Re" src="/resources/img/reply_img.gif"> ${qna.title}</a>
+							<c:forEach begin="1" end="${qna.repIndent}">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+							<a href="/qna/read/${qna.qno}?id=${login.id}&ino=${ino==null?'all':ino}" style="color: rgb(51,19,2);">
+							Re: <strong>${qna.title}</strong>
+							</a>
 							</c:when>
 							<c:otherwise>
-							<a href="#" style="color: rgb(51,19,2);">${qna.title}</a>
+							<a href="/qna/read/${qna.qno}?id=${login.id}&ino=${ino==null?'all':ino}" style="color: rgb(51,19,2);" style="color: rgb(51,19,2);"> <strong>${qna.title}</strong></a>
 							</c:otherwise>
 							</c:choose>
 							</td>
@@ -163,7 +168,7 @@
 
 		</nav>
 
-		<a style="position: relative; left: 90%;" href="/qna/insert?id=${login.id}" class="btn btn-info rounded-0">
+		<a style="position: relative; left: 90%;" href="/qna/insert?id=${login.id}&ino=${ino==null?'all':ino}" class="btn btn-info rounded-0">
 			<strong>글 쓰기</strong>
 		</a>
 		

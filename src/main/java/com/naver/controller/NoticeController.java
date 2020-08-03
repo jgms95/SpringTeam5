@@ -125,6 +125,7 @@ public class NoticeController {
 		// 웹사이트 루트디렉토리의 실제 디스크상의 경로 알아내기.
 		String root = hsq.getSession().getServletContext().getRealPath("/");
 		String fullPath = root + "resources/noticefiles/" + file_name;
+		//Qna 다운로드에서는  root 빼고 String fullPath = qservice,getFilePath(file_num);
 		File downloadFile = new File(fullPath);
 
 		rsp.setContentLength((int) downloadFile.length());
