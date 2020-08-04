@@ -26,6 +26,15 @@ public class ItemDTO implements Serializable{
 	private String prolog;
 	private int like1;
 	
+	public int getStock() {
+		return stock;
+	}
+
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	
 	public int getLike1() {
 		return like1;
 	}
@@ -285,8 +294,10 @@ public class ItemDTO implements Serializable{
 		return "ItemDTO [ino=" + ino + ", ititle=" + ititle + ", iwriter=" + iwriter + ", publishDay=" + publishDay
 				+ ", publisher=" + publisher + ", cataCode=" + cataCode + ", sfilename=" + sfilename + ", content="
 				+ content + ", price=" + price + ", readcnt=" + readcnt + ", writeday=" + writeday + ", percent="
-				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock + "���ƿ�"+like1+"]";
+				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock +"]";
 	}
-
+	
+	
+	
 
 }

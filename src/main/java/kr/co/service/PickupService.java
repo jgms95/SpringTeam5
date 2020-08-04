@@ -16,7 +16,8 @@ public interface PickupService {
 	void pickupUpdate(PickupDTO dto);
 
 	void pickupInsert(PickupDTO dto);
-
+	
+	int stockIno(int ino);
 
 	
 

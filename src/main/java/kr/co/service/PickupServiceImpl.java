@@ -50,7 +50,11 @@ public class PickupServiceImpl implements PickupService{
 		
 	}
 
-	
+	@Override
+	public int stockIno(int ino) {
+		// TODO Auto-generated method stub
+		return pickupDao.stockIno(ino);
+	}
 	
 
 

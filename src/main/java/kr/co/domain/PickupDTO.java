@@ -15,8 +15,14 @@ public class PickupDTO implements Serializable {
 	private int price;
 	private String ititle;
 	private String filename;
+	private int stock;
 	
-	public PickupDTO(int pno, int ino, String id, int pcs, int price, String ititle, String filename) {
+    
+	public PickupDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public PickupDTO(int pno, int ino, String id, int pcs, int price, String ititle, String filename, int stock) {
 		super();
 		this.pno = pno;
 		this.ino = ino;
@@ -25,6 +31,15 @@ public class PickupDTO implements Serializable {
 		this.price = price;
 		this.ititle = ititle;
 		this.filename = filename;
+		this.stock = stock;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
 	public String getItitle() {
@@ -51,9 +66,6 @@ public class PickupDTO implements Serializable {
 		this.price = price;
 	}
 
-	public PickupDTO() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public int getPno() {
 		return pno;

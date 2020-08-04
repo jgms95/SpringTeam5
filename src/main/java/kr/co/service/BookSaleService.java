@@ -35,13 +35,15 @@ public interface BookSaleService {
 
 	void pickupInsert(PickupDTO pickupDTO);
 
-	int countOfIno(int ino);
+	int countOfIno(int ino, String id);
 
-	void increasePcs(int ino);
+	void increasePcs(int ino, String id);
 
 	List<ItemDTO> cateBest(String cataCode);
 
 	int cart(String id);
+
+	int iwantpcs(int ino, String id);
 
 	
 

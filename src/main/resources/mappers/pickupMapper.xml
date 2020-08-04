@@ -22,8 +22,15 @@
 		update pickup set pcs = #{pcs} where pno = #{pno}
 	</update>
 	
+	<select id="stockIno" resultType="Integer">
+		select stock from item where ino = #{ino}
+	</select>
+	
+	
 	<insert id="pickupInsert">
-		insert into pickup (pno, ino, id, pcs, price, filename, ititle) values (#{pno},#{ino},#{id},#{pcs},#{price},#{filename},#{ititle})
+		insert into pickup (pno, ino, id, pcs, price, stock
+		filename, ititle) values
+		(#{pno},#{ino},#{id},#{pcs},#{price},#{stock},#{filename},#{ititle})
 	</insert>
 	
 </mapper>

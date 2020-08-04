@@ -84,7 +84,8 @@ public String insert(@PathVariable("id") String id, Model model) {
 	    String spercent = multi.getParameter("percent");
 	    String sstock = multi.getParameter("stock");
 	    String prolog = multi.getParameter("prolog");
-	   
+	    System.out.println(prolog);
+	    System.out.println(content);
 	    int price =0;	    
 	    if(sprice!=null) {
 	    	price = Integer.parseInt(sprice);
@@ -170,7 +171,7 @@ public String insert(@PathVariable("id") String id, Model model) {
 		List<ItemDTO> best = new ArrayList<ItemDTO>();
 //		List<BoardVO> list = bService.list();		
 		to = bService.list(to);		
-	
+		System.out.println(to.getList());
 		
 		list = bService.best(); 
 		//장바구니 개수
@@ -411,15 +412,24 @@ public String insert(@PathVariable("id") String id, Model model) {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pickupInsert", method = RequestMethod.POST)
-	public void pickupInsert(PickupDTO pickupDTO, int ino) {
+	public int pickupInsert(PickupDTO pickupDTO, int ino, ItemDTO itemDTO) {
+		int count = bService.countOfIno(ino, pickupDTO.getId());
 		
-		int count = bService.countOfIno(ino);
-		System.out.println(pickupDTO);
-		if(count == 0) {
-			bService.pickupInsert(pickupDTO);
+		int pcsCount = bService.iwantpcs(ino, pickupDTO.getId());
+		System.out.println("나와라");
+		int getstock = itemDTO.getStock();
+		System.out.println(getstock);
+		System.out.println(pcsCount);
+		
+		if(pcsCount < getstock) {		
+			if(count == 0) {
+				bService.pickupInsert(pickupDTO);					
+			}
+			
+			bService.increasePcs(ino, pickupDTO.getId());
 		}
-		bService.increasePcs(ino);
-	}
+		return pcsCount;	
+		}
 	@RequestMapping(value = "/sidebar", method = RequestMethod.GET)
 	public void sidebar() {
 		

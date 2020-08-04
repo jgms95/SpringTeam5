@@ -82,13 +82,13 @@ public class BookSaleServiceImpl implements BookSaleService {
 		tDAO.pickupInsert(pickupDTO);
 	}
 	@Override
-	public int countOfIno(int ino) {
+	public int countOfIno(int ino, String id) {
 		
-		return tDAO.countOfIno(ino);
+		return tDAO.countOfIno(ino,id);
 	}
 	@Override
-	public void increasePcs(int ino) {
-		tDAO.increasePcs(ino);
+	public void increasePcs(int ino, String id) {
+		tDAO.increasePcs(ino, id);
 	}@Override
 	public List<ItemDTO> cateBest(String cataCode) {
 		// TODO Auto-generated method stub
@@ -97,5 +97,10 @@ public class BookSaleServiceImpl implements BookSaleService {
 	public int cart(String id) {
 		// TODO Auto-generated method stub
 		return tDAO.cart(id);
+	}
+	@Override
+	public int iwantpcs(int ino, String id) {
+		
+		return tDAO.iwantpcs(ino,id);
 	}
 }

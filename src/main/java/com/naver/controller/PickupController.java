@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.domain.ItemDTO;
 import kr.co.domain.PickupDTO;
 import kr.co.service.BookSaleService;
 import kr.co.service.PickupService;
@@ -33,10 +34,12 @@ public class PickupController {
 		System.out.println(cart);
 		model.addAttribute("cart", cart);
 		//장바구니개수		
-		List<PickupDTO> pickupList = pickupService.pickupList(id);
 
+		List<PickupDTO> pickupList = pickupService.pickupList(id);	
+		
 		model.addAttribute("pickupList", pickupList);
 
+	
 		return "pickup/pickupList";
 	}
 
@@ -87,13 +90,5 @@ public class PickupController {
 		pickupService.pickupUpdate(dto);
 
 		return "redirect:/pickup/pickupList/" + id;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/pickupInsert", method = RequestMethod.POST)
-	public void pickupInsert(PickupDTO dto) {
-		
-		pickupService.pickupInsert(dto);
-		
 	}
 }

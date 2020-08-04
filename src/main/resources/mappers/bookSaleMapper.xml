@@ -4,12 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="b.k.s">
 
+<select id="iwantpcs" resultType="integer">
+	select pcs from pickup where ino = #{ino} and id = #{id}
+</select>
 
 <select resultType="Integer" id="getIno">
 
 <![CDATA[select max(ino) from item]]>
 </select>
-
 
 <insert id="insert">
 
@@ -66,15 +68,15 @@ update item set like1 = like1+1 where ino = #{ino}
 </select>
 
 <insert id="pickupInsert">
-insert into pickup (pno, ino, id, pcs, price, filename, ititle) values (pickup_seq.nextval, #{ino}, #{id}, #{pcs}, #{price}, #{filename}, #{ititle})
+insert into pickup (pno, ino, id, pcs, price, filename, ititle, stock) values (pickup_seq.nextval, #{ino}, #{id}, #{pcs}, #{price}, #{filename}, #{ititle}, #{stock})
 </insert>
 
 <select id="countOfIno" resultType="Integer">
-select count(*) from pickup where ino = #{ino}
+select count(*) from pickup where ino = #{ino} and id = #{id}
 </select>
 
 <update id="increasePcs">
-update pickup set pcs = pcs +1 where ino = #{ino}
+update pickup set pcs = pcs +1 where ino = #{ino} and id = #{id}
 </update>
 
 <select id="cataBest" resultType="ItemDTO">

@@ -183,14 +183,19 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 		session.insert(NS+".pickupInsert", pickupDTO);
 	}
 	@Override
-	public int countOfIno(int ino) {
+	public int countOfIno(int ino, String id) {
 		// TODO Auto-generated method stub
-		
-		return session.selectOne(NS+".countOfIno", ino);
+		HashMap<String, Object> info = new HashMap<String, Object>();
+		info.put("ino", ino);
+		info.put("id", id);
+		return session.selectOne(NS+".countOfIno", info);
 	}
 	@Override
-	public void increasePcs(int ino) {
-		session.update(NS+".increasePcs", ino);
+	public void increasePcs(int ino, String id) {
+		HashMap<String, Object> info = new HashMap<String, Object>();
+		info.put("ino", ino);
+		info.put("id", id);
+		session.update(NS+".increasePcs", info);
 	}
 	@Override
 	public List<ItemDTO> cateBest(String cataCode) {
@@ -202,6 +207,15 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 	// TODO Auto-generated method stub
 	return session.selectOne(NS+".cart", id);
 }
+	@Override
+	public int iwantpcs(int ino, String id) {
+		HashMap<String, Object> info = new HashMap<String, Object>();
+		info.put("ino", ino);
+		info.put("id", id);
+		Integer pcs = session.selectOne(NS +".iwantpcs", info);
+		pcs = pcs == null ? 0 : pcs;
+		
+		return pcs;
 
-
+	}
 }

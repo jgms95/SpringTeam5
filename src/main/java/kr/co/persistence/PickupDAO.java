@@ -17,6 +17,6 @@ public interface PickupDAO {
 
 	void pickupInsert(PickupDTO dto);
 
-
+	int stockIno(int ino);
 	
 }

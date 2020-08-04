@@ -53,10 +53,10 @@
                             <td>${pickup.ititle}</td>
                             <td>
 	                            <div class="container">
-	                            	<input style="width: 65px" class="form-control pickupUpdateInput" data-pno="${pickup.pno}" name="pcs" type="text" value="${pickup.pcs}" min="1" data-pcs="${pickup.pcs}">
+	                            	<input style="width: 65px" class="form-control pickupUpdateInput" data-pno="${pickup.pno}" name="pcs" type="text" value="${pickup.pcs}" min="1" data-ino="${pickup.ino}" data-stock="${pickup.stock}"   data-pcs="${pickup.pcs}">
 	                            	<button type="button" class="btn btn-sm plus" data-pno="${pickup.pno}">+</button>
 									<button type="button" class="btn btn-sm minus" >-</button>
-	                            	<button class="btn btn-sm btn-danger rounded-0 pickupUpdateButton" data-pno="${pickup.pno}" data-pcs="${pickup.pcs}">변경</button>
+	                            	<button class="btn btn-sm btn-danger rounded-0 pickupUpdateButton" data-pno="${pickup.pno}" data-pcs="${pickup.pcs}" data-stock="${pickup.stock}">변경</button>
 	                            </div>
                            	</td>
         <!-- 개당가격 -->      <td class="text-right"><fmt:formatNumber value="${pickup.price}" pattern="#,###,###"/>원</td> 
@@ -99,7 +99,7 @@
                     <button class="btn btn-block btn-light rounded-0">계속 쇼핑하기</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success rounded-0 text-uppercase">결제하기</button>
+                    <button class="btn btn-lg btn-block btn-success rounded-0 text-uppercase order">결제하기</button>
                 </div>
             </div>
         </div>
@@ -110,6 +110,12 @@
 </body>
 
 <script type="text/javascript">
+
+
+
+$(".order").click(function() {
+	location.assign("/order/orderForm/${login.id}");
+});
 
 /* 장바구니 개별 삭제 */
 $(".pickupDelete").click(function() {
@@ -124,9 +130,19 @@ $(".pickupDelete").click(function() {
    $('.pickupUpdateButton').click(function() {
 	var pcs = $(this).siblings('input')[0].value;
 	var pno = $(this).attr("data-pno");
+	console.log(pcs);
+	var stock = $(this).attr("data-stock");
+	console.log(stock);
+	stock = Number(stock);
+	pcs = Number(pcs);
+	if(stock >= pcs){
 	var confirm_val = confirm("변경하시겠습니까?");
-	if(confirm_val){
-		location.assign("/pickup/pickupUpdate/"+pno+"/"+pcs+"?id=${login.id}");
+		if(confirm_val){
+			location.assign("/pickup/pickupUpdate/"+pno+"/"+pcs+"?id=${login.id}");
+		}
+   	}else {
+		alert('재고 부족');
+		location.assign("/pickup/pickupList/${login.id}")	
 	}
 });  
 

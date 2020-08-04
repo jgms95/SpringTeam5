@@ -49,7 +49,12 @@ public class PickupDAOImpl implements PickupDAO{
 		session.insert(NS + ".pickupInsert", dto);
 		
 	}
-
+	
+	@Override
+	public int stockIno(int ino) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NS + ".stockIno", ino);
+	}
 	
 	
 
