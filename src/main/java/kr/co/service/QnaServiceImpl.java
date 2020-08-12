@@ -55,6 +55,28 @@ public class QnaServiceImpl implements QnaService{
 		return qnadao.reply(dto,orgdto);
 	}
 
+	@Override
+	public void deleteFile(String file_name) {
+		qnadao.deleteFile(file_name);
+	}
+
+	@Override
+	public void updateQna(QnaDTO dto) {
+		qnadao.updateQna(dto);
+	}
+
+	@Override
+	public void deleteQna(int qno) {
+		qnadao.deleteQna(qno);
+	}
+
+	@Override
+	public PageTO<QnaDTO> searchlist(PageTO<QnaDTO> to, String ino, String category, String search,
+			String find) {
+		return qnadao.searchlist(to, ino, category, search, find);
+	}
+
+
 	
 	
 }

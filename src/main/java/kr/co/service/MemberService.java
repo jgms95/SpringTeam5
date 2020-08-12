@@ -1,8 +1,10 @@
 package kr.co.service;
 
 
+
 import kr.co.domain.LoginDTO;
 import kr.co.domain.MemberDTO;
+
 
 public interface MemberService {
 
@@ -19,5 +21,6 @@ public interface MemberService {
 	String findAuthority(String id);
 
 	MemberDTO readId(String id);
+
 
 }

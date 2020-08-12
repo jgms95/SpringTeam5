@@ -149,9 +149,7 @@ color: white;
 				return false;
 			} else {
 				var regexp = /^[0-9]*$/
-
 				v = $("#phoneNum").val();
-
 				if (!regexp.test(v)) {
 					alert("숫자만 입력하세요");
 					$("#phoneNum").val('');

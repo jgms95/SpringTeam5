@@ -10,12 +10,11 @@
 <head>
 <%@ include file="../com/head.jsp"%>
 
-<title>Spring Book</title>
-
+<title>Spring book</title>
 <style type="text/css">
 
 .btn {
-background-color: rgb(67,22,7);
+background-color: rgb(23,6,0);
 color: white;
 }
 
@@ -29,7 +28,7 @@ $(document).ready(function(){
 
 	       $.ajax({
 	          type : 'post',
-	          url : '/notice/deletefile',
+	          url : '/qna/deletefile',
 	          dataType : 'text',
 	          data : {
 	        	  file_num : that.attr("href")
@@ -50,10 +49,6 @@ $(document).ready(function(){
 	});
 
 	
-
-	
-		
-
 	
 });
 
@@ -67,23 +62,22 @@ function fn_addFile(){
 
 
 </script>
-
-
-
 </head>
 <body>
 <%@ include file="../com/top.jsp"%>
 <%@ include file="../com/navbar.jsp"%>
+
 
 <div class="container" style="margin: 30px auto 30px auto;">
 
 
 
 
-		<h1>${nno}. 공지사항 수정</h1>
+		<h1>${qno}. Q&amp;A 수정</h1>
 
-		<form action="/notice/update" method="post" class="was-validated" enctype="multipart/form-data">
-			<input name="nno" class="form-control" type="hidden" value="${nno}">
+		<form action="/qna/update" method="post" class="was-validated" enctype="multipart/form-data">
+			<input name="qno" class="form-control" type="hidden" value="${qno}">
+			<input name="currentIno" class="form-control" type="hidden" value="${currentIno}">
 			<div class="form-group">
 				<label for="id">ID : </label> <input name="id" class="form-control" readonly value="${login.id}">
 			</div>
@@ -100,7 +94,7 @@ function fn_addFile(){
 			<c:forEach items="${filelist}" var="fileDto">
 			<div>
 				
-				<a style="color : rgb(23,6,0);" href = "/notice/fileDownload?file_num=${fileDto.file_num}">${fileDto.o_name}</a>
+				<a style="color : rgb(23,6,0);" href = "/qna/fileDownload?file_num=${fileDto.file_num}">${fileDto.o_name}</a>
 				<a href="${fileDto.file_num}" class="deletefile">
 				<img src=https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/trash-fill.svg width="20" height="20" alt="삭제">
 				</a>
@@ -122,7 +116,6 @@ function fn_addFile(){
 
 
 	</div>
-
 
 
 <%@ include file="../com/footer.jsp"%>

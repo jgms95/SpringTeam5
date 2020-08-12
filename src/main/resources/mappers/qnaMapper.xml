@@ -71,5 +71,38 @@
 		values (#{qno},#{ino},#{ititle},#{filename},#{id},#{title},#{content},#{repRoot},#{category},#{repStep},#{repIndent})]]>
 	</insert>
 	
+	<delete id="deleteFile">
+	<![CDATA[delete from qna_file_table where file_name = #{file_name}]]>
+	</delete>
+	
+	<update id="updateQna">
+	<![CDATA[update qnaboard set title=#{title}, content=#{content}, regdate = sysdate where qno = #{qno}]]>
+	</update>
+	
+	<delete id="deleteQna">
+	<![CDATA[delete from qnaboard where qno = #{qno}]]>
+	</delete>
+	
+	<delete id="deleteAllFiles">
+	<![CDATA[delete from qna_file_table where qno = #{qno}]]>
+	</delete>
+	
+	<select id="getSearchAmount" resultType="Integer">
+		<![CDATA[select count(qno) from qnaboard where category = #{category} and ${find} like '%'||#{search}||'%']]>
+	</select>
+	
+	<select id="searchlist" resultType="QnaDTO">
+		<![CDATA[select * from qnaboard where category = #{category} and ${find} like '%'||#{search}||'%' order by repRoot desc, repStep asc]]>
+	</select>
+	
+		<select id="inosearchlist" resultType="QnaDTO">
+		<![CDATA[select * from qnaboard where ino = #{ino} and category = #{category} and ${find} like '%'||#{search}||'%' order by repRoot desc, repStep asc]]>
+	</select>
+
+	<select id="getInoSearchAmount" resultType="Integer">
+		<![CDATA[select count(qno) from qnaboard where category = #{category} and ino = #{ino} and ${find} like '%'||#{search}||'%']]>
+	</select>
+	
+	
 	
 </mapper>

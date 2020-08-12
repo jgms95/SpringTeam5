@@ -95,10 +95,10 @@
 		
 		<div class="categories">
 			<ul>
-				<li><a ${category=='book'?'class="current"':''} href="/qna/allqnalist/1?ino=${ino==null?'all':ino}&category=book">도서문의</a></li>
-				<li><a ${category=='money'?'class="current"':''} href="/qna/allqnalist/1?ino=${ino==null?'all':ino}&category=money">입금/결제문의</a></li>
-				<li><a ${category=='modify'?'class="current"':''} href="/qna/allqnalist/1?ino=${ino==null?'all':ino}&category=modify">변경/취소</a></li>	
-				<li><a ${category=='order'?'class="current"':''} href="/qna/allqnalist/1?ino=${ino==null?'all':ino}&category=order">배송문의</a></li>
+				<li><a ${category=='book'?'class="current"':''} href="/qna/searchlist/1?ino=${ino==null?'all':ino}&category=book&search=${search}&find=${find}">도서문의</a></li>
+				<li><a ${category=='money'?'class="current"':''} href="/qna/searchlist/1?ino=${ino==null?'all':ino}&category=money&search=${search}&find=${find}">입금/결제문의</a></li>
+				<li><a ${category=='modify'?'class="current"':''} href="/qna/searchlist/1?ino=${ino==null?'all':ino}&category=modify&search=${search}&find=${find}">변경/취소</a></li>	
+				<li><a ${category=='order'?'class="current"':''} href="/qna/searchlist/1?ino=${ino==null?'all':ino}&category=order&search=${search}&find=${find}">배송문의</a></li>
 			</ul>
 		</div>
 		
@@ -148,12 +148,12 @@
 		
 		<ul class="pagination justify-content-center">
 			<li class="page-item ${to.curPage == 1 ? 'disabled' : '' }"><a class="page-link"
-					href="/qna/allqnalist/${to.curPage>1?to.curPage-1:1}?ino=${ino==null?'all':ino}&category=${category}">&laquo;</a></li>
+					href="/qna/searchlist/${to.curPage>1?to.curPage-1:1}?ino=${ino==null?'all':ino}&category=${category}&search=${search}&find=${find}">&laquo;</a></li>
 			<c:forEach begin="${to.beginPageNum }" end="${to.stopPageNum }" var="page">
-				<li class="page-item ${to.curPage == page ? 'active' : '' }"><a class="page-link" href="/qna/allqnalist/${page}?ino=${ino==null?'all':ino}&category=${category}">${page}</a></li>
+				<li class="page-item ${to.curPage == page ? 'active' : '' }"><a class="page-link" href="/qna/searchlist/${page}?ino=${ino==null?'all':ino}&category=${category}&search=${search}&find=${find}">${page}</a></li>
 			</c:forEach>
 			<li class="page-item ${to.curPage == to.totalPage ? 'disabled' : '' }"><a class="page-link"
-					href="/qna/allqnalist/${to.curPage<to.totalPage?to.curPage+1:to.curPage}?ino=${ino==null?'all':ino}&category=${category}">&raquo;</a></li>
+					href="/qna/searchlist/${to.curPage<to.totalPage?to.curPage+1:to.curPage}?ino=${ino==null?'all':ino}&category=${category}&search=${search}&find=${find}">&raquo;</a></li>
 		</ul>
 	
 		<br>

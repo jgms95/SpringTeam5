@@ -23,7 +23,7 @@
 	
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property value="1048760" name="maxUploadSize"></beans:property>
+		<beans:property value="10000000" name="maxUploadSize"></beans:property>
 	</beans:bean>
 	
 	<beans:bean id="authinter" class="kr.co.inter.AuthInter"></beans:bean>

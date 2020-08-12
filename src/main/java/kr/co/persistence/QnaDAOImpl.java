@@ -110,6 +110,51 @@ public class QnaDAOImpl implements QnaDAO {
 		return qno;
 	}
 
+	@Override
+	public void deleteFile(String file_name) {
+		session.delete(NS+".deleteFile", file_name);
+	}
+
+	@Override
+	public void updateQna(QnaDTO dto) {
+		session.update(NS+".updateQna", dto);
+	}
+
+	@Override
+	public void deleteQna(int qno) {
+		session.delete(NS+".deleteQna",qno);
+		session.delete(NS+".deleteAllFiles",qno);
+	}
+
+	@Override
+	public PageTO<QnaDTO> searchlist(PageTO<QnaDTO> to, String ino, String category, String search,
+			String find) {
+		RowBounds rowBounds = new RowBounds(to.getStartNum()-1, to.getPerPage()); 
+		List<QnaDTO> list;
+		Integer amount;
+		HashMap<String, Object> searchlist = new HashMap<String, Object>();
+		searchlist.put("category",category);
+		searchlist.put("search",search);
+		searchlist.put("find",find);
+		if(ino==null || ino.equals("all")) {
+			list = session.selectList(NS+".searchlist",searchlist,rowBounds);
+			amount = session.selectOne(NS+".getSearchAmount",searchlist);
+		}else {
+			searchlist.put("ino", Integer.parseInt(ino));
+			list = session.selectList(NS+".inosearchlist",searchlist,rowBounds);
+			amount = session.selectOne(NS+".getInoSearchAmount",searchlist);
+		}
+		to.setList(list);
+		if(amount!=null) {
+			to.setAmount(amount);
+		}else {
+			to.setAmount(0);
+		}
+		return to;
+	}
+
+
+
 	
 
 }

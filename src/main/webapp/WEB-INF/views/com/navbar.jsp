@@ -86,7 +86,7 @@
         <i class="fas fa-fw fa-user-circle"></i> </i><a class="y" href="/member/memberInfo?id=${login.id }" style="color: white; font: bold;"> 내정보</a>
     </div>
     <div class="item active">
-        <i class="fas fa fa-lightbulb-o"></i><a class="y" href="" style="color: white; font: bold;"> 이벤트</a>
+        <i class="fas fa fa-lightbulb-o"></i><a class="y" href="/event/eventlist/1?id=${login.id}" style="color: white; font: bold;"> 이벤트</a>
         <span class="badge badge-pill badge-danger">2</span>
     </div>
     <div class="item">
@@ -134,7 +134,7 @@
 			<li class="nav-item active"><a class="nav-link" href="/booksale/list?id=${login.id}">판매 도서</a></li>
 			<li class="nav-item active"><a class="nav-link" href="/notice/noticelist/1?id=${login.id}">공지사항</a></li>
 			<li class="nav-item active"><a class="nav-link" href="/qna/allqnalist/1">Q&amp;A</a></li>
-			<li class="nav-item active"><a class="nav-link" href="#">이벤트</a></li>
+			<li class="nav-item active"><a class="nav-link" href="/event/eventlist/1?id=${login.id}">이벤트</a></li>
 			<c:if test="${null ne login.id }">
             <li class="nav-item active"><a class="nav-link" href="/pickup/pickupList/${login.id}">장바구니</a></li>
             <span class="badge badge-danger">${cart }</span>

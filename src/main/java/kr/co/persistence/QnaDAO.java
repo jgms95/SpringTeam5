@@ -25,6 +25,14 @@ public interface QnaDAO {
 
 	int reply(QnaDTO dto, QnaDTO orgdto);
 
+	void deleteFile(String file_name);
+
+	void updateQna(QnaDTO dto);
+
+	void deleteQna(int qno);
+
+	PageTO<QnaDTO> searchlist(PageTO<QnaDTO> to, String ino, String category, String search, String find);
+
 	
 
 

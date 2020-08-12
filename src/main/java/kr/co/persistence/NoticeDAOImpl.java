@@ -59,10 +59,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 		fileUpload.put("fileSize", fileSize);
 		fileUpload.put("file_num", file_num);
 		fileUpload.put("nno",nno);
-	    
-	    session.insert(NS+".uploadfiles",fileUpload);
-
-		
+	    session.insert(NS+".uploadfiles",fileUpload);		
 	}
 
 	@Override

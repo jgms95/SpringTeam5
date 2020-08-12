@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -258,5 +257,125 @@ public class QnaController {
 		
 		return "redirect:/qna/allqnalist/1?ino="+currentIno;
 	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(HttpSession session, String id, String currentIno, int qno, Model model) {
+		if (session == null) {
+			return "/member/login";
+		} else {
+			if (id.length() < 1) {
+				return "/member/login";
+			}
+		}
+		
+		List<QnaFileDTO> filelist = qservice.getFiles(qno);
+		model.addAttribute("filelist", filelist);
+		model.addAttribute("currentIno",currentIno);
+		model.addAttribute("qno",qno);
+		return "/qna/update";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deletefile", method = RequestMethod.POST)
+	public String deletefile(String file_num, HttpServletRequest hsq) {
+		QnaFileDTO files = qservice.fileInfo(file_num);
+		String file_name = files.getFile_name();
+		String fullPath = files.getFilepath() + file_name;
+		File deleteFile = new File(fullPath);
+		deleteFile.delete();
+
+		qservice.deleteFile(file_name);
+
+		return "success";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(Model model, MultipartHttpServletRequest mhsq, QnaDTO dto, String currentIno)
+			throws IllegalStateException, IOException {
+		
+		
+		qservice.updateQna(dto);
+		
+		
+		String root = mhsq.getSession().getServletContext().getRealPath("/");
+		String sRealFolder = root + "resources"+ File.separator+"qnafiles";
+		String filepath = makeDayDir(sRealFolder) +  File.separator;
+		File dir = new File(filepath);
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		// 넘어온 파일을 리스트로 저장
+		List<MultipartFile> multifiles = mhsq.getFiles("newFile");
+		if (multifiles.size() == 1 && multifiles.get(0).getOriginalFilename().equals("")) {
+		} else {
+			for (int i = 0; i < multifiles.size(); i++) {
+				// 파일 중복명 처리
+				String genId = UUID.randomUUID().toString();
+				// 본래 파일명
+				String originalfileName = multifiles.get(i).getOriginalFilename();
+				String saveFileName = genId + "_" + originalfileName;
+				// 저장되는 파일 이름
+				String savePath = filepath + saveFileName; // 저장 될 파일 경로
+				multifiles.get(i).transferTo(new File(savePath)); // 파일 저장
+				qservice.fileUpload(originalfileName, saveFileName, dto.getQno(), filepath);
+
+			}
+		}
+		
+		
+		model.addAttribute("id", dto.getId());
+		return "redirect:/qna/allqnalist/1?ino="+currentIno;
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String delete(Model model, HttpServletRequest hsq, HttpSession session, int qno, String id, String currentIno) {
+		if (session == null) {
+			return "/member/login";
+		} else {
+			if (id.length() < 1) {
+				return "/member/login";
+			}
+		}
+
+		List<QnaFileDTO> filelist = qservice.getFiles(qno);
+		for (QnaFileDTO file : filelist) {	
+			String file_name = file.getFile_name();
+			String fullPath = file.getFilepath() + file_name;
+			File deleteFile = new File(fullPath);
+			deleteFile.delete();
+		}
+
+		qservice.deleteQna(qno);
+		model.addAttribute("id", id);
+		return "redirect:/qna/allqnalist/1?ino="+currentIno;
+	}
+	
+	@RequestMapping(value = "/searchlist/{curPage}", method = RequestMethod.GET)
+	public String searchlist(Model model, @PathVariable("curPage") String curPage, String id, String search, String find, String ino, String category) {
+		if(category == null) {
+			category = "book";
+		}
+		
+		int page = -1;
+		if (curPage != null) {
+			page = Integer.parseInt(curPage);
+		} else {
+			page = 1;
+		}
+
+		PageTO<QnaDTO> to = new PageTO<QnaDTO>(page);
+		to = qservice.searchlist(to,ino,category,search,find);	
+	
+		model.addAttribute("to", to);
+		model.addAttribute("list", to.getList());
+		model.addAttribute("category",category);
+		model.addAttribute("search",search);
+		model.addAttribute("find",find);
+		if(ino!=null && ino!="all") {
+		model.addAttribute("ino",ino);
+		}
+		return "/qna/searchlist";
+	}
+
 
 }

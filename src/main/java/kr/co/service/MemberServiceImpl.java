@@ -3,7 +3,6 @@ package kr.co.service;
 
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
-
 import kr.co.domain.LoginDTO;
 import kr.co.domain.MemberDTO;
 import kr.co.persistence.MemberDAO;
@@ -50,4 +49,10 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO readId(String id) {
 		return memberDao.readId(id);
 	}
+
+
+	
+
+
+	
 }
