@@ -13,20 +13,16 @@
 <title>Spring Book</title>
 
 <style type="text/css">
-
 .btn {
 background-color: rgb(67,22,7);
 color: white;
 }
-
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".deletefile").on("click",function(event){
 		event.preventDefault();
-
       	var that = $(this);
-
 	       $.ajax({
 	          type : 'post',
 	          url : '/notice/deletefile',
@@ -41,31 +37,20 @@ $(document).ready(function(){
 	
 	
 	 });
-
-
-
 	$("#addFile").on("click", function(event){
 		event.preventDefault();
 		fn_addFile();
 	});
-
 	
-
 	
 		
-
 	
 });
-
-
 function fn_addFile(){
 	var str = "<input type='file' id='customFile' name='newFile'><br>"
 		
 	$("#files").append(str);
 }
-
-
-
 </script>
 
 

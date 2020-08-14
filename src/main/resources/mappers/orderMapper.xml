@@ -12,8 +12,24 @@
 
 	<select id="pList" resultType="PickupDTO">
 		
-		select * from pickup where id = #{id} order by pno desc
+		select * from pickup where pno in
+		<foreach collection="array" item="arr" open="(" close=")" separator=",">
+ 			#{arr}
+		</foreach>
+  	  order by pno desc
 		
+	</select>
+	
+	<select id="getOno" resultType="Integer">
+		select max(ono) from orderedList
+	</select>
+	
+	<insert id="insertOlist">
+		insert into orderedList (ono,id,ino,pcs,ititle,email,receiver,payPrice,message,userAddr1,userAddr2,userAddr3,phoneNum,filename) values (#{ono},#{id},#{ino},#{pcs},#{ititle},#{email},#{receiver},#{payPrice},#{message},#{userAddr1},#{userAddr2},#{userAddr3},#{phoneNum},#{filename})
+	</insert>
+	
+	<select id="orderedList" resultType="OrderedListDTO">
+		select * from orderedList where id = #{id}
 	</select>
 
 </mapper>

@@ -36,4 +36,6 @@ public interface EventService {
 
 	int countComments(int eno);
 
+	List<EventDTO> getEvent();
+
 }

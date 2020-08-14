@@ -19,6 +19,25 @@
 	
 </style>
 </head>
+<script type="text/javascript">
+$(document).ready(function() {
+
+   $("#isOk").on("click", function(event) {
+
+      var ext = $('#file').val().split('.').pop().toLowerCase();
+         if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+          alert('썸네일 이미지는 gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+          $("#file").focus();
+          return false;
+         }
+     
+
+   });
+   
+});
+
+
+</script>
 <body>
 <%@ include file="../com/top.jsp"%>
 	<%@ include file="../com/navbar.jsp"%>
@@ -32,10 +51,10 @@
 	 	
 
 
-			<form action="/booksale/insert" method="post" id="fileform"  enctype="multipart/form-data" style="width:600px ">
+			<form action="/booksale/insert" method="post" id="fileform"  enctype="multipart/form-data" style="width:600px " class="was-validated">
 				<div class="form-group">
 					<label for="title">책제목</label>
-					<input name="ititle" id="ititle" class="form-control">
+					<input name="ititle" id="ititle" class="form-control" required>
 				</div>
 				
 				<div class="form-group">
@@ -45,15 +64,15 @@
 				
 				<div class="form-group">
 					<label for="writer">저자</label>
-					<input name="iwriter" id="iwriter" class="form-control">
+					<input name="iwriter" id="iwriter" class="form-control" required>
 				</div>
 				<div class="form-group">
 					<label for="writer">출판사</label>
-					<input name="publisher" id="publisher" class="form-control">
+					<input name="publisher" id="publisher" class="form-control" required>
 				</div>
 				<div class="form-group">
 					<label for="writer">출판일</label>
-					<input type="date" name="publishDay" id="publishday" class="form-control">
+					<input type="date" name="publishDay" id="publishday" class="form-control" required>
 				</div>
 				<div class="form-group">
 				<select class="form-control search-slt"  name="cateCode">
@@ -73,29 +92,47 @@
 				</div>
 				<div class="form-group">
 					<label for="writer">가격</label>
-					<input name="price" id="price" class="form-control">
+					<input name="price" id="price" class="form-control" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="writer">재고량</label>
-					<input name="stock" id="stock" class="form-control">
+					<input name="stock" id="stock" class="form-control" required>
 				</div>
 				
 				<div class="form-group">
 					<label for="writer">할인율</label>
-					<input type="number" name="percent" id="discount" class="form-control">
+					<input type="number" name="percent" id="discount" class="form-control" required>
 				</div>
 			
 				
 				<div class="form-group">
 					<label for="content">내용</label>
-					<textarea rows="5" name="content" id="content" class="form-control"></textarea>
+					<textarea rows="5" name="content" id="content" class="form-control" style="width: 1000px" required></textarea>
 				</div>
 				
 				<div class="form-group">
 					<label for="content">프롤로그</label>
-					<textarea rows="5" name="prolog" id="prolog" class="form-control"  maxlength="300"></textarea>
+					<textarea rows="5" name="prolog" id="prolog" class="form-control"  maxlength="300" required></textarea>
 			</div>
+			<div class="form-group">
+					<label for="TC">목차</label>
+					<textarea name="TC" id="TC" class="form-control"></textarea>
+				</div>
+					<div class="form-group">
+					<label for="writer">총페이지</label>
+					<input type="number" name="totalpage" id="discount" class="form-control" required>
+				</div>
+				
+					<div class="form-group">
+					<label for="iwriterInfo">저자 설명</label>
+					<textarea rows="5" name="iwriterInfo" id="iwriterInfo" class="form-control" style="width: 1000px" maxlength="300"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="bookInfo">책 소개</label>
+					<textarea rows="5" name="bookInfo" id="bookInfo" class="form-control" style="width: 1000px" maxlength="300"></textarea>
+				</div>
+			
 			
 			
 		  <div class="form-group">
@@ -106,7 +143,7 @@
 
 			
 			<div class="form-group">
-				 <button type="submit" class="btn btn-primary" onClick="fileSubmit();">글쓰기</button>
+				 <button type="submit" id="isOk" class="btn btn-primary" onClick="fileSubmit();">글쓰기</button>
 				<button class="btn btn-info" id="listbtn" onclick="location.href='/booksale/list'">목록</button>
 			</div>
 	 	</form>
@@ -129,7 +166,7 @@
 				alert("파일 업로드하였습니다.");
 			},
 			error : function(error) {
-				alert("파일 업로드 하였습니다.");
+				
 				console.log(error);
 				console.log(error.status);
 			}

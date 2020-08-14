@@ -1,11 +1,17 @@
 package com.naver.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,7 +26,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
 import kr.co.domain.PickupDTO;
+import kr.co.domain.RecommendDTO;
+import kr.co.domain.ReviewVO;
 import kr.co.service.BookSaleService;
+import kr.co.service.PickupService;
 
 
 
@@ -30,7 +39,8 @@ public class BookSaleController {
 	@Inject
 	private BookSaleService bService;
 	
-	
+	@Inject
+	private PickupService pickupService;
 	
 @RequestMapping(value = "/insert/{id}", method = RequestMethod.GET)
 public String insert(@PathVariable("id") String id, Model model) {
@@ -70,7 +80,7 @@ public String insert(@PathVariable("id") String id, Model model) {
 	    
 		System.out.println("insert 시작");
 		String root = multi.getSession().getServletContext().getRealPath("/");
-
+		
 		String path = root+"resources/img/";
 		String id = multi.getParameter("id");
 		String newFileName = ""; // 업로드 되는 파일명
@@ -84,8 +94,11 @@ public String insert(@PathVariable("id") String id, Model model) {
 	    String spercent = multi.getParameter("percent");
 	    String sstock = multi.getParameter("stock");
 	    String prolog = multi.getParameter("prolog");
-	    System.out.println(prolog);
-	    System.out.println(content);
+	    String TC = multi.getParameter("TC");
+	    String iwriterInfo = multi.getParameter("iwriterInfo");
+	    System.out.println(iwriterInfo);
+	    System.out.println(iwriter+": 저자 ");
+	    String bookInfo = multi.getParameter("bookInfo");
 	    int price =0;	    
 	    if(sprice!=null) {
 	    	price = Integer.parseInt(sprice);
@@ -104,9 +117,15 @@ public String insert(@PathVariable("id") String id, Model model) {
 	    	percent = Integer.parseInt(spercent);
 	    }
 	    	     
+	    int totalPage = 0;
 	    
+	    String stotalpage = multi.getParameter("totalpage");
+	    System.out.println(stotalpage);
+	    if(stotalpage!=null) {
+	    	totalPage=Integer.parseInt(stotalpage);
+	    }
 	  
-	    
+	    System.out.println(stotalpage);
 	 
 	    int discountedPrice = (a*(100-percent))/100; 
 
@@ -125,7 +144,8 @@ public String insert(@PathVariable("id") String id, Model model) {
 		
 			newFileName = System.currentTimeMillis()+"."
 					+fileName.substring(fileName.lastIndexOf(".")+1);
-			dto = new ItemDTO(0, ititle, iwriter, publishDay, publisher, cateCode, newFileName, content, price, 0, null, percent, discountedPrice, stock, id, prolog);
+			
+			dto = new ItemDTO(0, ititle, iwriterInfo, publishDay, publisher, cateCode, newFileName, content, price, 0, null, percent, discountedPrice, stock, id, prolog, 0, TC, totalPage, null, bookInfo, iwriterInfo);
 			System.out.println(dto);
 			try {
 				mFile.transferTo(new File(path+newFileName));
@@ -134,7 +154,7 @@ public String insert(@PathVariable("id") String id, Model model) {
 			}
 		}
 		
-		
+		 
 		
 	  
 		bService.insert(dto);
@@ -144,11 +164,16 @@ public String insert(@PathVariable("id") String id, Model model) {
 		return "redirect:/booksale/list?id="+id;
 	}
 	
-	@RequestMapping(value="/delete/{ino}", method = RequestMethod.GET)
-	public String delete(Model model, @PathVariable("ino") int ino) {
+	@RequestMapping(value="/delete", method = RequestMethod.GET)
+	public String delete( int ino, String id, String ititle) {
+		System.out.println(ititle);
+		
+		bService.deleteRecommend(ititle);
+		
 		bService.delete(ino);
+		
 	
-		return "redirect:/booksale/list";
+		return "redirect:/booksale/list?id="+id;
 	}
 	
 	
@@ -171,7 +196,7 @@ public String insert(@PathVariable("id") String id, Model model) {
 		List<ItemDTO> best = new ArrayList<ItemDTO>();
 //		List<BoardVO> list = bService.list();		
 		to = bService.list(to);		
-		System.out.println(to.getList());
+	
 		
 		list = bService.best(); 
 		//장바구니 개수
@@ -210,12 +235,12 @@ public String insert(@PathVariable("id") String id, Model model) {
 //		return "redirect:/board/read/"+vo.getBno();
 //	}
 //	
-	@RequestMapping(value = "/update/{ino}", method = RequestMethod.GET)
-	public String update(@PathVariable("ino") int ino, Model model) {
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(int ino, Model model, String id) {
 		ItemDTO dto = bService.updateui(ino);
 		model.addAttribute("dto", dto);
 		
-		return "booksale/update";
+		return "booksale/update?id="+id;
 	}	
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -430,10 +455,117 @@ public String insert(@PathVariable("id") String id, Model model) {
 		}
 		return pcsCount;	
 		}
-	@RequestMapping(value = "/sidebar", method = RequestMethod.GET)
-	public void sidebar() {
+
+	@RequestMapping(value = "/insertrecommend", method = RequestMethod.GET)
+	public String insertreuicommend(){
+		return "/booksale/insertrecommend";
 		
 	}
 	
+	@RequestMapping(value = "insertrecommend", method = RequestMethod.POST)
+	public String insertrecommend(RecommendDTO dto) {
+		
+		bService.insertRecommend(dto);
+		
+		
+	 
+		return "redirect:/";
+		
+	}
+	
+	
+	// detail 한번해봄
+	
+	@RequestMapping(value = "/view")
+	public String detail(String ino, Model model) {
+		int sino = Integer.parseInt(ino);
+		ItemDTO dto = bService.itemDetail(sino);		
+		
+		model.addAttribute("dto", dto);
+		return "/booksale/view";	
+		
+	}
+	
+	@RequestMapping(value="/itemDetail/{ino}")
+	public String itemDetail(Model model, @PathVariable("ino")int ino) throws Exception {		
+
+		
+		ItemDTO dto = bService.itemDetail(ino);		
+		
+	
+		model.addAttribute("dto", dto);
+		List<ReviewVO> reviews = bService.getReviews(ino);
+		model.addAttribute("reviews",reviews);
+						
+		return "/booksale/itemDetail";	
+		
+		
+	}
+	@RequestMapping(value="/deleteReviews", method=RequestMethod.POST)
+	public String deleteReviews(ReviewVO vo, HttpSession session) {
+		
+		if (session == null) {
+			return "/member/login";
+		} else {
+			if (vo.getId().length() < 1) {
+				return "/member/login";
+			}
+		}
+		
+		bService.deleteReviews(vo.getRno());
+		
+		return "redirect:/booksale/itemDetail/"+vo.getIno();
+	}
+	
+	@RequestMapping(value="/updateReviews", method = RequestMethod.POST)
+	public String updateReviews(ReviewVO vo, HttpSession session) {
+		
+		if (session == null) {
+			return "/member/login";
+		} else {
+			if (vo.getId().length() < 1) {
+				return "/member/login";
+			}
+		}
+		
+		bService.updateReviews(vo);
+		
+		return "redirect:/booksale/itemDetail/"+vo.getIno();
+	}
+	
+	
+	@RequestMapping(value = "/reviews", method = RequestMethod.POST)
+	public String reviews(HttpSession session, ReviewVO vo) {
+		
+		if (session == null) {
+			return "/member/login";
+		} else {
+			if (vo.getId().length() < 1) {
+				return "/member/login";
+			}
+		}
+		
+			bService.insertReview(vo);		
+
+	return "redirect:/booksale/itemDetail/"+vo.getIno();	
+	}
+	
+
+@RequestMapping(value = "/favicon.ico", method = RequestMethod.GET)
+
+public void favicon( HttpServletRequest request, HttpServletResponse reponse ) {
+
+try {
+
+  reponse.sendRedirect("/resources/favicon.ico");
+
+} catch (IOException e) {
+
+  e.printStackTrace();
+
 }
+
+}}
+	
+
 	

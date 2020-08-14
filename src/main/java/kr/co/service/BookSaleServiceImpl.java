@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sun.mail.imap.protocol.Item;
 
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
 import kr.co.domain.PickupDTO;
+import kr.co.domain.RecommendDTO;
+import kr.co.domain.ReviewVO;
 import kr.co.persistence.BookSaleDAO;
 
 @Service
@@ -103,4 +106,58 @@ public class BookSaleServiceImpl implements BookSaleService {
 		
 		return tDAO.iwantpcs(ino,id);
 	}
+	@Override
+	public void insertRecommend(RecommendDTO dto) {
+		// TODO Auto-generated method stub
+		tDAO.insertRecommend(dto);
+	}@Override
+	public List<RecommendDTO> recommend() {
+		// TODO Auto-generated method stub
+		return tDAO.recommend();
+	}
+	@Override
+	public List<ItemDTO> recommendList(String bookName) {
+		// TODO Auto-generated method stub
+		return tDAO.recommendList(bookName);
+	}
+	
+	@Override
+	public void deleteRecommend(String ititle) {
+		// TODO Auto-generated method stub
+		tDAO.deleteRecommend(ititle);
+	}
+	
+@Override
+	public ItemDTO itemDetail(int ino) {
+		// TODO Auto-generated method stub
+		return tDAO.itemDetail(ino);
+	}
+	
+@Override
+public void insertReview(ReviewVO vo) {
+	// TODO Auto-generated method stub
+	tDAO.insertReview(vo);
+}
+@Override
+public List<ReviewVO> getReviews(int ino) {
+	return tDAO.getReviews(ino);
+}
+
+@Override
+public void updateReviews(ReviewVO vo) {
+	// TODO Auto-generated method stub
+	tDAO.updateReviews(vo);
+}
+
+@Override
+public void deleteReviews(int rno) {
+	// TODO Auto-generated method stub
+	tDAO.deleteReviews(rno);
+}
+
+@Override
+public ReviewVO updateUIReviews(int rno) {
+	// TODO Auto-generated method stub
+	return tDAO.updateUIReviews(rno);
+}
 }

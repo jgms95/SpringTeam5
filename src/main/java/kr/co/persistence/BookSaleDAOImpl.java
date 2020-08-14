@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
 import kr.co.domain.PickupDTO;
+import kr.co.domain.RecommendDTO;
+import kr.co.domain.ReviewVO;
 
 @Repository
 public class BookSaleDAOImpl implements BookSaleDAO{
@@ -218,4 +220,81 @@ public class BookSaleDAOImpl implements BookSaleDAO{
 		return pcs;
 
 	}
+	
+	
+	@Override
+	public void insertRecommend(RecommendDTO dto) {
+		
+		Integer ino =  session.selectOne(NS+".getIno2");
+		if(ino!=null) {
+			ino += 1;
+		}else {
+			ino = 1 ;
+		}
+		dto.setIno(ino);
+		
+		session.insert(NS+".insertRecommend", dto);
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public List<RecommendDTO> recommend() {
+		// TODO Auto-generated method stub
+		return session.selectList(NS+".recommend");
+	} 
+	@Override
+	public List<ItemDTO> recommendList(String bookName) {
+		// TODO Auto-generated method stub
+		return session.selectList(NS+".recommendList", bookName);
+	}
+	
+	@Override
+	public void deleteRecommend(String ititle) {
+		// TODO Auto-generated method stub
+		session.delete(NS+".deleteRecommend", ititle);
+	}
+	
+	@Override
+	public ItemDTO itemDetail(int ino) {
+		
+	
+		// TODO Auto-generated method stub
+		return session.selectOne(NS+".itemDetail", ino);
+	}
+	@Override
+	public void insertReview(ReviewVO vo) {
+		// TODO Auto-generated method stub
+		Integer rno = session.selectOne(NS+".getRno");
+		if(rno!=null) {
+			rno += 1;
+		}else {
+			rno = 1 ;
+		}
+		vo.setRno(rno);
+		session.insert(NS+".insertReview", vo);
+	}
+	
+	@Override
+	public List<ReviewVO> getReviews(int ino) {
+		return session.selectList(NS+".getReviews",ino);
+	}
+	
+	@Override
+	public void updateReviews(ReviewVO vo) {
+		// TODO Auto-generated method stub
+		session.selectOne(NS+".updateReviews", vo);
+	}
+	
+	@Override
+	public void deleteReviews(int rno) {
+		// TODO Auto-generated method stub
+		session.selectOne(NS+".deleteReviews", rno);
+	}
+
+	@Override
+	public ReviewVO updateUIReviews(int rno) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NS+".updateUIReviews", rno);
+	}
+	
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import kr.co.domain.ItemDTO;
 import kr.co.domain.PageTO;
 import kr.co.domain.PickupDTO;
+import kr.co.domain.RecommendDTO;
+import kr.co.domain.ReviewVO;
 
 public interface BookSaleService {
 
@@ -44,6 +46,27 @@ public interface BookSaleService {
 	int cart(String id);
 
 	int iwantpcs(int ino, String id);
+
+	void insertRecommend(RecommendDTO dto);
+
+	List<RecommendDTO> recommend();
+
+	List<ItemDTO> recommendList(String bookName);
+
+	void deleteRecommend(String ititle);
+
+	ItemDTO itemDetail(int ino);
+	
+	void insertReview(ReviewVO vo);
+
+	List<ReviewVO> getReviews(int ino);
+
+	void updateReviews(ReviewVO vo);
+
+	void deleteReviews(int i);
+
+	ReviewVO updateUIReviews(int rno);
+
 
 	
 

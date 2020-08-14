@@ -37,4 +37,44 @@
 		select authority from member where id = #{id}
 	</select>
 	
+	<select id="updateui" resultType="MemberDTO">
+		select * from member where id = #{id}
+	</select>
+	
+	<select id="checkPw" resultType="String">
+		select pw from member where id = #{id}
+	</select>
+	
+	<update id="update">
+	update member set email = #{email}, useraddr1= #{userAddr1},useraddr2= #{userAddr2}, useraddr3= #{userAddr3}, phoneNum = #{phoneNum}, fileName= #{fileName} where id = #{id} 
+	</update>
+	
+	<select id="memberlist1" resultType="MemberDTO">
+	select * from member where authority = '01'
+	</select>
+	
+	<select id="memberlist2" resultType="MemberDTO">
+	select * from member where authority = '00'
+	</select>
+	
+	<update id="grantup">
+	update member set authority = '01' where id =#{id}
+	</update>
+		
+	<update id="grantdown">
+	update member set authority = '00' where id =#{id}
+	</update>
+	
+	<delete id="deletemember">
+	delete from member where id = #{id}
+	</delete>
+		
+	<update id="insertAmount">
+		update member set purchased_amount  = purchased_amount + #{totalprice} where id = #{id}
+	</update>
+	
+	<select id="findAmount" resultType="Integer">
+		select purchased_amount from member where id = #{id}
+	</select>
+	
 </mapper>

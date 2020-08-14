@@ -19,6 +19,8 @@ public interface PickupService {
 	
 	int stockIno(int ino);
 
+	void deleteOrdered(String ino, String id);
+
 	
 
 }

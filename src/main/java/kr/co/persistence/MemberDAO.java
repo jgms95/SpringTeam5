@@ -1,5 +1,7 @@
 package kr.co.persistence;
 
+import java.util.List;
+
 import kr.co.domain.LoginDTO;
 import kr.co.domain.MemberDTO;
 
@@ -18,5 +20,26 @@ public interface MemberDAO {
 	String findAuthority(String id);
 
 	MemberDTO readId(String id);
+
+	MemberDTO updateui(String id);
+
+	String checkPw(String id);
+
+	void update(MemberDTO dto);
+
+	List<MemberDTO> memberlist1();
+
+	List<MemberDTO> memberlist2();
+
+	void grantup(String id);
+
+	void grantdown(String id);
+
+	void deletemember(String id);
+	
+	void insertAmount(String id, int totalprice);
+
+	int findAmount(String id);
+
 
 }

@@ -77,16 +77,16 @@
 
 <div style="margin-top: -40px">
 <c:if test="${login.id!=null }">
-<div class="left" style="float: right;">
+<div class="left" style="float: right; z-index: 10;">
     <div class="item">
          <a style="font-size: 25px;margin-left:50px; font-weight: bold;">스프링 북</a>
     </div>
         <div class="item">
 
-        <i class="fas fa-fw fa-user-circle"></i> </i><a class="y" href="/member/memberInfo?id=${login.id }" style="color: white; font: bold;"> 내정보</a>
+        <i class="fas fa-fw fa-user-circle"></i> </i><a class="y" href="/member/memberInfo?id=${login.id }&page=1" style="color: white; font: bold;"> 내정보</a>
     </div>
     <div class="item active">
-        <i class="fas fa fa-lightbulb-o"></i><a class="y" href="/event/eventlist/1?id=${login.id}" style="color: white; font: bold;"> 이벤트</a>
+        <i class="fas fa fa-lightbulb-o"></i><a class="y" href="" style="color: white; font: bold;"> 이벤트</a>
         <span class="badge badge-pill badge-danger">2</span>
     </div>
     <div class="item">
@@ -117,7 +117,12 @@
 
 
 <nav class="navbar navbar-expand-sm text-white navbar-dark" style="background-color : rgb(23,6,0)">
+	<c:if test="${login.id!=null }">
+	<a class="navbar-brand" href="/${login.id}"><img src="/resources/img/book.jpg" alt="Logo" style="width:40px; height: 40px;"></a>
+	</c:if>
+	<c:if test="${login.id==null }">
 	<a class="navbar-brand" href="/"><img src="/resources/img/book.jpg" alt="Logo" style="width:40px; height: 40px;"></a>
+	</c:if>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -125,7 +130,7 @@
 		<ul class="navbar-nav">
 			<c:if test="${null ne login.id }">
 				<li class="nav-item active"><a class="nav-link" href="/member/logout">로그아웃</a></li>
-				<li class="nav-item active"><a class="nav-link" href="/member/memberInfo?id=${login.id }">회원정보</a></li>
+				<li class="nav-item active"><a class="nav-link" href="/member/memberInfo?id=${login.id }&page=1">회원정보</a></li>
 			</c:if>
 			<c:if test="${null eq login.id }">
 				<li class="nav-item active"><a class="nav-link" href="/member/login">로그인</a></li>
@@ -133,11 +138,14 @@
 			</c:if>
 			<li class="nav-item active"><a class="nav-link" href="/booksale/list?id=${login.id}">판매 도서</a></li>
 			<li class="nav-item active"><a class="nav-link" href="/notice/noticelist/1?id=${login.id}">공지사항</a></li>
-			<li class="nav-item active"><a class="nav-link" href="/qna/allqnalist/1">Q&amp;A</a></li>
+			<li class="nav-item active"><a class="nav-link" href="/qna/allqnalist/1?id=${login.id }">Q&amp;A</a></li>
 			<li class="nav-item active"><a class="nav-link" href="/event/eventlist/1?id=${login.id}">이벤트</a></li>
 			<c:if test="${null ne login.id }">
             <li class="nav-item active"><a class="nav-link" href="/pickup/pickupList/${login.id}">장바구니</a></li>
             <span class="badge badge-danger">${cart }</span>
+         	</c:if>
+         	<c:if test="${null ne login.id }">
+            <li class="nav-item active" ><a class="nav-link" style="color: yellow;">${login.id} 님 반갑습니다.</a></li>
          	</c:if>
 		</ul>
 	</div>

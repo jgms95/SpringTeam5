@@ -15,8 +15,8 @@
 
 <insert id="insert">
 
-<![CDATA[insert into item (ino,ititle,iwriter,publishDay,publisher,cataCode,filename,content,price,percent,stock,discountedPrice, id, prolog)
-      values (#{ino}, #{ititle}, #{iwriter}, #{publishDay}, #{publisher}, #{cataCode}, #{filename}, #{content}, #{price},#{percent},#{stock},#{discountedPrice}, #{id}, #{prolog})]]>
+<![CDATA[insert into item (ino,ititle,iwriter,publishDay,publisher,cataCode,filename,content,price,percent,stock,discountedPrice, id, prolog, TC, totalPage, iwriteInfo, bookInfo)
+      values (#{ino}, #{ititle}, #{iwriter}, #{publishDay}, #{publisher}, #{cataCode}, #{filename}, #{content}, #{price},#{percent},#{stock},#{discountedPrice}, #{id}, #{prolog},  #{TC}, #{totalPage}, #{iwriteInfo}, #{bookInfo})]]>
 </insert>
 
 <delete id="delete">delete from item where ino = #{ino} </delete>
@@ -85,5 +85,45 @@ update pickup set pcs = pcs +1 where ino = #{ino} and id = #{id}
 <select id="cart" resultType="Integer">
 	select count(pno) from pickup where id = #{id}
 </select>
+
+<select resultType="Integer" id="getIno2">
+
+<![CDATA[select max(ino) from recommend]]>
+</select>
+
+<insert id="insertRecommend">
+ insert into recommend (ino, bookname,content) values 
+(#{ino}, #{bookName}, #{content})
+</insert>
+
+<select id="recommend" resultType="RecommendDTO">
+ select * from recommend order by ino desc
+</select>
+
+<select id="recommendList" resultType="ItemDTO">
+ select * from item where ititle=#{bookName} order by ino desc
+</select>
+
+<delete id="deleteRecommend">
+delete from recommend where bookname = #{ititile}
+</delete>
+
+<select id="itemDetail" resultType="ItemDTO">
+select * from item where ino = #{ino}
+</select>
+
+<delete id="deleteReviews">delete from review where rno = #{rno} </delete>
+
+<update id="updateReviews">update review set content = #{content} where rno = #{rno} </update>
+
+<insert id="insertReview">insert into review (rno,ino,id,content) values (#{rno},#{ino},#{id},#{content}) </insert>
+
+
+<select resultType="Integer" id="getRno">
+
+<![CDATA[select max(rno) from review]]>
+</select>
+
+<select resultType="ReviewVO" id="getReviews">select * from review where ino = #{ino} </select>
 
 </mapper>

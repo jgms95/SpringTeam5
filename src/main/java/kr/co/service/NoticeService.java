@@ -23,7 +23,7 @@ public interface NoticeService {
 	String getOrgFileName(String file_num);
 
 	void deleteNotice(int nno);
-
+ 
 	void deleteFile(String file_name);
 
 	void updateNotice(NoticeDTO dto);

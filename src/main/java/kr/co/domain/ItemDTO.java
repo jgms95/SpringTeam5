@@ -25,7 +25,139 @@ public class ItemDTO implements Serializable{
 	private String id;
 	private String prolog;
 	private int like1;
+	private String TC;
+	private int totalPage;
+	private String classify;
+	private String bookInfo;
+	private String iwriteInfo;
 	
+	public ItemDTO(int ino, String ititle, String iwriter, String publishDay, String publisher, String cataCode,
+			String sfilename, String content, int price, int readcnt, String writeday, int percent, int discountedPrice,
+			int stock, String id, String prolog, int like1, String tC, int totalPage, String classify, String bookInfo,
+			String iwriteInfo) {
+		super();
+		this.ino = ino;
+		this.ititle = ititle;
+		this.iwriter = iwriter;
+		this.publishDay = publishDay;
+		this.publisher = publisher;
+		this.cataCode = cataCode;
+		this.sfilename = sfilename;
+		this.content = content;
+		this.price = price;
+		this.readcnt = readcnt;
+		this.writeday = writeday;
+		this.percent = percent;
+		this.discountedPrice = discountedPrice;
+		this.stock = stock;
+		this.id = id;
+		this.prolog = prolog;
+		this.like1 = like1;
+		TC = tC;
+		this.totalPage = totalPage;
+		this.classify = classify;
+		this.bookInfo = bookInfo;
+		this.iwriteInfo = iwriteInfo;
+	}
+
+
+	public String getBookInfo() {
+		return bookInfo;
+	}
+
+
+	public void setBookInfo(String bookInfo) {
+		this.bookInfo = bookInfo;
+	}
+
+
+	public String getIwriterInfo() {
+		return iwriteInfo;
+	}
+
+
+	public void setIwriterInfo(String iwriterInfo) {
+		this.iwriteInfo = iwriterInfo;
+	}
+
+
+	public ItemDTO(int ino, String ititle, String iwriter, String publishDay, String publisher, String cataCode,
+			String sfilename, String content, int price, int readcnt, String writeday, int percent, int discountedPrice,
+			int stock, String id, String prolog, int like1, String tC, int totalPage, String classify) {
+		super();
+		this.ino = ino;
+		this.ititle = ititle;
+		this.iwriter = iwriter;
+		this.publishDay = publishDay;
+		this.publisher = publisher;
+		this.cataCode = cataCode;
+		this.sfilename = sfilename;
+		this.content = content;
+		this.price = price;
+		this.readcnt = readcnt;
+		this.writeday = writeday;
+		this.percent = percent;
+		this.discountedPrice = discountedPrice;
+		this.stock = stock;
+		this.id = id;
+		this.prolog = prolog;
+		this.like1 = like1;
+		TC = tC;
+		this.totalPage = totalPage;
+		this.classify = classify;
+	}
+
+
+	public String getCataCode() {
+		return cataCode;
+	}
+
+
+	public void setCataCode(String cataCode) {
+		this.cataCode = cataCode;
+	}
+
+
+	public String getSfilename() {
+		return sfilename;
+	}
+
+
+	public void setSfilename(String sfilename) {
+		this.sfilename = sfilename;
+	}
+
+
+	public String getTC() {
+		return TC;
+	}
+
+
+	public void setTC(String tC) {
+		TC = tC;
+	}
+
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+
+	public String getClassify() {
+		return classify;
+	}
+
+
+	public void setClassify(String classify) {
+		this.classify = classify;
+	}
+
+
 	public int getStock() {
 		return stock;
 	}
@@ -294,8 +426,24 @@ public class ItemDTO implements Serializable{
 		return "ItemDTO [ino=" + ino + ", ititle=" + ititle + ", iwriter=" + iwriter + ", publishDay=" + publishDay
 				+ ", publisher=" + publisher + ", cataCode=" + cataCode + ", sfilename=" + sfilename + ", content="
 				+ content + ", price=" + price + ", readcnt=" + readcnt + ", writeday=" + writeday + ", percent="
-				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock +"]";
+				+ percent + ", discountedPrice=" + discountedPrice + ", stock=" + stock + ", id=" + id + ", prolog="
+				+ prolog + ", like1=" + like1 + ", TC=" + TC + ", totalPage=" + totalPage + ", classify=" + classify
+				+ ", bookInfo=" + bookInfo + ", iwriterInfo=" + iwriteInfo + ", getBookInfo()=" + getBookInfo()
+				+ ", getIwriterInfo()=" + getIwriterInfo() + ", getCataCode()=" + getCataCode() + ", getSfilename()="
+				+ getSfilename() + ", getTC()=" + getTC() + ", getTotalPage()=" + getTotalPage() + ", getClassify()="
+				+ getClassify() + ", getStock()=" + getStock() + ", getLike1()=" + getLike1() + ", getPercent()="
+				+ getPercent() + ", getProlog()=" + getProlog() + ", getId()=" + getId() + ", getIno()=" + getIno()
+				+ ", getItitle()=" + getItitle() + ", getDiscountedPrice()=" + getDiscountedPrice() + ", getIwriter()="
+				+ getIwriter() + ", getPublishDay()=" + getPublishDay() + ", getPublisher()=" + getPublisher()
+				+ ", getCateCode()=" + getCateCode() + ", getFilename()=" + getFilename() + ", getContent()="
+				+ getContent() + ", getPrice()=" + getPrice() + ", getReadcnt()=" + getReadcnt() + ", getWriteday()="
+				+ getWriteday() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
+				+ super.toString() + "]";
 	}
+
+
+
+
 	
 	
 	

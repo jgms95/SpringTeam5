@@ -144,4 +144,9 @@ public class EventDAOImpl implements EventDAO{
 	public int countComments(int eno) {
 		return session.selectOne(NS+".countComments",eno);
 	}
+	@Override
+	public List<EventDTO>getEvent() {
+		// TODO Auto-generated method stub
+	return session.selectList(NS+".getEvent");	
+	}
 }

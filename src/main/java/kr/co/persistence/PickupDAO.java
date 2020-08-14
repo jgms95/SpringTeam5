@@ -18,5 +18,7 @@ public interface PickupDAO {
 	void pickupInsert(PickupDTO dto);
 
 	int stockIno(int ino);
+
+	void deleteOrdered(String ino, String id);
 	
 }

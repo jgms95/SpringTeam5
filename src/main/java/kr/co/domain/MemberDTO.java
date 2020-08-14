@@ -19,8 +19,49 @@ public class MemberDTO implements Serializable{
 	private String grade;
 	private int purchased_amount;
 	private String email;
-	
+	private String fileName;
 	public MemberDTO() {
+	}
+
+
+
+	
+
+	public String getFileName() {
+		return fileName;
+	}
+
+
+
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+
+
+
+	public MemberDTO(String id, String pw, String name, int age, int rrNum1, int rrNum2, String phoneNum,
+			String userAddr1, String userAddr2, String userAddr3, String authority, String grade, int purchased_amount,
+			String email, String fileName) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.age = age;
+		this.rrNum1 = rrNum1;
+		this.rrNum2 = rrNum2;
+		this.phoneNum = phoneNum;
+		this.userAddr1 = userAddr1;
+		this.userAddr2 = userAddr2;
+		this.userAddr3 = userAddr3;
+		this.authority = authority;
+		this.grade = grade;
+		this.purchased_amount = purchased_amount;
+		this.email = email;
+		this.fileName = fileName;
 	}
 
 

@@ -19,13 +19,10 @@
 		line-height: 1;
 		font-weight: 400;
 	}
-
-
 	.categories ul li {
 		display: inline-block;
 		margin: 0px 5px;
 	}
-
 	.categories ul li a {
 		display: block;
 		font-size: 13px;
@@ -35,7 +32,6 @@
 		line-height: 38px;
 		border: 1px solid rgb(229,229,229);
 	}
-
 	.categories ul li a:hover {
 		border-color: rgb(17,17,17);
 	}
@@ -77,8 +73,6 @@
 	
 	
 	
-
-
 	
 </style>
 </head>

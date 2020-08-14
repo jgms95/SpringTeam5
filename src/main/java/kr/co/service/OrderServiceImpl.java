@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.co.domain.MemberDTO;
+import kr.co.domain.OrderedListDTO;
 import kr.co.domain.PickupDTO;
 import kr.co.persistence.OrderDAO;
 
@@ -18,9 +19,9 @@ public class OrderServiceImpl implements OrderService{
 
 
 	@Override
-	public List<PickupDTO> pList(String id) {
+	public List<PickupDTO> pList(String[] checkArr) {
 
-		return orderDAO.pList(id);
+		return orderDAO.pList(checkArr);
 	}
 
 
@@ -28,6 +29,18 @@ public class OrderServiceImpl implements OrderService{
 	public MemberDTO mRead(String id) {
 		// TODO Auto-generated method stub
 		return orderDAO.mRead(id);
+	}
+
+
+	@Override
+	public void insertOlist(OrderedListDTO dto) {
+		orderDAO.insertOlist(dto);
+	}
+
+
+	@Override
+	public List<OrderedListDTO> orderedList(String id) {
+		return orderDAO.orderedList(id);
 	}
 	
 	

@@ -85,5 +85,9 @@ public class EventServiceImpl implements EventService{
 	public int countComments(int eno) {
 		return eDao.countComments(eno);
 	}
+	@Override
+	public List<EventDTO> getEvent() {
+		return eDao.getEvent();
+	}
 
 }

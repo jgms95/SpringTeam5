@@ -63,7 +63,6 @@
         <!-- 총 가격 -->       <td class="text-right itemPrice" id="itemPrice" data-pno="${pickup.pno}"><fmt:formatNumber value="${pickup.price * pickup.pcs}" pattern="#,###,###"/>원</td> 
         <!-- 삭제버튼 -->      <td class="text-right"><button data-pno="${pickup.pno}" class="btn btn-sm btn-danger pickupDelete"><i class="fa fa-trash"></i> </button> </td>
                         </tr>
-                        <c:set var="sum" value="${sum + (pickup.price * pickup.pcs)}" />
 						</c:forEach>
                         <tr>
                             <td></td>
@@ -72,6 +71,7 @@
                             <td></td>
     <!--상품금액  -->          <td>상품금액</td>
                             <td class="text-right" id="itemsPrice">0원</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -80,6 +80,7 @@
                             <td></td>
                             <td>(배송비)</td>
                             <td class="text-right">0원</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -88,6 +89,7 @@
                             <td></td>
     <!--결제예정금액  -->       <td><strong>결제예정금액</strong></td>
                             <td class="text-right" id="totalPrice"><strong>0원</strong></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -99,7 +101,13 @@
                     <button class="btn btn-block btn-light rounded-0">계속 쇼핑하기</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success rounded-0 text-uppercase order">결제하기</button>
+                
+                <form action="/order/orderForm?id=${login.id}" method="post" id="regform">
+                <div class="addItems"></div>
+               	<button class="btn btn-lg btn-block btn-success rounded-0 text-uppercase order">결제하기</button> 
+                </form>
+
+               
                 </div>
             </div>
         </div>
@@ -113,8 +121,24 @@
 
 
 
-$(".order").click(function() {
-	location.assign("/order/orderForm/${login.id}");
+$(".order").click(function(event) {
+
+	if($("input:checkbox[name='chBox']").is(":checked") == false){
+		  alert("구매하실 상품들을 선택해주세요.");
+    return false;
+	}
+	
+	var checkArr = new Array();
+	$("input[class='chBox']:checked").each(function(){
+		checkArr.push($(this).attr("data-pno"));
+		$('.addItems').append('<input type="hidden" name="items" value="'+$(this).attr("data-pno")+'">');
+	});
+	
+
+	var price = $('#totalPrice').text().replace('원', '');
+	$('.addItems').append('<input type="hidden" name="totalPrice" value="'+ price +'">');
+
+	$("#regform").submit();
 });
 
 /* 장바구니 개별 삭제 */
@@ -184,6 +208,7 @@ $("#allCheck").click(function(){
 	  totalPrice += '원';
 	  $('#itemsPrice').text(itemsPrice);
 	  $('#totalPrice').text(totalPrice);
+
 
 });
 

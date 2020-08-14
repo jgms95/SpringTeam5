@@ -38,7 +38,6 @@
 	.pagination>li>a{
 	 color: rgb(51,19,2);
 	}
-
 	
 </style>
 

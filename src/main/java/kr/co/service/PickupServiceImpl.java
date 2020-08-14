@@ -55,6 +55,11 @@ public class PickupServiceImpl implements PickupService{
 		// TODO Auto-generated method stub
 		return pickupDao.stockIno(ino);
 	}
+
+	@Override
+	public void deleteOrdered(String ino, String id) {
+		pickupDao.deleteOrdered(ino,id);
+	}
 	
 
 

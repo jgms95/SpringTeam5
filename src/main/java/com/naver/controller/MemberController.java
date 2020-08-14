@@ -2,18 +2,29 @@ package com.naver.controller;
 
 
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import kr.co.domain.ItemDTO;
 import kr.co.domain.LoginDTO;
 import kr.co.domain.MemberDTO;
 import kr.co.service.BookSaleService;
@@ -184,9 +195,9 @@ public class MemberController {
 	
 
 	@RequestMapping(value = "/memberInfo")
-	public void memberInfo(String id, Model model ) {
+	public void memberInfo(String id, Model model, String page) {
 		//장바구니 개수
-		
+		System.out.println(page);
 		
 		int cart = bService.cart(id);
 		
@@ -196,10 +207,181 @@ public class MemberController {
 		//장바구니개수
 	
 		MemberDTO dto = memberService.readId(id);
+		//생년월일
+		String year = Integer.toString(dto.getRrNum1()).substring(0, 2)+"년";
+		String month = Integer.toString(dto.getRrNum1()).substring(2, 4)+"월";
+		String day = Integer.toString(dto.getRrNum1()).substring(4, 6)+"일";
 		
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		//생년월일
+		
+		//권한
+		String authority = "";
+		if(dto.getAuthority().equals("02")) {
+		authority="사장";
+		}
+		if(dto.getAuthority().equals("01")) {
+			authority="운영자";
+		}
+		if(dto.getAuthority().equals("00")) {
+			authority="일반회원";
+		}
+		model.addAttribute("authority", authority);
+		//권한
+		
+		//등급
+		String grade = "";
+		if(dto.getPurchased_amount()<50000) {
+			grade="실버회원";
+		}
+		if(dto.getPurchased_amount()>=50000 && dto.getPurchased_amount()<100000) {
+			grade="골드회원";
+		}
+		if(dto.getPurchased_amount()>=100000 && dto.getPurchased_amount()<300000) {
+			grade="플레티넘회원";
+		}
+		if(dto.getPurchased_amount()>=300000) {
+			grade="VIP";
+		}
+		
+		model.addAttribute("grade", grade);
+		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
 		
 	}
+	
+	
+
+
+	
+	@ResponseBody
+	@RequestMapping(value="/checkPw", method = RequestMethod.POST)
+	public int checkPw(String pw, String id) {
+		int result = 0 ;
+		
+		String tPw = memberService.checkPw(id);
+		System.out.println(tPw);
+		
+		if(pw.equals(tPw)) {
+			result = 0;
+			
+		}
+		else {
+			result = 1;
+		}
+		
+		return result;
+	}
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public String update(@PathVariable("id") String id, Model model) {
+		System.out.println(id);
+		MemberDTO dto = memberService.updateui(id);
+		model.addAttribute("dto", dto);
+		
+		return "member/update";
+	}	
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update( MultipartHttpServletRequest multi) {
+		String root = multi.getSession().getServletContext().getRealPath("/");
+
+		String path = root+"resources/img/";
+	
+		String newFileName = ""; // 업로드 되는 파일명
+		
+		
+		String id = multi.getParameter("id");
+		String name = multi.getParameter("name");
+		String pw = multi.getParameter("pw");
+	    String USERADDR1 = multi.getParameter("userAddr1");
+	    String USERADDR2 = multi.getParameter("userAddr2");
+	    String USERADDR3 = multi.getParameter("userAddr3");
+	    String phoneNum = multi.getParameter("phoneNum");
+	    String email = multi.getParameter("email");
+	    File dir = new File(path);
+		if(!dir.isDirectory()){
+			dir.mkdir();
+		}
+		System.out.println(phoneNum);
+		MemberDTO dto = null;
+		Iterator<String> files = multi.getFileNames();
+		while(files.hasNext()){
+			String uploadFile = files.next();
+						
+			MultipartFile mFile = multi.getFile(uploadFile);
+			String fileName = mFile.getOriginalFilename();
+		
+			newFileName = System.currentTimeMillis()+"."
+					+fileName.substring(fileName.lastIndexOf(".")+1);
+			dto = new MemberDTO(id, pw, name, 0, 0, 0, phoneNum, USERADDR1, USERADDR2, USERADDR3, null, null, 0, email, newFileName);		
+			try {
+				mFile.transferTo(new File(path+newFileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
+	  
+		memberService.update(dto);
+		
+		return "redirect:/";
+	}	
+	
+	@RequestMapping(value="/memberlist", method = RequestMethod.GET)
+	public String memberlist(Model model, String authority) {
+		
+		if(authority.equals("02")) {
+		List<MemberDTO> list01 = new ArrayList<MemberDTO>();
+		list01 = memberService.memberlist1();
+		model.addAttribute("list01", list01);
+		
+		List<MemberDTO> list02 = new ArrayList<MemberDTO>();
+		list02 = memberService.memberlist2();
+		model.addAttribute("list02", list02);
+		model.addAttribute("authority", authority);
+		}
+		
+		else {
+			List<MemberDTO> list02 = new ArrayList<MemberDTO>();
+			list02 = memberService.memberlist2();
+			model.addAttribute("list02", list02);
+			model.addAttribute("authority", authority);
+		}
+		return "/member/memberlist";
+	}
+	
+	@RequestMapping(value = "/membergrant")
+	public String membergrant(String id, String authority) {
+		System.out.println(id+authority);
+		
+		if(authority.equals("01")) {
+			memberService.grantup(id);
+			
+		}
+		else {
+			memberService.grantdown(id);
+		}
+		
+		return "redirect:/member/memberlist?authority=02";
+	}
+	
+	@RequestMapping(value = "/memberInfo2")
+	public String memberInfo2(String id) {
+
+		
+		return "/memberInfo2?id="+id;
+	}
+	
+	@RequestMapping(value = "/memberdelete")
+	public String memberdelete(String id, String authority) {
+		memberService.deletemember(id);
+		
+		return "redirect:/member/memberlist?authority=0"+ authority;
+	}
+	
+
 	
 
 	

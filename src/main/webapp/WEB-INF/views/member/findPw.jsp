@@ -52,7 +52,6 @@
 
 <body>
 	<%@ include file="../com/top.jsp"%>
-	<%@ include file="../com/navbar.jsp"%>
 
 
 	<div class="container" style="margin: 30px 0 30px 0;">

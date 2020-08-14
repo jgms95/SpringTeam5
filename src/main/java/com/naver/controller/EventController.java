@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.domain.EventCommentDTO;
 import kr.co.domain.EventDTO;
 import kr.co.domain.PageTO;
+import kr.co.service.BookSaleService;
 import kr.co.service.EventService;
 import kr.co.service.MemberService;
 
@@ -29,6 +30,8 @@ public class EventController {
 	
 	@Inject
 	private EventService eService;
+	@Inject
+	private BookSaleService bService;
 	
 	@Autowired
 	   private MemberService mService;
@@ -41,11 +44,19 @@ public class EventController {
 	      } else {
 	         page = 1;
 	      }
+	  	//장바구니 개수
+			
+	  	
+			int cart = bService.cart(id);
+			
+			
+			model.addAttribute("cart", cart);
+			//장바구니개수
 	      
 	     String authority = mService.findAuthority(id);
 	     PageTO<EventDTO> to = new PageTO<EventDTO>(page);
 	     to = eService.eventlist(to);
-	     
+	    
 	     model.addAttribute("to", to);
 	     model.addAttribute("list", to.getList());
 		 model.addAttribute("authority", authority);

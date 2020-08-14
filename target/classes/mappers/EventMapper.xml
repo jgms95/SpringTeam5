@@ -3,98 +3,148 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="e.v.t">
-	<select id="getEno" resultType="Integer">
-		<![CDATA[select max(eno) from event]]>
-	</select>
-	
-	<insert id="insert">
-		<![CDATA[insert into event (eno,id,title,content,filename,titleImg)
-		values (#{eno},#{id},#{title},#{content},#{filename},#{titleImg})]]>
-	</insert>
-	
-	<select id="list" resultType="EventDTO">
-		<![CDATA[select * from event order by eno desc]]>
-	</select>
-	
-	<select id="getAmount" resultType="Integer">
-		<![CDATA[select count(eno) from event]]>
-	</select>
-	
-	<update id="incresereadcnt">
-		<![CDATA[update event set readcnt = readcnt + 1 where eno = #{eno}]]>
-	</update>
-	
-	<select id="read" resultType="EventDTO">
-		<![CDATA[select * from event where eno = #{eno}]]>
-	</select>
-	
-	<delete id="delete">
-	<![CDATA[delete from event where eno = #{eno}]]>
-	</delete>
-	
-	<update id="finishevent">
-		<![CDATA[update event set title = #{title} where eno = #{eno}]]>
-	</update>
-	
-	<update id="update">
-	<![CDATA[update event set id = #{id}, title=#{title}, content=#{content}, titleImg=#{titleImg}, filename =#{filename} where eno = #{eno}]]>
-	</update>
-	
-	<select id="searchlist" resultType="EventDTO">
-		<![CDATA[select * from event where title like '%'||#{search}||'%' or content like '%'||#{search}||'%' order by eno desc]]>
-	</select>
 
-	<select id="getsearchAmount" resultType="Integer">
-		<![CDATA[select count(eno) from event where title like '%'||#{search}||'%']]>
-	</select>
-	
-	<update id="updateReadcnt">
-		<![CDATA[update event set readcnt = readcnt - 1 where eno = #{eno}]]>
-	</update>
-	
-	<select id="getNum" resultType="Integer">
-		<![CDATA[select max(num) from eventComment]]>
-	</select>
-	
-	<insert id="insertComment">
-		<![CDATA[insert into eventComment (num,id,eno,content,repRoot) values (#{num},#{id},#{eno},#{content},#{repRoot})]]>
-	</insert>
-	
-	<select id="readComment" resultType="EventCommentDTO">
-		<![CDATA[select * from eventComment where eno = #{eno} order by repRoot desc, num asc, repStep desc]]>
-	</select>
-	
-	<delete id="deleteEnoComments">
-	<![CDATA[delete from eventComment where eno = #{eno}]]>
-	</delete>
-	
-	<select id="orgComment" resultType="EventCommentDTO">
-		<![CDATA[select * from eventComment where num = #{orgNum}]]>
-	</select>
-	
-	<update id="updateCommentInfoes">
-		<![CDATA[update eventComment set repStep = repStep + 1 where repRoot = #{repRoot} and repStep > #{repStep}]]>
-	</update>
-	
-	<insert id="insertReply">
-		<![CDATA[insert into eventComment (num,id,eno,content,repRoot,repStep,repIndent,orgWriter)
+
+<select resultType="Integer" id="getEno">
+
+<![CDATA[select max(eno) from event]]>
+</select>
+
+
+<insert id="insert">
+
+<![CDATA[insert into event (eno,id,title,content,filename,titleImg)
+		values (#{eno},#{id},#{title},#{content},#{filename},#{titleImg})]]>
+</insert>
+
+
+<select resultType="EventDTO" id="list">
+
+<![CDATA[select * from event order by eno desc]]>
+</select>
+
+
+<select resultType="Integer" id="getAmount">
+
+<![CDATA[select count(eno) from event]]>
+</select>
+
+
+<update id="incresereadcnt">
+
+<![CDATA[update event set readcnt = readcnt + 1 where eno = #{eno}]]>
+</update>
+
+
+<select resultType="EventDTO" id="read">
+
+<![CDATA[select * from event where eno = #{eno}]]>
+</select>
+
+
+<delete id="delete">
+
+<![CDATA[delete from event where eno = #{eno}]]>
+</delete>
+
+
+<update id="finishevent">
+
+<![CDATA[update event set title = #{title} where eno = #{eno}]]>
+</update>
+
+
+<update id="update">
+
+<![CDATA[update event set id = #{id}, title=#{title}, content=#{content}, titleImg=#{titleImg}, filename =#{filename} where eno = #{eno}]]>
+</update>
+
+
+<select resultType="EventDTO" id="searchlist">
+
+<![CDATA[select * from event where title like '%'||#{search}||'%' or content like '%'||#{search}||'%' order by eno desc]]>
+</select>
+
+
+<select resultType="Integer" id="getsearchAmount">
+
+<![CDATA[select count(eno) from event where title like '%'||#{search}||'%']]>
+</select>
+
+
+<update id="updateReadcnt">
+
+<![CDATA[update event set readcnt = readcnt - 1 where eno = #{eno}]]>
+</update>
+
+
+<select resultType="Integer" id="getNum">
+
+<![CDATA[select max(num) from eventComment]]>
+</select>
+
+
+<insert id="insertComment">
+
+<![CDATA[insert into eventComment (num,id,eno,content,repRoot) values (#{num},#{id},#{eno},#{content},#{repRoot})]]>
+</insert>
+
+
+<select resultType="EventCommentDTO" id="readComment">
+
+<![CDATA[select * from eventComment where eno = #{eno} order by repRoot desc, num asc, repStep desc]]>
+</select>
+
+
+<delete id="deleteEnoComments">
+
+<![CDATA[delete from eventComment where eno = #{eno}]]>
+</delete>
+
+
+<select resultType="EventCommentDTO" id="orgComment">
+
+<![CDATA[select * from eventComment where num = #{orgNum}]]>
+</select>
+
+
+<update id="updateCommentInfoes">
+
+<![CDATA[update eventComment set repStep = repStep + 1 where repRoot = #{repRoot} and repStep > #{repStep}]]>
+</update>
+
+
+<insert id="insertReply">
+
+<![CDATA[insert into eventComment (num,id,eno,content,repRoot,repStep,repIndent,orgWriter)
 values (#{num},#{id},#{eno},#{content},#{repRoot},#{repStep},#{repIndent},#{orgWriter})]]>
-	</insert>
-	
-	<update id="updateComment">
-		<![CDATA[update eventComment set content = #{content} where eno = #{eno} and num = #{num}]]>
-	</update>
-	
-	<delete id="deleteComment">
-	<![CDATA[delete from eventComment where eno = #{eno} and num = #{num}]]>
-	</delete>
-	
-	<delete id="deleteAllComments">
-	<![CDATA[delete from eventComment where eno = #{eno} and repRoot = #{repRoot}]]>
-	</delete>
-	
-	<select id="countComments" resultType="Integer">
-		<![CDATA[select count(*) from eventComment where eno = #{eno}]]>
-	</select>
+</insert>
+
+
+<update id="updateComment">
+
+<![CDATA[update eventComment set content = #{content} where eno = #{eno} and num = #{num}]]>
+</update>
+
+
+<delete id="deleteComment">
+
+<![CDATA[delete from eventComment where eno = #{eno} and num = #{num}]]>
+</delete>
+
+
+<delete id="deleteAllComments">
+
+<![CDATA[delete from eventComment where eno = #{eno} and repRoot = #{repRoot}]]>
+</delete>
+
+
+<select resultType="Integer" id="countComments">
+
+<![CDATA[select count(*) from eventComment where eno = #{eno}]]>
+</select>
+<select id="getEvent" resultType="EventDTO">
+select * from event order by eno desc
+</select>
 
 </mapper>

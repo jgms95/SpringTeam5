@@ -33,4 +33,8 @@
 		(#{pno},#{ino},#{id},#{pcs},#{price},#{stock},#{filename},#{ititle})
 	</insert>
 	
+	<delete id="deleteOrdered">
+	 delete from pickup where id = #{id} and ino = #{ino}
+	</delete>
+	
 </mapper>

@@ -20,7 +20,10 @@ body{
     background: #fff;
 }
 .profile-img{
-    text-align: center;
+    text-align: center;     
+    width:300PX;
+    height:300PX;
+
 }
 .profile-img img{
     width: 70%;
@@ -33,10 +36,12 @@ body{
     width: 70%;
     border: none;
     border-radius: 0;
-    font-size: 15px;
+    font-size: 18px;
     background: #212529b8;
+   
 }
 .profile-img .file input {
+
     position: absolute;
     opacity: 0;
     right: 0;
@@ -58,32 +63,34 @@ body{
     cursor: pointer;
 }
 .proile-rating{
-    font-size: 12px;
+    font-size: 20px;
     color: #818182;
     margin-top: 5%;
 }
 .proile-rating span{
     color: #495057;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
 }
 .profile-head .nav-tabs{
     margin-bottom:5%;
 }
 .profile-head .nav-tabs .nav-link{
+	
     font-weight:600;
     border: none;
 }
 .profile-head .nav-tabs .nav-link.active{
     border: none;
     border-bottom:2px solid #0062cc;
+    
 }
 .profile-work{
     padding: 14%;
     margin-top: -15%;
 }
 .profile-work p{
-    font-size: 12px;
+    font-size: 20px;
     color: #818182;
     font-weight: 600;
     margin-top: 10%;
@@ -92,17 +99,19 @@ body{
     text-decoration: none;
     color: #495057;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 18px;
 }
 .profile-work ul{
     list-style: none;
 }
 .profile-tab label{
     font-weight: 600;
+     font-size: 18px;
 }
 .profile-tab p{
     font-weight: 600;
     color: #0062cc;
+    font-size: 18px;
 }
 </style>
 
@@ -117,23 +126,24 @@ body{
                 <div class="row" >
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                  	사진등록
-                                <input type="file" name="file"/>
-                            </div>
+                        	<c:if test="${dto.fileName != null }">
+                            <img src="/resources/img/${dto.fileName}" alt=""/>
+                            </c:if>
+                            <c:if test="${dto.fileName == null }">
+                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                            </c:if>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
-                                    <h5>
+                                    <h4>
                                     	내정보 
                                        ${dto.name }
-                                    </h5>
+                                    </h4>
                                     <h6>
-                                        	운영자
+                                        	${authority}
                                     </h6>
-                                    <p class="proile-rating">회원 등급 <span>${dto.grade }</span></p>
+                                    <p class="proile-rating">회원 등급 <span>${grade}</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -144,30 +154,46 @@ body{
                     </div>
                     <div class="col-md-1">
                         <button type="button" class="btn btn-dark" style="float: right; size: 20px"
-               onclick="location.href='/booksale/insert/${login.id}'">회원 정보 수정</button>
+               onclick="location.href='/member/update/${login.id}'">회원 정보 수정</button>
                     </div>
                 </div>
+             
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
                             <p>내정보</p>
-                            <a href="">내정보</a><br/>
-                            <a href="">배송상태 조회</a><br/>
-                            <a href="">회원 등급 안내</a><br/>
-                        
+                            <c:if test="${page==1 }">
+                            <a href="/member/memberInfo?id=${login.id}&page=1" style="color: highlight;">내정보</a><br/>
+                            </c:if>
+                            <c:if test="${page!=1 }">
+                            <a href="/member/memberInfo?id=${login.id}&page=1" >내정보</a><br/>
+                            </c:if>
+                             <a href="/order/orderInfo/${login.id}">주문 내역</a><br/>
+                            <c:if test="${page!=2 }">
+                            <a href="/member/memberInfo?id=${login.id}&page=2" >회원 등급 안내</a><br/>
+                        	</c:if>
+                            <c:if test="${page==2 }">
+                            <a href="/member/memberInfo?id=${login.id}&page=2" style="color: highlight;">회원 등급 안내</a><br/>
+                        	</c:if>
                             <p>마이 쇼핑</p>
                             <br>
                             <br>
                             <br>
                             <br>
-                            <c:if test="${dto.authority==01 || dto.authority==02}">
-                            <a href="" style="color: red; bottom: 100px">토탈 회원 정보</a>
+                           
+                            
+                            <c:if test="${dto.authority==02}">
+                            <a href="/member/memberlist?authority=${dto.authority}" style="color: red; bottom: 100px">토탈 회원 정보</a>
+                            </c:if>
+                             <c:if test="${dto.authority==01}">
+                            <a href="/member/memberlist?authority=${dto.authority}" style="color: red; bottom: 100px">회원 정보</a>
                             </c:if>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <c:if test="${page==1}">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>User Id</label>
@@ -205,7 +231,7 @@ body{
                                                 <label>생년월일 </label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>${dto.rrNum1}</p>
+                                                <p>${year}${month}${day}</p>
                                             </div>
                                         </div>
                                            <div class="row">
@@ -229,7 +255,7 @@ body{
                                                 <label>회원등급</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>${dto.grade }</p>
+                                                <p>${grade }</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -240,7 +266,42 @@ body{
                                                 <p>${dto.purchased_amount }</p>
                                             </div>
                                         </div>
+                                     </c:if>
                                      
+                                     <c:if test="${page==2 }">
+                                     <div class="row">
+                                            <div class="col-md-6">
+                                                <label>실버 회원 </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>50000원미만 고객<br> 할인없음 </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>골드 회원</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>50000원이상 100000미만 고객 <br>총급액의 5% 할인</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>플레티넘 회원</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>100000원 이상 300000원 미만 고객 <br> 총금액의 10%할인</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>VIP 고객</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>3000000원 이상 고객 <br> 총금액의 15% 할인</p>
+                                            </div>
+                                        </div>
+                                     </c:if>
                                      
                              
                            
@@ -253,6 +314,11 @@ body{
   
     </div>
       <jsp:include page="../com/footer.jsp"/>
+      <script type="text/javascript">
+
+
+
+      </script>
  
 </body>
 </html>

@@ -1,5 +1,6 @@
 package kr.co.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,6 +55,14 @@ public class PickupDAOImpl implements PickupDAO{
 	public int stockIno(int ino) {
 		// TODO Auto-generated method stub
 		return session.selectOne(NS + ".stockIno", ino);
+	}
+
+	@Override
+	public void deleteOrdered(String ino, String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ino", ino);
+		map.put("id",id);
+		session.delete(NS+".deleteOrdered",map);
 	}
 	
 	

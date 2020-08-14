@@ -36,4 +36,6 @@ public interface EventDAO {
 
 	int countComments(int eno);
 
+	List<EventDTO> getEvent();
+
 }
