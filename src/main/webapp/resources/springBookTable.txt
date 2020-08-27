@@ -1,0 +1,238 @@
+
+<Table>
+
+[회원 테이블]
+create table member (
+	id varchar2(50) primary key, 
+	pw varchar2(50) not null,
+	name varchar2(30) not null, 
+	age number(3) check(age<200) not null, 
+	rrNum1 number(6) not null,
+	rrNum2 number(7) not null,
+	phoneNum varchar2(11) not null,
+	userAddr1 varchar2(100) not null,
+	userAddr2 varchar2(100),
+	userAddr3 varchar2(100),
+	authority varchar2(3) default '00',
+	grade varchar2(3) default '00',
+	purchased_amount number(15) default 0
+);
+alter table member add email varchar2(100) not null;
+alter table member add filename varchar2(200);     -회원 사진 추가용  
+
+
+=>userAddr1(1차주소),userAddr2(상세주소),userAddr3(참고항목)
+=>authority : 00(일반회원),01(메니저),02(관리자)
+
+
+일반 회원 : insert into member values('m001','1','kang',1,950310,1111111,'01022683853','14234','경기도수원시','팔달구','00','00',0,0,'jgms95@naver.com');
+
+관리자 : insert into member values('admin','admin','admin',1,950313,1111121,'01022221111','14234','경기도','수원시','02','00',0,'jgms925@naver.com');
+
+
+
+
+
+
+[상품 테이블]
+create table item (
+ino number primary key,
+ititle varchar2(100)  not null,
+iwriter varchar2(100) not null,
+iwriteInfo varchar2(4000),
+bookInfo varchar2(4000),
+publishDay varchar2(100) not null,
+publisher varchar2(100) not null,
+cataCode varchar2(30) not null,                         
+filename varchar2(200),
+prolog varchar2(4000) not null,
+TC varchar2(1000),
+content varchar2(1000) not null,
+stock number not null,
+price number not null,
+totalPage number default 0,
+discountedPrice number not null,
+point number default 0,
+readCnt number default 0,
+classify varchar2(1000),
+	writeday date default sysdate
+);
+ alter table item add percent number(3);
+alter table item add id varchar2(50);
+alter table item add like1 number(10) default 0;
+alter table item modify content varchar2(4000);
+alter table item add pcs number(30);
+
+- 기본할인율 구현
+(7월 23일)
+(7 / 28 content 1000자로는 너무 부족하네요) 
+(7/30 추가)
+//추가사항(07/22) 
+1. 물품 재고 현황 파악을 위해 재고 항목 추가함
+ 	2. 제품마다 할인된 가격 적용을 위해 할인가격 항목 추가
+	3. 제품 구매 시 포인트 적립기능 항목 추가
+	4. 책 마다의 총 페이지수 항목 추가
+
+	
+
+[회원별 주문목록 테이블]
+create table orderedList(
+ono number(4) primary key, 
+id varchar2(30) not null, 
+ino number not null,
+pcs number(6) not null,
+ititle varchar2(100)  not null,
+email varchar2(100) not null,
+receiver varchar2(30) not null,
+payPrice number not null,
+message varchar2(150),
+userAddr1 varchar2(100) not null,
+userAddr2 varchar2(100) not null,
+userAddr3 varchar2(100),
+phoneNum varchar2(100) not null,
+filename varchar2(200),
+writeday date default sysdate
+);
+userAddr3 not null 삭제
+message => 추가
+payOption => 추가 => 삭제 // 2020-08-06 정진호
+payprice => 추가
+receiver => 추가
+email => 추가
+ititle => 추가
+filename =>추가        //2020-08-10,
+inoNums => pcs 컬럼 변경 // 2020-07-30
+orderNum => ono 변경 //2020-08-03
+sysdate => 날짜 추가 //2020-08-11
+
+
+
+
+[장바구니 테이블]
+create table pickup (
+pno number primary key,
+ino number not null, 
+id varchar2(30) not null,
+pcs number(3) not null,
+stock number not null,
+price number not null,
+constraint pickup_fk_ino foreign key(ino) references item(ino),
+constraint pickup_fk_id foreign key(id) references member(id)
+);
+alter table pickup add filename varchar2(200);
+alter table pickup add ititle varchar2(1000);
+
+//장바구니 테이블 filename, ititle 추가
+	create sequence pickup_seq; 추가 2020-07-30
+	stock 컬럼 추가 2020-07-31
+
+[상품 후기 테이블]
+create table review (
+	rno number primary key,
+	ino number  not null,
+id varchar2(30) not null,
+content varchar2(3000) not null,
+regdate date default sysdate,
+updatedate date default sysdate
+);
+
+[QnA 게시판 테이블]
+create table qnaboard (
+	qno number primary key,
+ino number ,
+ititle varchar2(100)  not null,
+filename varchar2(200),
+id varchar2(30) not null,
+title varchar2(100) not null, 
+content varchar2(3000) not null,
+regdate date default sysdate,
+readcnt number default 0,
+repRoot number default 0,
+repStep number default 0,
+repIndent number default 0
+);
+alter table qnaboard add category varchar2(50) default 'book';
+
+
+
+ino : 상품번호, filename : 상품이미지, ititle : 책 제목
+상품이미지 경로 src :  /resources/img/ + filename
+
+category : 도서문의(book),입금/결제문의(money),변경/취소(modify),배송문의(order)
+
+
+
+[QnA 첨부파일 테이블]
+create table qna_file_table(
+file_num number,
+o_name varchar2(100),
+file_name varchar2(100),
+filepath varchar2(500),
+qno number
+);
+
+
+[공지사항 테이블]
+create table notice(
+nno number primary key,
+id varchar2(30) not null,
+title varchar2(60) not null,
+content varchar2(1500),
+writeday date default sysdate,
+readcnt number(5) default 0,
+filename varchar2(200)
+);
+alter table notice drop column filename;
+
+[공지사항 첨부파일 테이블]
+create table notice_file_table(
+file_num number,
+o_name varchar2(100),
+file_name varchar2(100),
+file_size number,
+nno number
+);
+
+
+
+
+[이벤트 테이블]
+create table event(
+eno number(5) primary key,
+id varchar2(30) not null,
+title varchar2(500) not null,
+content varchar2(1000),
+writeday date default sysdate,
+filename varchar2(100),
+titleImg varchar2(100)
+);
+alter table event add readcnt number default 0; (08/05)
+제약조건 지움 …(08/04)
+title varchar2길이 수정 (500) (08/07)
+
+
+[이벤트 댓글 테이블]
+create table eventComment(
+num number(4) primary key,
+id varchar2(21), 
+eno number(5), 
+content varchar2(1000), 
+writeday date default sysdate, 
+repRoot number(4), 
+repStep number(4) default 0, 
+repIndent number default 0,
+orgWriter varchar2(21)
+);
+
+
+
+
+
+create table recommend (
+ino number(7),
+bookname varchar2(100)  not null,
+content varchar2(300) not null,
+filename varchar2(300)
+);
+
+-판매자 추천 테이블 추가  08 / 10
